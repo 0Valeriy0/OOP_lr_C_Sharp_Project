@@ -4,15 +4,10 @@ using System.Text;
 
 namespace lr_1_zd_3
 {
-    public class Sportsman
+    public class Sportsman : Person
     {
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public string Pobatkovi { get; set; }
         public string Sport { get; set; }
         public string SportRank { get; set; }
-        public DateTime BirthDate { get; set; }
-
         public int PrizePlaces { get; set; }
 
 
@@ -21,14 +16,9 @@ namespace lr_1_zd_3
         {
         }
         // Конструктор з параметрами
-        public Sportsman(string name, string surname, string pobatkovi, string sport, string sportRank, DateTime birthDate, int prizePlaces)
+        public Sportsman(string name, string surname, string pobatkovi, string sport, string sportRank, DateTime birthDate, int prizePlaces) :base(name,surname,pobatkovi,birthDate, sport)
         {
-            Name = name;
-            Surname = surname;
-            Pobatkovi = pobatkovi;
-            Sport = sport;
             SportRank = sportRank;
-            BirthDate = birthDate;
             PrizePlaces = prizePlaces;
         }
         public static Sportsman operator ++(Sportsman sportsman)
@@ -37,7 +27,10 @@ namespace lr_1_zd_3
             return sportsman;
         }
         public static Sportsman operator --(Sportsman sportsman) {
-            sportsman.PrizePlaces--;
+            if (sportsman.PrizePlaces > 0)
+            {
+                sportsman.PrizePlaces--;
+            }
             return sportsman;
 
         }

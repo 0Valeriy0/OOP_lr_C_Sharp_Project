@@ -28,127 +28,437 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dateTimePicker2 = new DateTimePicker();
-            label11 = new Label();
-            comboBox4 = new ComboBox();
-            label4 = new Label();
-            textBox1 = new TextBox();
-            label15 = new Label();
-            textBox2 = new TextBox();
-            label16 = new Label();
-            textBox3 = new TextBox();
-            label17 = new Label();
-            label18 = new Label();
+            groupBox2_sportRozrad = new GroupBox();
+            dateTimePicker1_CoachBirthday = new DateTimePicker();
+            label10 = new Label();
+            comboBox_RankCoach = new ComboBox();
+            label8 = new Label();
+            textBox_inputPobatkoviCoach = new TextBox();
+            label9 = new Label();
+            textBox_inputSurnameCoach = new TextBox();
+            label7 = new Label();
+            textBox_inputNameCoach = new TextBox();
+            label6 = new Label();
+            label5 = new Label();
+            label3 = new Label();
+            comboBox1_sportSelect = new ComboBox();
+            menuStrip1 = new MenuStrip();
+            менюToolStripMenuItem = new ToolStripMenuItem();
+            спортсмениToolStripMenuItem = new ToolStripMenuItem();
+            тренериToolStripMenuItem = new ToolStripMenuItem();
+            групиToolStripMenuItem = new ToolStripMenuItem();
+            тренуванняToolStripMenuItem = new ToolStripMenuItem();
+            змаганняToolStripMenuItem = new ToolStripMenuItem();
+            результатиToolStripMenuItem = new ToolStripMenuItem();
+            вихідToolStripMenuItem = new ToolStripMenuItem();
+            роботаЗФайломToolStripMenuItem = new ToolStripMenuItem();
+            читанняЗФайлToolStripMenuItem = new ToolStripMenuItem();
+            записУФайлToolStripMenuItem = new ToolStripMenuItem();
+            очиститиФайлToolStripMenuItem = new ToolStripMenuItem();
+            довідкаToolStripMenuItem = new ToolStripMenuItem();
+            проToolStripMenuItem = new ToolStripMenuItem();
+            проРозробникаToolStripMenuItem = new ToolStripMenuItem();
+            сортуванняToolStripMenuItem = new ToolStripMenuItem();
+            заПрізвищемToolStripMenuItem = new ToolStripMenuItem();
+            toolStrip1 = new ToolStrip();
+            toolStripButton1 = new ToolStripButton();
+            toolStripButton2 = new ToolStripButton();
+            toolStripButton3 = new ToolStripButton();
+            statusStrip2 = new StatusStrip();
+            toolStripStatusLabel1 = new ToolStripStatusLabel();
+            dataGridView2_Output = new DataGridView();
+            label2 = new Label();
+            dataGridView1_Input = new DataGridView();
+            saveFileDialog1 = new SaveFileDialog();
+            openFileDialog1 = new OpenFileDialog();
+            groupBox2_sportRozrad.SuspendLayout();
+            menuStrip1.SuspendLayout();
+            toolStrip1.SuspendLayout();
+            statusStrip2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView2_Output).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1_Input).BeginInit();
             SuspendLayout();
             // 
-            // dateTimePicker2
+            // groupBox2_sportRozrad
             // 
-            dateTimePicker2.Location = new Point(169, 254);
-            dateTimePicker2.Name = "dateTimePicker2";
-            dateTimePicker2.Size = new Size(157, 27);
-            dateTimePicker2.TabIndex = 50;
+            groupBox2_sportRozrad.Controls.Add(dateTimePicker1_CoachBirthday);
+            groupBox2_sportRozrad.Controls.Add(label10);
+            groupBox2_sportRozrad.Controls.Add(comboBox_RankCoach);
+            groupBox2_sportRozrad.Controls.Add(label8);
+            groupBox2_sportRozrad.Controls.Add(textBox_inputPobatkoviCoach);
+            groupBox2_sportRozrad.Controls.Add(label9);
+            groupBox2_sportRozrad.Controls.Add(textBox_inputSurnameCoach);
+            groupBox2_sportRozrad.Controls.Add(label7);
+            groupBox2_sportRozrad.Controls.Add(textBox_inputNameCoach);
+            groupBox2_sportRozrad.Controls.Add(label6);
+            groupBox2_sportRozrad.Controls.Add(label5);
+            groupBox2_sportRozrad.Controls.Add(label3);
+            groupBox2_sportRozrad.Controls.Add(comboBox1_sportSelect);
+            groupBox2_sportRozrad.Location = new Point(12, 61);
+            groupBox2_sportRozrad.Name = "groupBox2_sportRozrad";
+            groupBox2_sportRozrad.Size = new Size(693, 649);
+            groupBox2_sportRozrad.TabIndex = 51;
+            groupBox2_sportRozrad.TabStop = false;
+            groupBox2_sportRozrad.Text = "Панель редагування даних";
             // 
-            // label11
+            // dateTimePicker1_CoachBirthday
             // 
-            label11.AutoSize = true;
-            label11.Location = new Point(24, 241);
-            label11.Name = "label11";
-            label11.Size = new Size(108, 40);
-            label11.TabIndex = 49;
-            label11.Text = "Виберіть дату \r\nнародження:";
+            dateTimePicker1_CoachBirthday.Font = new Font("Segoe UI", 13.8F);
+            dateTimePicker1_CoachBirthday.Location = new Point(242, 367);
+            dateTimePicker1_CoachBirthday.MaxDate = new DateTime(2026, 1, 2, 0, 0, 0, 0);
+            dateTimePicker1_CoachBirthday.MinDate = new DateTime(1950, 12, 30, 0, 0, 0, 0);
+            dateTimePicker1_CoachBirthday.Name = "dateTimePicker1_CoachBirthday";
+            dateTimePicker1_CoachBirthday.Size = new Size(257, 38);
+            dateTimePicker1_CoachBirthday.TabIndex = 38;
+            dateTimePicker1_CoachBirthday.Value = new DateTime(2026, 1, 2, 0, 0, 0, 0);
             // 
-            // comboBox4
+            // label10
             // 
-            comboBox4.FormattingEnabled = true;
-            comboBox4.Location = new Point(175, 186);
-            comboBox4.Name = "comboBox4";
-            comboBox4.Size = new Size(151, 28);
-            comboBox4.TabIndex = 48;
+            label10.AutoSize = true;
+            label10.Font = new Font("Segoe UI", 13.8F);
+            label10.Location = new Point(38, 343);
+            label10.Name = "label10";
+            label10.Size = new Size(151, 62);
+            label10.TabIndex = 36;
+            label10.Text = "Дата \r\nнародження:";
             // 
-            // label4
+            // comboBox_RankCoach
             // 
-            label4.AutoSize = true;
-            label4.Location = new Point(24, 174);
-            label4.Name = "label4";
-            label4.Size = new Size(117, 40);
-            label4.TabIndex = 47;
-            label4.Text = "Введіть звання \r\nтренера:";
+            comboBox_RankCoach.Font = new Font("Segoe UI", 13.8F);
+            comboBox_RankCoach.FormattingEnabled = true;
+            comboBox_RankCoach.Location = new Point(242, 292);
+            comboBox_RankCoach.Name = "comboBox_RankCoach";
+            comboBox_RankCoach.Size = new Size(257, 39);
+            comboBox_RankCoach.TabIndex = 25;
             // 
-            // textBox1
+            // label8
             // 
-            textBox1.Location = new Point(175, 132);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(125, 27);
-            textBox1.TabIndex = 46;
+            label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI", 13.8F);
+            label8.Location = new Point(38, 281);
+            label8.Name = "label8";
+            label8.Size = new Size(185, 31);
+            label8.TabIndex = 14;
+            label8.Text = "Звання тренера:";
             // 
-            // label15
+            // textBox_inputPobatkoviCoach
             // 
-            label15.AutoSize = true;
-            label15.Location = new Point(24, 139);
-            label15.Name = "label15";
-            label15.Size = new Size(144, 20);
-            label15.TabIndex = 45;
-            label15.Text = "Введіть побатькові:";
+            textBox_inputPobatkoviCoach.Font = new Font("Segoe UI", 13.8F);
+            textBox_inputPobatkoviCoach.Location = new Point(242, 241);
+            textBox_inputPobatkoviCoach.Name = "textBox_inputPobatkoviCoach";
+            textBox_inputPobatkoviCoach.Size = new Size(257, 38);
+            textBox_inputPobatkoviCoach.TabIndex = 13;
             // 
-            // textBox2
+            // label9
             // 
-            textBox2.Location = new Point(175, 92);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(125, 27);
-            textBox2.TabIndex = 44;
+            label9.AutoSize = true;
+            label9.Font = new Font("Segoe UI", 13.8F);
+            label9.Location = new Point(38, 237);
+            label9.Name = "label9";
+            label9.Size = new Size(136, 31);
+            label9.TabIndex = 12;
+            label9.Text = "Побатькові:";
             // 
-            // label16
+            // textBox_inputSurnameCoach
             // 
-            label16.AutoSize = true;
-            label16.Location = new Point(24, 99);
-            label16.Name = "label16";
-            label16.Size = new Size(133, 20);
-            label16.TabIndex = 43;
-            label16.Text = "Введіть прізвище:";
+            textBox_inputSurnameCoach.Font = new Font("Segoe UI", 13.8F);
+            textBox_inputSurnameCoach.Location = new Point(242, 201);
+            textBox_inputSurnameCoach.Name = "textBox_inputSurnameCoach";
+            textBox_inputSurnameCoach.Size = new Size(257, 38);
+            textBox_inputSurnameCoach.TabIndex = 11;
             // 
-            // textBox3
+            // label7
             // 
-            textBox3.Location = new Point(175, 48);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(125, 27);
-            textBox3.TabIndex = 42;
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 13.8F);
+            label7.Location = new Point(38, 197);
+            label7.Name = "label7";
+            label7.Size = new Size(121, 31);
+            label7.TabIndex = 10;
+            label7.Text = "Прізвище:";
             // 
-            // label17
+            // textBox_inputNameCoach
             // 
-            label17.AutoSize = true;
-            label17.Location = new Point(24, 55);
-            label17.Name = "label17";
-            label17.Size = new Size(93, 20);
-            label17.TabIndex = 41;
-            label17.Text = "Введіть і'мя:";
+            textBox_inputNameCoach.Font = new Font("Segoe UI", 13.8F);
+            textBox_inputNameCoach.Location = new Point(242, 154);
+            textBox_inputNameCoach.Name = "textBox_inputNameCoach";
+            textBox_inputNameCoach.Size = new Size(257, 38);
+            textBox_inputNameCoach.TabIndex = 9;
             // 
-            // label18
+            // label6
             // 
-            label18.AutoSize = true;
-            label18.Location = new Point(79, 26);
-            label18.Name = "label18";
-            label18.Size = new Size(182, 20);
-            label18.TabIndex = 40;
-            label18.Text = "Інформація про тренера";
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 13.8F);
+            label6.Location = new Point(225, 111);
+            label6.Name = "label6";
+            label6.Size = new Size(274, 31);
+            label6.TabIndex = 8;
+            label6.Text = "Інформація про тренера";
+            label6.Click += label6_Click;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 13.8F);
+            label5.Location = new Point(38, 153);
+            label5.Name = "label5";
+            label5.Size = new Size(58, 31);
+            label5.TabIndex = 7;
+            label5.Text = "І'мя:";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 13.8F);
+            label3.Location = new Point(225, 35);
+            label3.Name = "label3";
+            label3.Size = new Size(227, 31);
+            label3.TabIndex = 6;
+            label3.Text = "Виберіть вид спорту";
+            // 
+            // comboBox1_sportSelect
+            // 
+            comboBox1_sportSelect.Font = new Font("Segoe UI", 13.8F);
+            comboBox1_sportSelect.FormattingEnabled = true;
+            comboBox1_sportSelect.Location = new Point(225, 69);
+            comboBox1_sportSelect.Name = "comboBox1_sportSelect";
+            comboBox1_sportSelect.Size = new Size(305, 39);
+            comboBox1_sportSelect.TabIndex = 7;
+            // 
+            // menuStrip1
+            // 
+            menuStrip1.Font = new Font("Segoe UI", 10.2F);
+            menuStrip1.ImageScalingSize = new Size(20, 20);
+            menuStrip1.Items.AddRange(new ToolStripItem[] { менюToolStripMenuItem, роботаЗФайломToolStripMenuItem, довідкаToolStripMenuItem, сортуванняToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(1924, 31);
+            menuStrip1.TabIndex = 52;
+            menuStrip1.Text = "menuStrip1";
+            // 
+            // менюToolStripMenuItem
+            // 
+            менюToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { спортсмениToolStripMenuItem, тренериToolStripMenuItem, групиToolStripMenuItem, тренуванняToolStripMenuItem, змаганняToolStripMenuItem, результатиToolStripMenuItem, вихідToolStripMenuItem });
+            менюToolStripMenuItem.Name = "менюToolStripMenuItem";
+            менюToolStripMenuItem.Size = new Size(72, 27);
+            менюToolStripMenuItem.Text = "Меню";
+            // 
+            // спортсмениToolStripMenuItem
+            // 
+            спортсмениToolStripMenuItem.Name = "спортсмениToolStripMenuItem";
+            спортсмениToolStripMenuItem.Size = new Size(191, 28);
+            спортсмениToolStripMenuItem.Text = "Спортсмени";
+            спортсмениToolStripMenuItem.Click += спортсмениToolStripMenuItem_Click;
+            // 
+            // тренериToolStripMenuItem
+            // 
+            тренериToolStripMenuItem.Name = "тренериToolStripMenuItem";
+            тренериToolStripMenuItem.Size = new Size(191, 28);
+            тренериToolStripMenuItem.Text = "Тренери";
+            // 
+            // групиToolStripMenuItem
+            // 
+            групиToolStripMenuItem.Name = "групиToolStripMenuItem";
+            групиToolStripMenuItem.Size = new Size(191, 28);
+            групиToolStripMenuItem.Text = "Групи";
+            // 
+            // тренуванняToolStripMenuItem
+            // 
+            тренуванняToolStripMenuItem.Name = "тренуванняToolStripMenuItem";
+            тренуванняToolStripMenuItem.Size = new Size(191, 28);
+            тренуванняToolStripMenuItem.Text = "Тренування";
+            // 
+            // змаганняToolStripMenuItem
+            // 
+            змаганняToolStripMenuItem.Name = "змаганняToolStripMenuItem";
+            змаганняToolStripMenuItem.Size = new Size(191, 28);
+            змаганняToolStripMenuItem.Text = "Змагання";
+            // 
+            // результатиToolStripMenuItem
+            // 
+            результатиToolStripMenuItem.Name = "результатиToolStripMenuItem";
+            результатиToolStripMenuItem.Size = new Size(191, 28);
+            результатиToolStripMenuItem.Text = "Результати";
+            // 
+            // вихідToolStripMenuItem
+            // 
+            вихідToolStripMenuItem.Name = "вихідToolStripMenuItem";
+            вихідToolStripMenuItem.Size = new Size(191, 28);
+            вихідToolStripMenuItem.Text = "Вихід";
+            // 
+            // роботаЗФайломToolStripMenuItem
+            // 
+            роботаЗФайломToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { читанняЗФайлToolStripMenuItem, записУФайлToolStripMenuItem, очиститиФайлToolStripMenuItem });
+            роботаЗФайломToolStripMenuItem.Name = "роботаЗФайломToolStripMenuItem";
+            роботаЗФайломToolStripMenuItem.Size = new Size(160, 27);
+            роботаЗФайломToolStripMenuItem.Text = "Робота з файлом";
+            // 
+            // читанняЗФайлToolStripMenuItem
+            // 
+            читанняЗФайлToolStripMenuItem.Name = "читанняЗФайлToolStripMenuItem";
+            читанняЗФайлToolStripMenuItem.Size = new Size(224, 28);
+            читанняЗФайлToolStripMenuItem.Text = "Читання з файл";
+            читанняЗФайлToolStripMenuItem.Click += читанняЗФайлToolStripMenuItem_Click;
+            // 
+            // записУФайлToolStripMenuItem
+            // 
+            записУФайлToolStripMenuItem.Name = "записУФайлToolStripMenuItem";
+            записУФайлToolStripMenuItem.Size = new Size(224, 28);
+            записУФайлToolStripMenuItem.Text = "Запис у файл";
+            записУФайлToolStripMenuItem.Click += записУФайлToolStripMenuItem_Click;
+            // 
+            // очиститиФайлToolStripMenuItem
+            // 
+            очиститиФайлToolStripMenuItem.Name = "очиститиФайлToolStripMenuItem";
+            очиститиФайлToolStripMenuItem.Size = new Size(224, 28);
+            очиститиФайлToolStripMenuItem.Text = "Видалити файл";
+            очиститиФайлToolStripMenuItem.Click += очиститиФайлToolStripMenuItem_Click;
+            // 
+            // довідкаToolStripMenuItem
+            // 
+            довідкаToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { проToolStripMenuItem, проРозробникаToolStripMenuItem });
+            довідкаToolStripMenuItem.Name = "довідкаToolStripMenuItem";
+            довідкаToolStripMenuItem.Size = new Size(85, 27);
+            довідкаToolStripMenuItem.Text = "Довідка";
+            // 
+            // проToolStripMenuItem
+            // 
+            проToolStripMenuItem.Name = "проToolStripMenuItem";
+            проToolStripMenuItem.Size = new Size(226, 28);
+            проToolStripMenuItem.Text = "Про програму";
+            // 
+            // проРозробникаToolStripMenuItem
+            // 
+            проРозробникаToolStripMenuItem.Name = "проРозробникаToolStripMenuItem";
+            проРозробникаToolStripMenuItem.Size = new Size(226, 28);
+            проРозробникаToolStripMenuItem.Text = "Про розробника";
+            // 
+            // сортуванняToolStripMenuItem
+            // 
+            сортуванняToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { заПрізвищемToolStripMenuItem });
+            сортуванняToolStripMenuItem.Name = "сортуванняToolStripMenuItem";
+            сортуванняToolStripMenuItem.Size = new Size(117, 27);
+            сортуванняToolStripMenuItem.Text = "Сортування";
+            // 
+            // заПрізвищемToolStripMenuItem
+            // 
+            заПрізвищемToolStripMenuItem.Name = "заПрізвищемToolStripMenuItem";
+            заПрізвищемToolStripMenuItem.Size = new Size(224, 28);
+            заПрізвищемToolStripMenuItem.Text = "За прізвищем";
+            заПрізвищемToolStripMenuItem.Click += заПрізвищемToolStripMenuItem_Click;
+            // 
+            // toolStrip1
+            // 
+            toolStrip1.Font = new Font("Segoe UI", 10.2F);
+            toolStrip1.ImageScalingSize = new Size(20, 20);
+            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButton1, toolStripButton2, toolStripButton3 });
+            toolStrip1.Location = new Point(0, 31);
+            toolStrip1.Name = "toolStrip1";
+            toolStrip1.Size = new Size(1924, 27);
+            toolStrip1.TabIndex = 53;
+            toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripButton1
+            // 
+            toolStripButton1.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            toolStripButton1.Image = Properties.Resources.plus_PNG84;
+            toolStripButton1.ImageTransparentColor = Color.Magenta;
+            toolStripButton1.Name = "toolStripButton1";
+            toolStripButton1.Size = new Size(29, 24);
+            toolStripButton1.Text = "toolStripButton1";
+            // 
+            // toolStripButton2
+            // 
+            toolStripButton2.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            toolStripButton2.Image = Properties.Resources.png_transparent_cross_remove_delete_icocentre_icons_icon;
+            toolStripButton2.ImageTransparentColor = Color.Magenta;
+            toolStripButton2.Name = "toolStripButton2";
+            toolStripButton2.Size = new Size(29, 24);
+            toolStripButton2.Text = "toolStripButton2";
+            // 
+            // toolStripButton3
+            // 
+            toolStripButton3.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            toolStripButton3.Image = Properties.Resources.writing_square_69719;
+            toolStripButton3.ImageTransparentColor = Color.Magenta;
+            toolStripButton3.Name = "toolStripButton3";
+            toolStripButton3.Size = new Size(29, 24);
+            toolStripButton3.Text = "toolStripButton3";
+            // 
+            // statusStrip2
+            // 
+            statusStrip2.ImageScalingSize = new Size(20, 20);
+            statusStrip2.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel1 });
+            statusStrip2.Location = new Point(0, 754);
+            statusStrip2.Name = "statusStrip2";
+            statusStrip2.Size = new Size(1924, 26);
+            statusStrip2.TabIndex = 54;
+            statusStrip2.Text = "statusStrip2";
+            // 
+            // toolStripStatusLabel1
+            // 
+            toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            toolStripStatusLabel1.Size = new Size(151, 20);
+            toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            // 
+            // dataGridView2_Output
+            // 
+            dataGridView2_Output.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView2_Output.Location = new Point(709, 407);
+            dataGridView2_Output.Name = "dataGridView2_Output";
+            dataGridView2_Output.RowHeadersWidth = 51;
+            dataGridView2_Output.Size = new Size(1213, 300);
+            dataGridView2_Output.TabIndex = 57;
+            dataGridView2_Output.CellContentClick += dataGridView2_Output_CellContentClick;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            label2.Location = new Point(1386, 373);
+            label2.Name = "label2";
+            label2.Size = new Size(127, 31);
+            label2.TabIndex = 56;
+            label2.Text = "Результати";
+            // 
+            // dataGridView1_Input
+            // 
+            dataGridView1_Input.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1_Input.Location = new Point(709, 61);
+            dataGridView1_Input.Name = "dataGridView1_Input";
+            dataGridView1_Input.RowHeadersWidth = 51;
+            dataGridView1_Input.Size = new Size(1215, 297);
+            dataGridView1_Input.TabIndex = 55;
+            // 
+            // openFileDialog1
+            // 
+            openFileDialog1.FileName = "openFileDialog1";
             // 
             // Form2_Trainers
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(dateTimePicker2);
-            Controls.Add(label11);
-            Controls.Add(comboBox4);
-            Controls.Add(label4);
-            Controls.Add(textBox1);
-            Controls.Add(label15);
-            Controls.Add(textBox2);
-            Controls.Add(label16);
-            Controls.Add(textBox3);
-            Controls.Add(label17);
-            Controls.Add(label18);
+            ClientSize = new Size(1924, 780);
+            Controls.Add(dataGridView2_Output);
+            Controls.Add(label2);
+            Controls.Add(dataGridView1_Input);
+            Controls.Add(statusStrip2);
+            Controls.Add(toolStrip1);
+            Controls.Add(menuStrip1);
+            Controls.Add(groupBox2_sportRozrad);
             Name = "Form2_Trainers";
-            Text = "Form2_Trainers";
+            Text = "Гавронський Валеррій Пі-241";
+            Load += Form2_Trainers_Load;
+            groupBox2_sportRozrad.ResumeLayout(false);
+            groupBox2_sportRozrad.PerformLayout();
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
+            toolStrip1.ResumeLayout(false);
+            toolStrip1.PerformLayout();
+            statusStrip2.ResumeLayout(false);
+            statusStrip2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView2_Output).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1_Input).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -166,5 +476,50 @@
         private TextBox textBox3;
         private Label label17;
         private Label label18;
+        private GroupBox groupBox2_sportRozrad;
+        private NumericUpDown numericUpDown1_amountOfMedals;
+        private Label label1;
+        private DateTimePicker dateTimePicker1_CoachBirthday;
+        private Label label10;
+        private TextBox textBox_inputPobatkoviCoach;
+        private Label label9;
+        private TextBox textBox_inputSurnameCoach;
+        private Label label7;
+        private TextBox textBox_inputNameCoach;
+        private Label label6;
+        private Label label5;
+        private Label label3;
+        private ComboBox comboBox1_sportSelect;
+        private ComboBox comboBox_RankCoach;
+        private Label label8;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem менюToolStripMenuItem;
+        private ToolStripMenuItem спортсмениToolStripMenuItem;
+        private ToolStripMenuItem тренериToolStripMenuItem;
+        private ToolStripMenuItem групиToolStripMenuItem;
+        private ToolStripMenuItem тренуванняToolStripMenuItem;
+        private ToolStripMenuItem змаганняToolStripMenuItem;
+        private ToolStripMenuItem результатиToolStripMenuItem;
+        private ToolStripMenuItem вихідToolStripMenuItem;
+        private ToolStripMenuItem роботаЗФайломToolStripMenuItem;
+        private ToolStripMenuItem читанняЗФайлToolStripMenuItem;
+        private ToolStripMenuItem записУФайлToolStripMenuItem;
+        private ToolStripMenuItem очиститиФайлToolStripMenuItem;
+        private ToolStripMenuItem довідкаToolStripMenuItem;
+        private ToolStripMenuItem проToolStripMenuItem;
+        private ToolStripMenuItem проРозробникаToolStripMenuItem;
+        private ToolStrip toolStrip1;
+        private ToolStripButton toolStripButton1;
+        private ToolStripButton toolStripButton2;
+        private ToolStripButton toolStripButton3;
+        private StatusStrip statusStrip2;
+        private ToolStripStatusLabel toolStripStatusLabel1;
+        private DataGridView dataGridView2_Output;
+        private Label label2;
+        private DataGridView dataGridView1_Input;
+        private ToolStripMenuItem сортуванняToolStripMenuItem;
+        private ToolStripMenuItem заПрізвищемToolStripMenuItem;
+        private SaveFileDialog saveFileDialog1;
+        private OpenFileDialog openFileDialog1;
     }
 }

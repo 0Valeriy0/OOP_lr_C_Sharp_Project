@@ -1,3 +1,5 @@
+using System.Xml.Linq;
+
 namespace lr_1_zd_3
 {
     public partial class Form1 : Form
@@ -5,7 +7,7 @@ namespace lr_1_zd_3
         private Sportsman[] sportsmen = new Sportsman[100];
         private int sportsmenCount = 0;
         private void Form1_Load(object sender, EventArgs e)
-        {
+        {;
             comboBox1_sportSelect.Items.Add("Веслування");
             comboBox1_sportSelect.Items.Add("Велоспорт");
             comboBox2.Items.Add("Без розряду");
@@ -68,17 +70,16 @@ namespace lr_1_zd_3
             dataGridView1_Input.Rows.Clear();
             for (int i = 0; i < sportsmenCount; i++)
             {
-                Sportsman newSportsman = sportsmen[i];
-
+                
                 dataGridView1_Input.Rows.Add(
                     i,
-                    newSportsman.Surname,
-                    newSportsman.Name,
-                    newSportsman.Pobatkovi,
-                    newSportsman.Sport,
-                    newSportsman.SportRank,
-                    newSportsman.BirthDate,
-                    newSportsman.PrizePlaces
+                    sportsmen[i].Surname,
+                    sportsmen[i].Name,
+                    sportsmen[i].Pobatkovi,
+                    sportsmen[i].Sport,
+                    sportsmen[i].SportRank,
+                    sportsmen[i].BirthDate,
+                    sportsmen[i].PrizePlaces
                 );
             }
 
@@ -102,16 +103,15 @@ namespace lr_1_zd_3
 
             for (int i = 0; i < sportsmenCount; i++)
             {
-                Sportsman sportsman = sportsmen[i];
 
                 dataGridView2_Output.Rows.Add(
                     i,
-                    sportsman.Surname,
-                    sportsman.Name,
-                    sportsman.Sport,
-                    sportsman.SportRank,
-                    sportsman.BirthDate,
-                    sportsman.PrizePlaces
+                    sportsmen[i].Surname,
+                    sportsmen[i].Name,
+                    sportsmen[i].Sport,
+                    sportsmen[i].SportRank,
+                    sportsmen[i].BirthDate,
+                    sportsmen[i].PrizePlaces
                 );
             }
         }
@@ -295,16 +295,16 @@ namespace lr_1_zd_3
             {
                 for (int i = 0; i < sportsmenCount; i++)
                 {
-                    Sportsman sportsman = sportsmen[i];
+
 
                     writer.WriteLine(
-                        $"{sportsman.Surname};" +
-                        $"{sportsman.Name};" +
-                        $"{sportsman.Pobatkovi};" +
-                        $"{sportsman.Sport};" +
-                        $"{sportsman.SportRank};" +
-                        $"{sportsman.BirthDate};" +
-                        $"{sportsman.PrizePlaces}"
+                        $"{sportsmen[i].Surname};" +
+                        $"{sportsmen[i].Name};" +
+                        $"{sportsmen[i].Pobatkovi};" +
+                        $"{sportsmen[i].Sport};" +
+                        $"{sportsmen[i].SportRank};" +
+                        $"{sportsmen[i].BirthDate};" +
+                        $"{sportsmen[i].PrizePlaces}"
                     );
                 }
             }
@@ -484,6 +484,17 @@ namespace lr_1_zd_3
             }
 
             ShowSortedSportsmen();
+        }
+
+        private void спортсмениToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void тренериToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form2_Trainers form = new Form2_Trainers();
+            form.Show();
+            this.Hide();
         }
     }
 }

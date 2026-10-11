@@ -111,12 +111,14 @@
             спортсмениToolStripMenuItem.Name = "спортсмениToolStripMenuItem";
             спортсмениToolStripMenuItem.Size = new Size(191, 28);
             спортсмениToolStripMenuItem.Text = "Спортсмени";
+            спортсмениToolStripMenuItem.Click += спортсмениToolStripMenuItem_Click;
             // 
             // тренериToolStripMenuItem
             // 
             тренериToolStripMenuItem.Name = "тренериToolStripMenuItem";
             тренериToolStripMenuItem.Size = new Size(191, 28);
             тренериToolStripMenuItem.Text = "Тренери";
+            тренериToolStripMenuItem.Click += тренериToolStripMenuItem_Click;
             // 
             // групиToolStripMenuItem
             // 
@@ -522,7 +524,7 @@
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
             Name = "Form1";
-            Text = "                       ";
+            Text = "Гавронський Валерій Пі-241";
             Load += Form1_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
