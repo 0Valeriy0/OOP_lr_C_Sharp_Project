@@ -5,7 +5,7 @@ using System.Text;
 
 namespace lr_1_zd_3.Class
 {
-    public class Person: IPerson, ISortableBySurname
+    public abstract class Person: IPerson, ISortableBySurname
     {
         public string Name { get; set; }
         public string Surname { get; set; }

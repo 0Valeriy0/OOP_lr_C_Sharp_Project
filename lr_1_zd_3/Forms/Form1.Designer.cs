@@ -78,9 +78,10 @@
             toolStripButton1 = new ToolStripButton();
             toolStripButton2 = new ToolStripButton();
             toolStripButton3 = new ToolStripButton();
+            toolStripButton4 = new ToolStripButton();
             openFileDialog1 = new OpenFileDialog();
             saveFileDialog1 = new SaveFileDialog();
-            toolStripButton4 = new ToolStripButton();
+            toolStripLabel1 = new ToolStripLabel();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1_Input).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2_Output).BeginInit();
@@ -471,7 +472,7 @@
             // 
             toolStrip1.Font = new Font("Segoe UI", 10.2F);
             toolStrip1.ImageScalingSize = new Size(20, 20);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButton1, toolStripButton2, toolStripButton3, toolStripButton4 });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButton1, toolStripButton2, toolStripButton3, toolStripButton4, toolStripLabel1 });
             toolStrip1.Location = new Point(0, 31);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Size = new Size(1924, 27);
@@ -508,10 +509,6 @@
             toolStripButton3.Text = "toolStripButton3";
             toolStripButton3.Click += toolStripButton3_Click;
             // 
-            // openFileDialog1
-            // 
-            openFileDialog1.FileName = "openFileDialog1";
-            // 
             // toolStripButton4
             // 
             toolStripButton4.DisplayStyle = ToolStripItemDisplayStyle.Image;
@@ -521,6 +518,17 @@
             toolStripButton4.Size = new Size(29, 24);
             toolStripButton4.Text = "toolStripButton4";
             toolStripButton4.Click += toolStripButton4_Click;
+            // 
+            // openFileDialog1
+            // 
+            openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // toolStripLabel1
+            // 
+            toolStripLabel1.Name = "toolStripLabel1";
+            toolStripLabel1.Size = new Size(256, 24);
+            toolStripLabel1.Text = "Внести дані про медичну карту";
+            toolStripLabel1.Click += toolStripLabel1_Click;
             // 
             // Form1
             // 
@@ -608,5 +616,6 @@
         private ToolStripMenuItem toolStripMenuItem3;
         private ToolStripMenuItem заІменемПеревантаженняОператорівToolStripMenuItem;
         private ToolStripButton toolStripButton4;
+        private ToolStripLabel toolStripLabel1;
     }
 }

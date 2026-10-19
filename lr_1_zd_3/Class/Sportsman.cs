@@ -10,17 +10,20 @@ namespace lr_1_zd_3.Class
         public string Sport { get; set; }
         public string SportRank { get; set; }
         public int PrizePlaces { get; set; }
-
+        
+        public MedicalCard MedicalCard { get; set; }
 
         // Конструктор без параметрів
         public Sportsman()
         {
+            MedicalCard = new MedicalCard();
         }
         // Конструктор з параметрами
         public Sportsman(string name, string surname, string pobatkovi, string sport, string sportRank, DateTime birthDate, int prizePlaces) :base(name,surname,pobatkovi,birthDate, sport)
         {
             SportRank = sportRank;
             PrizePlaces = prizePlaces;
+            MedicalCard = new MedicalCard();
         }
         public static Sportsman operator ++(Sportsman sportsman)
         {
@@ -43,6 +46,26 @@ namespace lr_1_zd_3.Class
         {
             return string.Compare(sportsman1.Name, sportsman2.Name) < 0;
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         private Coach[] coaches = new Coach[100];
         private DateTime[] trainingDates = new DateTime[100];
@@ -97,7 +120,11 @@ namespace lr_1_zd_3.Class
                              $"Вік: {CalculateAge()} р.\n" +
                              $"Вид спорту: {Sport}\n" +
                              $"Спортивний розряд: {SportRank}\n" +
-                             $"Кількість призових місць: {PrizePlaces}";
+                             $"Кількість призових місць: {PrizePlaces}\n" +
+                             $"--- Медична картка ---\n" +
+                   $"Група крові: {MedicalCard.BloodGroup}\n" +
+                   $"Допуск до змагань: {(MedicalCard.HasAccessToCompete ? "Допущено" : "Не допущено")}\n" +
+                   $"Останній медогляд: {MedicalCard.InspectationDate:dd.MM.yyyy}";
             MessageBox.Show(message, "Картка спортсмена", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 

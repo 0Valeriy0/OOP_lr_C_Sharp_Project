@@ -65,6 +65,7 @@
             toolStripButton1 = new ToolStripButton();
             toolStripButton2 = new ToolStripButton();
             toolStripButton3 = new ToolStripButton();
+            toolStripButton4 = new ToolStripButton();
             statusStrip2 = new StatusStrip();
             toolStripStatusLabel1 = new ToolStripStatusLabel();
             dataGridView2_Output = new DataGridView();
@@ -72,7 +73,6 @@
             dataGridView1_Input = new DataGridView();
             saveFileDialog1 = new SaveFileDialog();
             openFileDialog1 = new OpenFileDialog();
-            toolStripButton4 = new ToolStripButton();
             groupBox2_sportRozrad.SuspendLayout();
             menuStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
@@ -388,6 +388,16 @@
             toolStripButton3.Size = new Size(29, 24);
             toolStripButton3.Text = "toolStripButton3";
             // 
+            // toolStripButton4
+            // 
+            toolStripButton4.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            toolStripButton4.Image = (Image)resources.GetObject("toolStripButton4.Image");
+            toolStripButton4.ImageTransparentColor = Color.Magenta;
+            toolStripButton4.Name = "toolStripButton4";
+            toolStripButton4.Size = new Size(29, 24);
+            toolStripButton4.Text = "toolStripButton4";
+            toolStripButton4.Click += toolStripButton4_Click;
+            // 
             // statusStrip2
             // 
             statusStrip2.ImageScalingSize = new Size(20, 20);
@@ -437,16 +447,6 @@
             // 
             openFileDialog1.FileName = "openFileDialog1";
             // 
-            // toolStripButton4
-            // 
-            toolStripButton4.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            toolStripButton4.Image = (Image)resources.GetObject("toolStripButton4.Image");
-            toolStripButton4.ImageTransparentColor = Color.Magenta;
-            toolStripButton4.Name = "toolStripButton4";
-            toolStripButton4.Size = new Size(29, 24);
-            toolStripButton4.Text = "toolStripButton4";
-            toolStripButton4.Click += toolStripButton4_Click;
-            // 
             // Form2_Trainers
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -460,7 +460,7 @@
             Controls.Add(menuStrip1);
             Controls.Add(groupBox2_sportRozrad);
             Name = "Form2_Trainers";
-            Text = "Гавронський Валеррій Пі-241";
+            Text = "Гавронський Валерій Пі-241";
             Load += Form2_Trainers_Load;
             groupBox2_sportRozrad.ResumeLayout(false);
             groupBox2_sportRozrad.PerformLayout();

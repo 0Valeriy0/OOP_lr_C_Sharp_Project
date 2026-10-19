@@ -23,6 +23,7 @@ namespace lr_1_zd_3
         private DateTime[] bookingDates = new DateTime[100];
         private int[] bookingDurations = new int[100];
         private int bookingsCount = 0;
+        OpenFileDialog openDialog = new OpenFileDialog();
 
         public Trainings()
         {
@@ -50,6 +51,7 @@ namespace lr_1_zd_3
             dataGridView1.Columns.Clear();
             dataGridView2.Columns.Clear();
             UpdateCoachesComboBox();
+            toolStripStatusLabel1.Text = "Готово до роботи";
         }
         private void CreateSportsmenGrid()
         {
@@ -231,7 +233,9 @@ namespace lr_1_zd_3
                     bookedCoaches[bookingsCount - 1] = null;
                     bookingsCount--;
                     RefreshTrainingsGrid();
-                    MessageBox.Show("Тренування успішно скасовано!", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    toolStripStatusLabel1.Text = "Тренування успішно скасовано!"    ;
+
+
                 }
             }
         }
@@ -265,7 +269,8 @@ namespace lr_1_zd_3
                     );
                 }
             }
-            MessageBox.Show("Дані тренувань успішно збережено у файл!", "Успіх", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            toolStripStatusLabel1.Text = $"Дані тренувань успішно збережено у файл! `{openDialog.SafeFileName}`";
+
         }
 
         private void спортсмениToolStripMenuItem_Click(object sender, EventArgs e)
@@ -305,7 +310,7 @@ namespace lr_1_zd_3
                 }
                 bookingsCount = 0;
                 RefreshTrainingsGrid();
-                MessageBox.Show("Файл успішно видалено, а таблицю тренувань очищено!", "Інформація", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                toolStripStatusLabel1.Text = "Файл успішно видалено, а таблицю очищено";
             }
         }
 
@@ -389,6 +394,7 @@ namespace lr_1_zd_3
             }
             // Оновлюємо випадаючий список тренерів
             UpdateCoachesComboBox();
+            toolStripStatusLabel1.Text = $"Дані тренерів завантажено з файлу  '{openDialog.SafeFileName}'";
         }
 
         private void даніПроСпортсменівToolStripMenuItem_Click(object sender, EventArgs e)
@@ -421,6 +427,7 @@ namespace lr_1_zd_3
             }
             // Оновлюємо верхню таблицю зі спортсменами
             RefreshSportsmenGrid();
+            toolStripStatusLabel1.Text = $"Дані спортсменів завантажено з файлу '{openDialog.SafeFileName}'";
         }
 
         private void даніПроТренуванняToolStripMenuItem_Click(object sender, EventArgs e)
@@ -458,6 +465,7 @@ namespace lr_1_zd_3
             }
             // Оновлюємо нижню таблицю тренувань
             RefreshTrainingsGrid();
+            toolStripStatusLabel1.Text = $"Дані тренувань завантажено з файлу '{openDialog.SafeFileName}'";
         }
 
         private void toolStripButton3_Click(object sender, EventArgs e)
@@ -484,13 +492,18 @@ namespace lr_1_zd_3
                 }
                 bookingsCount = 0;
                 RefreshTrainingsGrid();
-                MessageBox.Show("Файл успішно видалено, а таблицю тренувань очищено!", "Інформація", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                toolStripStatusLabel1.Text = "Файл успішно видалено, а таблицю тренувань очищено!";
             }
         }
 
         private void вихідToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Hide();
+        }
+
+        private void toolStripStatusLabel1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

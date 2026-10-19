@@ -64,12 +64,15 @@
             comboBox1_sportSelect = new ComboBox();
             openFileDialog1 = new OpenFileDialog();
             saveFileDialog1 = new SaveFileDialog();
+            statusStrip2 = new StatusStrip();
+            toolStripStatusLabel1 = new ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             menuStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
             groupBox2_sportRozrad.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+            statusStrip2.SuspendLayout();
             SuspendLayout();
             // 
             // dataGridView1
@@ -132,45 +135,45 @@
             // спортсмениToolStripMenuItem
             // 
             спортсмениToolStripMenuItem.Name = "спортсмениToolStripMenuItem";
-            спортсмениToolStripMenuItem.Size = new Size(224, 28);
+            спортсмениToolStripMenuItem.Size = new Size(191, 28);
             спортсмениToolStripMenuItem.Text = "Спортсмени";
             спортсмениToolStripMenuItem.Click += спортсмениToolStripMenuItem_Click;
             // 
             // тренериToolStripMenuItem
             // 
             тренериToolStripMenuItem.Name = "тренериToolStripMenuItem";
-            тренериToolStripMenuItem.Size = new Size(224, 28);
+            тренериToolStripMenuItem.Size = new Size(191, 28);
             тренериToolStripMenuItem.Text = "Тренери";
             тренериToolStripMenuItem.Click += тренериToolStripMenuItem_Click;
             // 
             // групиToolStripMenuItem
             // 
             групиToolStripMenuItem.Name = "групиToolStripMenuItem";
-            групиToolStripMenuItem.Size = new Size(224, 28);
+            групиToolStripMenuItem.Size = new Size(191, 28);
             групиToolStripMenuItem.Text = "Групи";
             // 
             // тренуванняToolStripMenuItem
             // 
             тренуванняToolStripMenuItem.Name = "тренуванняToolStripMenuItem";
-            тренуванняToolStripMenuItem.Size = new Size(224, 28);
+            тренуванняToolStripMenuItem.Size = new Size(191, 28);
             тренуванняToolStripMenuItem.Text = "Тренування";
             // 
             // змаганняToolStripMenuItem
             // 
             змаганняToolStripMenuItem.Name = "змаганняToolStripMenuItem";
-            змаганняToolStripMenuItem.Size = new Size(224, 28);
+            змаганняToolStripMenuItem.Size = new Size(191, 28);
             змаганняToolStripMenuItem.Text = "Змагання";
             // 
             // результатиToolStripMenuItem
             // 
             результатиToolStripMenuItem.Name = "результатиToolStripMenuItem";
-            результатиToolStripMenuItem.Size = new Size(224, 28);
+            результатиToolStripMenuItem.Size = new Size(191, 28);
             результатиToolStripMenuItem.Text = "Результати";
             // 
             // вихідToolStripMenuItem
             // 
             вихідToolStripMenuItem.Name = "вихідToolStripMenuItem";
-            вихідToolStripMenuItem.Size = new Size(224, 28);
+            вихідToolStripMenuItem.Size = new Size(191, 28);
             вихідToolStripMenuItem.Text = "Вихід";
             вихідToolStripMenuItem.Click += вихідToolStripMenuItem_Click;
             // 
@@ -266,6 +269,7 @@
             // 
             // groupBox2_sportRozrad
             // 
+            groupBox2_sportRozrad.Controls.Add(statusStrip2);
             groupBox2_sportRozrad.Controls.Add(comboBox1_trainerPicker);
             groupBox2_sportRozrad.Controls.Add(numericUpDown1);
             groupBox2_sportRozrad.Controls.Add(dateTimePicker1);
@@ -378,6 +382,23 @@
             // 
             openFileDialog1.FileName = "openFileDialog1";
             // 
+            // statusStrip2
+            // 
+            statusStrip2.ImageScalingSize = new Size(20, 20);
+            statusStrip2.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel1 });
+            statusStrip2.Location = new Point(3, 620);
+            statusStrip2.Name = "statusStrip2";
+            statusStrip2.Size = new Size(687, 26);
+            statusStrip2.TabIndex = 65;
+            statusStrip2.Text = "statusStrip2";
+            // 
+            // toolStripStatusLabel1
+            // 
+            toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            toolStripStatusLabel1.Size = new Size(151, 20);
+            toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            toolStripStatusLabel1.Click += toolStripStatusLabel1_Click;
+            // 
             // Trainings
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -402,6 +423,8 @@
             groupBox2_sportRozrad.ResumeLayout(false);
             groupBox2_sportRozrad.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+            statusStrip2.ResumeLayout(false);
+            statusStrip2.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -444,5 +467,7 @@
         private ToolStripMenuItem даніПроТренерівToolStripMenuItem;
         private ToolStripMenuItem даніПроСпортсменівToolStripMenuItem;
         private ToolStripMenuItem даніПроТренуванняToolStripMenuItem;
+        private StatusStrip statusStrip2;
+        private ToolStripStatusLabel toolStripStatusLabel1;
     }
 }

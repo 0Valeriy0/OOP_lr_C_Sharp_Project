@@ -348,7 +348,7 @@ namespace lr_1_zd_3
         private void заПрізвищемToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Використовуємо той самий інтерфейс
-            ISortableBySurname sorter = new Person();
+            ISortableBySurname sorter = new Coach();
             // Сортуємо масив тренерів
             sorter.SortBySurname(coaches, coachesCount);
 
@@ -408,7 +408,7 @@ namespace lr_1_zd_3
 
             RefreshInputGrid();
 
-            toolStripStatusLabel1.Text = "Дані завантажено з файлу";
+            toolStripStatusLabel1.Text = $"Дані завантажено з файлу `{openDialog.SafeFileName}`";
         }
 
         private void записУФайлToolStripMenuItem_Click(object sender, EventArgs e)
@@ -437,7 +437,7 @@ namespace lr_1_zd_3
                 }
             }
 
-            toolStripStatusLabel1.Text = "Дані записано у файл";
+            toolStripStatusLabel1.Text = $"Дані записано у файл `{saveDialog.FileName}`";
         }
 
         private void очиститиФайлToolStripMenuItem_Click(object sender, EventArgs e)

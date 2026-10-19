@@ -1,4 +1,5 @@
 using lr_1_zd_3.Class;
+using lr_1_zd_3.Forms;
 using lr_1_zd_3.Interface;
 using System.Xml.Linq;
 
@@ -10,6 +11,7 @@ namespace lr_1_zd_3
 
         private Sportsman[] sportsmen = new Sportsman[100];
         private int sportsmenCount = 0;
+        OpenFileDialog openDialog = new OpenFileDialog();
         private void Form1_Load(object sender, EventArgs e)
         {
             ;
@@ -323,7 +325,7 @@ namespace lr_1_zd_3
                 }
             }
 
-            toolStripStatusLabel1.Text = "Дані записано у файл";
+            toolStripStatusLabel1.Text = $"Дані записано у файл '{openDialog.SafeFileName}'";
         }
 
         private void читанняЗФайлToolStripMenuItem_Click(object sender, EventArgs e)
@@ -358,7 +360,7 @@ namespace lr_1_zd_3
 
             RefreshInputGrid();
 
-            toolStripStatusLabel1.Text = "Дані завантажено з файлу";
+            toolStripStatusLabel1.Text = $"Дані завантажено з файлу '{openDialog.SafeFileName}'";
         }
 
         private void очиститиФайлToolStripMenuItem_Click(object sender, EventArgs e)
@@ -384,13 +386,13 @@ namespace lr_1_zd_3
                 File.Delete(openDialog.FileName);
 
                 toolStripStatusLabel1.Text =
-                    "Файл успішно очищено";
+                    $"Файл  '{openDialog.SafeFileName}' успішно очищено";
             }
         }
 
         private void заПрізвищемToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ISortableBySurname sorter = new Person();
+            ISortableBySurname sorter = new Sportsman();
             sorter.SortBySurname(sportsmen, sportsmenCount);
 
             /*            for (int i = 0; i < sportsmenCount - 1; i++)
@@ -532,6 +534,27 @@ namespace lr_1_zd_3
             {
                 sportsmen[index].ShowInfo();
             }
+        }
+
+
+        private void toolStripLabel1_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1_Input.CurrentRow == null)
+            {
+                MessageBox.Show("Оберіть спортсмена з таблиці!", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            int index = dataGridView1_Input.CurrentRow.Index;
+            if (index >= 0 && index < sportsmenCount)
+            {
+                // Відкриваємо MedicalForm і передаємо туди обраного спортсмена
+                MedicalForm medForm = new MedicalForm(sportsmen[index]);
+                if (medForm.ShowDialog() == DialogResult.OK)
+                {
+                    toolStripStatusLabel1.Text = $"Медичну карту для {sportsmen[index].Surname} оновлено";
+                }
+            }
+
         }
     }
 }
