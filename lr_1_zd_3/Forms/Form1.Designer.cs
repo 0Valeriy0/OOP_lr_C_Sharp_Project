@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             menuStrip1 = new MenuStrip();
             менюToolStripMenuItem = new ToolStripMenuItem();
             спортсмениToolStripMenuItem = new ToolStripMenuItem();
@@ -79,6 +80,7 @@
             toolStripButton3 = new ToolStripButton();
             openFileDialog1 = new OpenFileDialog();
             saveFileDialog1 = new SaveFileDialog();
+            toolStripButton4 = new ToolStripButton();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1_Input).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2_Output).BeginInit();
@@ -131,6 +133,7 @@
             тренуванняToolStripMenuItem.Name = "тренуванняToolStripMenuItem";
             тренуванняToolStripMenuItem.Size = new Size(191, 28);
             тренуванняToolStripMenuItem.Text = "Тренування";
+            тренуванняToolStripMenuItem.Click += тренуванняToolStripMenuItem_Click;
             // 
             // змаганняToolStripMenuItem
             // 
@@ -468,7 +471,7 @@
             // 
             toolStrip1.Font = new Font("Segoe UI", 10.2F);
             toolStrip1.ImageScalingSize = new Size(20, 20);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButton1, toolStripButton2, toolStripButton3 });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButton1, toolStripButton2, toolStripButton3, toolStripButton4 });
             toolStrip1.Location = new Point(0, 31);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Size = new Size(1924, 27);
@@ -508,6 +511,16 @@
             // openFileDialog1
             // 
             openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // toolStripButton4
+            // 
+            toolStripButton4.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            toolStripButton4.Image = (Image)resources.GetObject("toolStripButton4.Image");
+            toolStripButton4.ImageTransparentColor = Color.Magenta;
+            toolStripButton4.Name = "toolStripButton4";
+            toolStripButton4.Size = new Size(29, 24);
+            toolStripButton4.Text = "toolStripButton4";
+            toolStripButton4.Click += toolStripButton4_Click;
             // 
             // Form1
             // 
@@ -594,5 +607,6 @@
         private ToolStripMenuItem toolStripMenuItem2;
         private ToolStripMenuItem toolStripMenuItem3;
         private ToolStripMenuItem заІменемПеревантаженняОператорівToolStripMenuItem;
+        private ToolStripButton toolStripButton4;
     }
 }

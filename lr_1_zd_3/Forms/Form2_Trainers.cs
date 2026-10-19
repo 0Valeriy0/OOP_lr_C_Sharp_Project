@@ -1,4 +1,6 @@
-﻿using System;
+﻿using lr_1_zd_3.Class;
+using lr_1_zd_3.Interface;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -345,20 +347,25 @@ namespace lr_1_zd_3
 
         private void заПрізвищемToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < coachesCount - 1; i++)
-            {
-                for (int j = 0; j < coachesCount - i - 1; j++)
-                {
-                    if (string.Compare(
-                        coaches[j].Surname,
-                        coaches[j + 1].Surname) > 0)
-                    {
-                        Coach temp = coaches[j];
-                        coaches[j] = coaches[j + 1];
-                        coaches[j + 1] = temp;
-                    }
-                }
-            }
+            // Використовуємо той самий інтерфейс
+            ISortableBySurname sorter = new Person();
+            // Сортуємо масив тренерів
+            sorter.SortBySurname(coaches, coachesCount);
+
+            /*            for (int i = 0; i < coachesCount - 1; i++)
+                        {
+                            for (int j = 0; j < coachesCount - i - 1; j++)
+                            {
+                                if (string.Compare(
+                                    coaches[j].Surname,
+                                    coaches[j + 1].Surname) > 0)
+                                {
+                                    Coach temp = coaches[j];
+                                    coaches[j] = coaches[j + 1];
+                                    coaches[j + 1] = temp;
+                                }
+                            }
+                        }*/
 
             RefreshOutputGrid();
         }
@@ -418,7 +425,7 @@ namespace lr_1_zd_3
             {
                 for (int i = 0; i < coachesCount; i++)
                 {
-            
+
                     writer.WriteLine(
                         $"{coaches[i].Surname};" +
                         $"{coaches[i].Name};" +
@@ -457,6 +464,28 @@ namespace lr_1_zd_3
 
                 toolStripStatusLabel1.Text =
                     "Файл успішно очищено";
+            }
+        }
+
+        private void тренуванняToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Trainings form = new Trainings();
+            form.Show();
+
+        }
+
+        private void toolStripButton4_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1_Input.CurrentRow == null)
+            {
+                MessageBox.Show("Оберіть тренера з таблиці!", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            int index = dataGridView1_Input.CurrentRow.Index;
+            if (index >= 0 && index < coachesCount)
+            {
+
+                coaches[index].ShowInfo();
             }
         }
     }

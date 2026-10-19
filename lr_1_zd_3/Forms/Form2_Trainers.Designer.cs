@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2_Trainers));
             groupBox2_sportRozrad = new GroupBox();
             dateTimePicker1_CoachBirthday = new DateTimePicker();
             label10 = new Label();
@@ -71,6 +72,7 @@
             dataGridView1_Input = new DataGridView();
             saveFileDialog1 = new SaveFileDialog();
             openFileDialog1 = new OpenFileDialog();
+            toolStripButton4 = new ToolStripButton();
             groupBox2_sportRozrad.SuspendLayout();
             menuStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
@@ -267,6 +269,7 @@
             тренуванняToolStripMenuItem.Name = "тренуванняToolStripMenuItem";
             тренуванняToolStripMenuItem.Size = new Size(191, 28);
             тренуванняToolStripMenuItem.Text = "Тренування";
+            тренуванняToolStripMenuItem.Click += тренуванняToolStripMenuItem_Click;
             // 
             // змаганняToolStripMenuItem
             // 
@@ -296,21 +299,21 @@
             // читанняЗФайлToolStripMenuItem
             // 
             читанняЗФайлToolStripMenuItem.Name = "читанняЗФайлToolStripMenuItem";
-            читанняЗФайлToolStripMenuItem.Size = new Size(224, 28);
+            читанняЗФайлToolStripMenuItem.Size = new Size(218, 28);
             читанняЗФайлToolStripMenuItem.Text = "Читання з файл";
             читанняЗФайлToolStripMenuItem.Click += читанняЗФайлToolStripMenuItem_Click;
             // 
             // записУФайлToolStripMenuItem
             // 
             записУФайлToolStripMenuItem.Name = "записУФайлToolStripMenuItem";
-            записУФайлToolStripMenuItem.Size = new Size(224, 28);
+            записУФайлToolStripMenuItem.Size = new Size(218, 28);
             записУФайлToolStripMenuItem.Text = "Запис у файл";
             записУФайлToolStripMenuItem.Click += записУФайлToolStripMenuItem_Click;
             // 
             // очиститиФайлToolStripMenuItem
             // 
             очиститиФайлToolStripMenuItem.Name = "очиститиФайлToolStripMenuItem";
-            очиститиФайлToolStripMenuItem.Size = new Size(224, 28);
+            очиститиФайлToolStripMenuItem.Size = new Size(218, 28);
             очиститиФайлToolStripMenuItem.Text = "Видалити файл";
             очиститиФайлToolStripMenuItem.Click += очиститиФайлToolStripMenuItem_Click;
             // 
@@ -343,7 +346,7 @@
             // заПрізвищемToolStripMenuItem
             // 
             заПрізвищемToolStripMenuItem.Name = "заПрізвищемToolStripMenuItem";
-            заПрізвищемToolStripMenuItem.Size = new Size(224, 28);
+            заПрізвищемToolStripMenuItem.Size = new Size(203, 28);
             заПрізвищемToolStripMenuItem.Text = "За прізвищем";
             заПрізвищемToolStripMenuItem.Click += заПрізвищемToolStripMenuItem_Click;
             // 
@@ -351,7 +354,7 @@
             // 
             toolStrip1.Font = new Font("Segoe UI", 10.2F);
             toolStrip1.ImageScalingSize = new Size(20, 20);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButton1, toolStripButton2, toolStripButton3 });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButton1, toolStripButton2, toolStripButton3, toolStripButton4 });
             toolStrip1.Location = new Point(0, 31);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Size = new Size(1924, 27);
@@ -433,6 +436,16 @@
             // openFileDialog1
             // 
             openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // toolStripButton4
+            // 
+            toolStripButton4.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            toolStripButton4.Image = (Image)resources.GetObject("toolStripButton4.Image");
+            toolStripButton4.ImageTransparentColor = Color.Magenta;
+            toolStripButton4.Name = "toolStripButton4";
+            toolStripButton4.Size = new Size(29, 24);
+            toolStripButton4.Text = "toolStripButton4";
+            toolStripButton4.Click += toolStripButton4_Click;
             // 
             // Form2_Trainers
             // 
@@ -521,5 +534,6 @@
         private ToolStripMenuItem заПрізвищемToolStripMenuItem;
         private SaveFileDialog saveFileDialog1;
         private OpenFileDialog openFileDialog1;
+        private ToolStripButton toolStripButton4;
     }
 }

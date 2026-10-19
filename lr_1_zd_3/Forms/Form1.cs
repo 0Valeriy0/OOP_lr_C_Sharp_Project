@@ -1,13 +1,18 @@
+using lr_1_zd_3.Class;
+using lr_1_zd_3.Interface;
 using System.Xml.Linq;
 
 namespace lr_1_zd_3
 {
     public partial class Form1 : Form
     {
+
+
         private Sportsman[] sportsmen = new Sportsman[100];
         private int sportsmenCount = 0;
         private void Form1_Load(object sender, EventArgs e)
-        {;
+        {
+            ;
             comboBox1_sportSelect.Items.Add("Веслування");
             comboBox1_sportSelect.Items.Add("Велоспорт");
             comboBox2.Items.Add("Без розряду");
@@ -70,7 +75,7 @@ namespace lr_1_zd_3
             dataGridView1_Input.Rows.Clear();
             for (int i = 0; i < sportsmenCount; i++)
             {
-                
+
                 dataGridView1_Input.Rows.Add(
                     i,
                     sportsmen[i].Surname,
@@ -142,23 +147,32 @@ namespace lr_1_zd_3
                 return;
             }
 
-            Sportsman newSportsman = new Sportsman(
-                textBox_inputNameSportsmen.Text,
-                textBox_inputSurnameSportsmen.Text,
-                textBox_inputPobatkoviSportsmen.Text,
-                comboBox1_sportSelect.Text,
-                comboBox2.Text,
-                dateTimePicker1_sportsmenBirthday.Value,
-                (int)numericUpDown1_amountOfMedals.Value
-            );
 
-            sportsmen[sportsmenCount] = newSportsman;
+            sportsmen[sportsmenCount] = new Sportsman();
+
+            sportsmen[sportsmenCount].Name = textBox_inputNameSportsmen.Text;
+            sportsmen[sportsmenCount].Surname = textBox_inputSurnameSportsmen.Text;
+            sportsmen[sportsmenCount].Pobatkovi = textBox_inputPobatkoviSportsmen.Text;
+            sportsmen[sportsmenCount].Sport = comboBox1_sportSelect.Text;
+            sportsmen[sportsmenCount].SportRank = comboBox2.Text;
+            sportsmen[sportsmenCount].BirthDate = dateTimePicker1_sportsmenBirthday.Value;
+            sportsmen[sportsmenCount].PrizePlaces = (int)numericUpDown1_amountOfMedals.Value;
             sportsmenCount++;
-
             RefreshInputGrid();
 
-            ClearInputFields();
 
+
+            /*
+                            textBox_inputNameSportsmen.Text,
+                            textBox_inputSurnameSportsmen.Text,
+                            textBox_inputPobatkoviSportsmen.Text,
+                            comboBox1_sportSelect.Text,
+                            comboBox2.Text,
+                            dateTimePicker1_sportsmenBirthday.Value,
+                            (int)numericUpDown1_amountOfMedals.Value
+                        );*/
+
+            ClearInputFields();
             toolStripStatusLabel1.Text =
                 "Спортсмен успішно доданий";
         }
@@ -376,20 +390,23 @@ namespace lr_1_zd_3
 
         private void заПрізвищемToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < sportsmenCount - 1; i++)
-            {
-                for (int j = 0; j < sportsmenCount - i - 1; j++)
-                {
-                    if (string.Compare(
-                        sportsmen[j].Surname,
-                        sportsmen[j + 1].Surname) > 0)
-                    {
-                        Sportsman temp = sportsmen[j];
-                        sportsmen[j] = sportsmen[j + 1];
-                        sportsmen[j + 1] = temp;
-                    }
-                }
-            }
+            ISortableBySurname sorter = new Person();
+            sorter.SortBySurname(sportsmen, sportsmenCount);
+
+            /*            for (int i = 0; i < sportsmenCount - 1; i++)
+                        {
+                            for (int j = 0; j < sportsmenCount - i - 1; j++)
+                            {
+                                if (string.Compare(
+                                    sportsmen[j].Surname,
+                                    sportsmen[j + 1].Surname) > 0)
+                                {
+                                    Sportsman temp = sportsmen[j];
+                                    sportsmen[j] = sportsmen[j + 1];
+                                    sportsmen[j + 1] = temp;
+                                }
+                            }
+                        }*/
             ShowSortedSportsmen();
         }
         private void ShowSortedSportsmen()
@@ -495,6 +512,26 @@ namespace lr_1_zd_3
             Form2_Trainers form = new Form2_Trainers();
             form.Show();
             this.Hide();
+        }
+
+        private void тренуванняToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Trainings form = new Trainings();
+            form.Show();
+        }
+
+        private void toolStripButton4_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1_Input.CurrentRow == null)
+            {
+                MessageBox.Show("Оберіть тренера з таблиці!", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            int index = dataGridView1_Input.CurrentRow.Index;
+            if (index >= 0 && index < sportsmenCount)
+            {
+                sportsmen[index].ShowInfo();
+            }
         }
     }
 }
