@@ -3,6 +3,8 @@ using lr_1_zd_3.Forms;
 using lr_1_zd_3.Interface;
 using System.Xml.Linq;
 
+
+
 namespace lr_1_zd_3
 {
     public partial class Form1 : Form
@@ -11,7 +13,6 @@ namespace lr_1_zd_3
 
         private Sportsman[] sportsmen = new Sportsman[100];
         private int sportsmenCount = 0;
-        OpenFileDialog openDialog = new OpenFileDialog();
         private void Form1_Load(object sender, EventArgs e)
         {
             ;
@@ -142,6 +143,17 @@ namespace lr_1_zd_3
             {
                 MessageBox.Show(
                     "Заповніть ім'я, прізвище та по батькові!",
+                    "Помилка",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+
+                return;
+            }
+            // Перевірка кількості
+            if (sportsmenCount >= sportsmen.Length)
+            {
+                MessageBox.Show(
+                    "Досягнуто максимальну кількість спортсменів!",
                     "Помилка",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
@@ -320,12 +332,15 @@ namespace lr_1_zd_3
                         $"{sportsmen[i].Sport};" +
                         $"{sportsmen[i].SportRank};" +
                         $"{sportsmen[i].BirthDate};" +
-                        $"{sportsmen[i].PrizePlaces}"
+                        $"{sportsmen[i].PrizePlaces};" +
+                        $"{sportsmen[i].MedicalCard.BloodGroup};" +
+                        $"{sportsmen[i].MedicalCard.HasAccessToCompete};" +
+                        $"{sportsmen[i].MedicalCard.InspectationDate:dd.MM.yyyy}"
                     );
                 }
             }
 
-            toolStripStatusLabel1.Text = $"Дані записано у файл '{openDialog.SafeFileName}'";
+            toolStripStatusLabel1.Text = $"Дані записано у файл '{saveDialog.FileName}'";
         }
 
         private void читанняЗФайлToolStripMenuItem_Click(object sender, EventArgs e)
@@ -341,7 +356,7 @@ namespace lr_1_zd_3
             foreach (string line in lines)
             {
                 string[] parts = line.Split(';');
-                if (parts.Length == 7)
+                if (parts.Length >= 7)
                 {
                     Sportsman sportsman = new Sportsman(
 
@@ -353,6 +368,12 @@ namespace lr_1_zd_3
                    DateTime.Parse(parts[5]),  // Дата народження
                    int.Parse(parts[6])       // Кількість призових місць
                    );
+                    if (parts.Length >=  10)
+                    {
+                        sportsman.MedicalCard.BloodGroup = parts[7];
+                        sportsman.MedicalCard.HasAccessToCompete = bool.Parse(parts[8]);
+                        sportsman.MedicalCard.InspectationDate = DateTime.Parse(parts[9]);
+                    }
                     sportsmen[sportsmenCount] = sportsman;
                     sportsmenCount++;
                 }
@@ -395,21 +416,7 @@ namespace lr_1_zd_3
             ISortableBySurname sorter = new Sportsman();
             sorter.SortBySurname(sportsmen, sportsmenCount);
 
-            /*            for (int i = 0; i < sportsmenCount - 1; i++)
-                        {
-                            for (int j = 0; j < sportsmenCount - i - 1; j++)
-                            {
-                                if (string.Compare(
-                                    sportsmen[j].Surname,
-                                    sportsmen[j + 1].Surname) > 0)
-                                {
-                                    Sportsman temp = sportsmen[j];
-                                    sportsmen[j] = sportsmen[j + 1];
-                                    sportsmen[j + 1] = temp;
-                                }
-                            }
-                        }*/
-            ShowSortedSportsmen();
+               ShowSortedSportsmen();
         }
         private void ShowSortedSportsmen()
         {
@@ -526,7 +533,7 @@ namespace lr_1_zd_3
         {
             if (dataGridView1_Input.CurrentRow == null)
             {
-                MessageBox.Show("Оберіть тренера з таблиці!", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Оберіть спортсмена з таблиці!", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             int index = dataGridView1_Input.CurrentRow.Index;

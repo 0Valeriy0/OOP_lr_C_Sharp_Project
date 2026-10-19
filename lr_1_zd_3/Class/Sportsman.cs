@@ -7,7 +7,6 @@ namespace lr_1_zd_3.Class
 {
     public class Sportsman : Person, ITrainingBooking
     {
-        public string Sport { get; set; }
         public string SportRank { get; set; }
         public int PrizePlaces { get; set; }
         

@@ -161,30 +161,6 @@ namespace lr_1_zd_3
                 return;
             }
 
-            // Перевірка вибору виду спорту
-            if (comboBox1_sportSelect.SelectedIndex == -1)
-            {
-                MessageBox.Show(
-                    "Виберіть вид спорту!",
-                    "Помилка",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
-
-                return;
-            }
-
-            // Перевірка звання
-            if (comboBox_RankCoach.SelectedIndex == -1)
-            {
-                MessageBox.Show(
-                    "Виберіть звання тренера!",
-                    "Помилка",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
-
-                return;
-            }
-
             // Перевірка кількості
             if (coachesCount >= coaches.Length)
             {
@@ -488,6 +464,8 @@ namespace lr_1_zd_3
                 coaches[index].ShowInfo();
             }
         }
+
+
     }
 
 }

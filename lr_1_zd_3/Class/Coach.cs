@@ -6,7 +6,6 @@ namespace lr_1_zd_3.Class
 {
     public class Coach : Person
     {
-        public string Sport { get; set; }
         public string CoachRank { get; set; }
 
         // Конструктор без параметрів
