@@ -1,0 +1,230 @@
+<mxGraphModel dx="1569" dy="764" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+
+  <root>
+
+    <mxCell id="0" />
+
+    <mxCell id="1" parent="0" />
+
+    <mxCell id="section" parent="1" style="shape=rectangle;whiteSpace=wrap;html=1;overflow=hidden;rounded=4;strokeColor=#b0b0b0;fillColor=#fafafa;shadow=1;" value="&lt;table style=&quot;width:100%;border-collapse:collapse;text-align:left;&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style=&quot;text-align: center; padding: 6px; background: rgb(242, 242, 242); border-bottom: 1px solid rgb(176, 176, 176);&quot;&gt;&lt;span style=&quot;background: rgb(92, 184, 92); color: rgb(255, 255, 255); border-radius: 50%; padding: 2px 6px; font-weight: bold; font-size: 11px;&quot;&gt;C&lt;/span&gt; &lt;b&gt;Training&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;padding: 6px; font-size: 11px; border-bottom: 1px solid rgb(176, 176, 176); line-height: 1.5;&quot;&gt;&lt;font color=&quot;#d9534f&quot;&gt;■ &lt;/font&gt;&amp;nbsp;DateTime Date { get; set; }&lt;br&gt;&lt;font color=&quot;#d9534f&quot;&gt;■&lt;/font&gt; int Duration { get; set; }&lt;br&gt;&lt;font color=&quot;#d9534f&quot;&gt;■&lt;/font&gt; string Sport { get; set; }&lt;br&gt;&lt;font color=&quot;#d9534f&quot;&gt;■&lt;/font&gt; Coach Coach { get; set; }&lt;br&gt;&lt;font color=&quot;#d9534f&quot;&gt;■&lt;/font&gt; Sportsman Sportsman { get; set; }&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;padding:6px;font-size:11px;line-height:1.5;&quot;&gt;&lt;font color=&quot;#5cb85c&quot;&gt;●&lt;/font&gt; Training()&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;" vertex="1">
+
+      <mxGeometry height="160" width="230" x="495" y="150" as="geometry" />
+
+    </mxCell>
+
+    <mxCell id="iperson" parent="1" style="shape=rectangle;whiteSpace=wrap;html=1;overflow=hidden;rounded=4;strokeColor=#8e44ad;fillColor=#fafafa;shadow=1;" value="&lt;table style=&quot;width:100%;border-collapse:collapse;text-align:left;&quot;&gt;&lt;tr&gt;&lt;td style=&quot;text-align:center;padding:6px;background:#f2f2f2;border-bottom:1px solid #8e44ad;&quot;&gt;&lt;span style=&quot;background:#8e44ad;color:#fff;border-radius:50%;padding:2px 6px;font-weight:bold;font-size:11px;&quot;&gt;I&lt;/span&gt; &lt;i&gt;&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;IPerson&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;padding:6px;font-size:11px;line-height:1.5;&quot;&gt;&lt;font color=&quot;#5cb85c&quot;&gt;●&lt;/font&gt; string Name { get; set; }&lt;br&gt;&lt;font color=&quot;#5cb85c&quot;&gt;●&lt;/font&gt; string Surname { get; set; }&lt;br&gt;&lt;font color=&quot;#5cb85c&quot;&gt;●&lt;/font&gt; string Pobatkovi { get; set; }&lt;br&gt;&lt;font color=&quot;#5cb85c&quot;&gt;●&lt;/font&gt; string Sport { get; set; }&lt;br&gt;&lt;font color=&quot;#5cb85c&quot;&gt;●&lt;/font&gt; DateTime BirthDate { get; set; }&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" vertex="1">
+
+      <mxGeometry height="160" width="230" x="850" y="710" as="geometry" />
+
+    </mxCell>
+
+    <mxCell id="isortable" parent="1" style="shape=rectangle;whiteSpace=wrap;html=1;overflow=hidden;rounded=4;strokeColor=#8e44ad;fillColor=#fafafa;shadow=1;" value="&lt;table style=&quot;width:100%;border-collapse:collapse;text-align:left;&quot;&gt;&lt;tr&gt;&lt;td style=&quot;text-align:center;padding:6px;background:#f2f2f2;border-bottom:1px solid #8e44ad;&quot;&gt;&lt;span style=&quot;background:#8e44ad;color:#fff;border-radius:50%;padding:2px 6px;font-weight:bold;font-size:11px;&quot;&gt;I&lt;/span&gt; &lt;i&gt;&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;ISortableBySurname&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;padding:6px;font-size:11px;line-height:1.5;&quot;&gt;&lt;font color=&quot;#5cb85c&quot;&gt;●&lt;/font&gt; SortBySurname(people : Person[], count : int) : void&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" vertex="1">
+
+      <mxGeometry height="110" width="270" x="850" y="590" as="geometry" />
+
+    </mxCell>
+
+    <mxCell id="sportsman" parent="1" style="shape=rectangle;whiteSpace=wrap;html=1;overflow=hidden;rounded=4;strokeColor=#b0b0b0;fillColor=#fafafa;shadow=1;" value="&lt;table style=&quot;width:100%;border-collapse:collapse;text-align:left;&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style=&quot;text-align: center; padding: 6px; background: rgb(242, 242, 242); border-bottom: 1px solid rgb(176, 176, 176);&quot;&gt;&lt;span style=&quot;background: rgb(92, 184, 92); color: rgb(255, 255, 255); border-radius: 50%; padding: 2px 6px; font-weight: bold; font-size: 11px;&quot;&gt;C&lt;/span&gt; &lt;b&gt;Sportsman&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;padding: 6px; font-size: 11px; border-bottom: 1px solid rgb(176, 176, 176); line-height: 1.5;&quot;&gt;&lt;font color=&quot;#d9534f&quot;&gt;■&lt;/font&gt; string SportRank { get; set; }&lt;br&gt;&lt;font color=&quot;#d9534f&quot;&gt;■&lt;/font&gt; int PrizePlaces { get; set; }&lt;br&gt;&lt;font color=&quot;#d9534f&quot;&gt;■&lt;/font&gt; Coach[] coaches&lt;br&gt;&lt;font color=&quot;#d9534f&quot;&gt;■&lt;/font&gt; DateTime[] trainingDates&lt;br&gt;&lt;font color=&quot;#d9534f&quot;&gt;■&lt;/font&gt; int bookingsCount&lt;br&gt;&lt;font color=&quot;#d9534f&quot;&gt;■&lt;/font&gt; MedicalCard medicalCard&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;padding:6px;font-size:11px;line-height:1.5;&quot;&gt;&lt;font color=&quot;#5cb85c&quot;&gt;●&lt;/font&gt; Sportsman()&lt;br&gt;&lt;font color=&quot;#5cb85c&quot;&gt;●&lt;/font&gt; Sportsman(...)&lt;br&gt;&lt;font color=&quot;#5cb85c&quot;&gt;●&lt;/font&gt; operator++(Sportsman) : Sportsman&lt;br&gt;&lt;font color=&quot;#5cb85c&quot;&gt;●&lt;/font&gt; operator--(Sportsman) : Sportsman&lt;br&gt;&lt;font color=&quot;#5cb85c&quot;&gt;●&lt;/font&gt; operator&amp;gt;(s1, s2) : bool&lt;br&gt;&lt;font color=&quot;#5cb85c&quot;&gt;●&lt;/font&gt; operator&amp;lt;(s1, s2) : bool&lt;br&gt;&lt;font color=&quot;#5cb85c&quot;&gt;●&lt;/font&gt; SignUpForTraining(coach, date) : bool&lt;br&gt;&lt;font color=&quot;#5cb85c&quot;&gt;●&lt;/font&gt; override ShowInfo() : void&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;" vertex="1">
+
+      <mxGeometry height="280" width="250" x="90" y="340" as="geometry" />
+
+    </mxCell>
+
+    <mxCell id="person" parent="1" style="shape=rectangle;whiteSpace=wrap;html=1;overflow=hidden;rounded=4;strokeColor=#b0b0b0;fillColor=#fafafa;shadow=1;" value="&lt;table style=&quot;width:100%;border-collapse:collapse;text-align:left;&quot;&gt;&lt;tr&gt;&lt;td style=&quot;text-align:center;padding:6px;background:#f2f2f2;border-bottom:1px solid #b0b0b0;&quot;&gt;&lt;span style=&quot;background:#337ab7;color:#fff;border-radius:50%;padding:2px 6px;font-weight:bold;font-size:11px;&quot;&gt;A&lt;/span&gt; &lt;i&gt;&lt;b&gt;Person&lt;/b&gt;&lt;/i&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;padding:6px;font-size:11px;border-bottom:1px solid #b0b0b0;line-height:1.5;&quot;&gt;&lt;font color=&quot;#d9534f&quot;&gt;■&lt;/font&gt; string Name { get; set; }&lt;br&gt;&lt;font color=&quot;#d9534f&quot;&gt;■&lt;/font&gt; string Surname { get; set; }&lt;br&gt;&lt;font color=&quot;#d9534f&quot;&gt;■&lt;/font&gt; string Pobatkovi { get; set; }&lt;br&gt;&lt;font color=&quot;#d9534f&quot;&gt;■&lt;/font&gt; string Sport { get; set; }&lt;br&gt;&lt;font color=&quot;#d9534f&quot;&gt;■&lt;/font&gt; DateTime BirthDate { get; set; }&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;padding:6px;font-size:11px;line-height:1.5;&quot;&gt;&lt;font color=&quot;#5cb85c&quot;&gt;●&lt;/font&gt; Person()&lt;br&gt;&lt;font color=&quot;#5cb85c&quot;&gt;●&lt;/font&gt; Person(...)&lt;br&gt;&lt;font color=&quot;#5cb85c&quot;&gt;●&lt;/font&gt; CalculateAge() : int&lt;br&gt;&lt;font color=&quot;#5cb85c&quot;&gt;●&lt;/font&gt; SortBySurname(people, count) : void&lt;br&gt;&lt;font color=&quot;#5cb85c&quot;&gt;●&lt;/font&gt; &lt;i&gt;virtual ShowInfo() : void&lt;/i&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" vertex="1">
+
+      <mxGeometry height="240" width="240" x="485" y="360" as="geometry" />
+
+    </mxCell>
+
+    <mxCell id="coach" parent="1" style="shape=rectangle;whiteSpace=wrap;html=1;overflow=hidden;rounded=4;strokeColor=#b0b0b0;fillColor=#fafafa;shadow=1;" value="&lt;table style=&quot;width:100%;border-collapse:collapse;text-align:left;&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style=&quot;text-align: center; padding: 6px; background: rgb(242, 242, 242); border-bottom: 1px solid rgb(176, 176, 176);&quot;&gt;&lt;span style=&quot;background: rgb(92, 184, 92); color: rgb(255, 255, 255); border-radius: 50%; padding: 2px 6px; font-weight: bold; font-size: 11px;&quot;&gt;C&lt;/span&gt; &lt;b&gt;Coach&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;padding: 6px; font-size: 11px; border-bottom: 1px solid rgb(176, 176, 176); line-height: 1.5;&quot;&gt;&lt;font color=&quot;#d9534f&quot;&gt;■&lt;/font&gt; string CoachRank { get; set; }&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;padding:6px;font-size:11px;line-height:1.5;&quot;&gt;&lt;font color=&quot;#5cb85c&quot;&gt;●&lt;/font&gt; Coach()&lt;br&gt;&lt;font color=&quot;#5cb85c&quot;&gt;●&lt;/font&gt; Coach(...)&lt;br&gt;&lt;font color=&quot;#5cb85c&quot;&gt;●&lt;/font&gt; override ShowInfo() : void&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;" vertex="1">
+
+      <mxGeometry height="175" width="220" x="850" y="392.5" as="geometry" />
+
+    </mxCell>
+
+    <mxCell id="card" parent="1" style="shape=rectangle;whiteSpace=wrap;html=1;overflow=hidden;rounded=4;strokeColor=#b0b0b0;fillColor=#fafafa;shadow=1;" value="&lt;table style=&quot;width:100%;border-collapse:collapse;text-align:left;&quot;&gt;&lt;tr&gt;&lt;td style=&quot;text-align:center;padding:6px;background:#f2f2f2;border-bottom:1px solid #b0b0b0;&quot;&gt;&lt;span style=&quot;background:#5cb85c;color:#fff;border-radius:50%;padding:2px 6px;font-weight:bold;font-size:11px;&quot;&gt;C&lt;/span&gt; &lt;b&gt;MedicalCard&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;padding:6px;font-size:11px;border-bottom:1px solid #b0b0b0;line-height:1.5;&quot;&gt;&lt;font color=&quot;#d9534f&quot;&gt;■&lt;/font&gt; string BloodGroup&lt;br&gt;&lt;font color=&quot;#d9534f&quot;&gt;■&lt;/font&gt; bool HasAccessToCompete&lt;br&gt;&lt;font color=&quot;#d9534f&quot;&gt;■&lt;/font&gt; DateTime InspectionDate&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;padding:6px;font-size:11px;line-height:1.5;&quot;&gt;&lt;font color=&quot;#5cb85c&quot;&gt;●&lt;/font&gt; MedicalCard()&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" vertex="1">
+
+      <mxGeometry height="140" width="240" x="20" y="720" as="geometry" />
+
+    </mxCell>
+
+    <mxCell id="itraining" parent="1" style="shape=rectangle;whiteSpace=wrap;html=1;overflow=hidden;rounded=4;strokeColor=#8e44ad;fillColor=#fafafa;shadow=1;" value="&lt;table style=&quot;width:100%;border-collapse:collapse;text-align:left;&quot;&gt;&lt;tr&gt;&lt;td style=&quot;text-align:center;padding:6px;background:#f2f2f2;border-bottom:1px solid #8e44ad;&quot;&gt;&lt;span style=&quot;background:#8e44ad;color:#fff;border-radius:50%;padding:2px 6px;font-weight:bold;font-size:11px;&quot;&gt;I&lt;/span&gt; &lt;i&gt;&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;ITrainingBooking&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;padding:6px;font-size:11px;line-height:1.5;&quot;&gt;&lt;font color=&quot;#5cb85c&quot;&gt;●&lt;/font&gt; SignUpForTraining(coach : Coach, date : DateTime) : bool&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" vertex="1">
+
+      <mxGeometry height="110" width="310" x="290" y="735" as="geometry" />
+
+    </mxCell>
+
+    <mxCell id="edge_real_iperson" edge="1" parent="1" source="person" style="edgeStyle=orthogonalEdgeStyle;html=1;dashed=1;endArrow=block;endFill=0;endSize=12;strokeWidth=1.2;strokeColor=#555555;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="iperson">
+
+      <mxGeometry relative="1" x="-0.1814" as="geometry">
+
+        <Array as="points">
+
+          <mxPoint x="610" y="790" />
+
+        </Array>
+
+        <mxPoint x="840" y="790" as="targetPoint" />
+
+      </mxGeometry>
+
+    </mxCell>
+
+    <mxCell id="edge_real_isortable" edge="1" parent="1" source="person" style="edgeStyle=orthogonalEdgeStyle;html=1;dashed=1;endArrow=block;endFill=0;endSize=12;strokeWidth=1.2;strokeColor=#555555;" target="isortable">
+
+      <mxGeometry relative="1" x="-0.3" as="geometry">
+
+        <Array as="points">
+
+          <mxPoint x="620" y="645" />
+
+        </Array>
+
+      </mxGeometry>
+
+    </mxCell>
+
+    <mxCell id="edge_real_itraining" edge="1" parent="1" source="sportsman" style="edgeStyle=orthogonalEdgeStyle;html=1;dashed=1;endArrow=block;endFill=0;endSize=12;strokeWidth=1.2;strokeColor=#555555;entryX=0.454;entryY=0.015;entryDx=0;entryDy=0;entryPerimeter=0;" target="itraining">
+
+      <mxGeometry relative="1" x="0.2994" as="geometry">
+
+        <Array as="points">
+
+          <mxPoint x="280" y="650" />
+
+          <mxPoint x="430.7" y="650" />
+
+        </Array>
+
+      </mxGeometry>
+
+    </mxCell>
+
+    <mxCell id="edge_inh_sp" edge="1" parent="1" source="sportsman" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=0;endSize=12;strokeWidth=1.2;strokeColor=#333333;" target="person">
+
+      <mxGeometry relative="1" as="geometry" />
+
+    </mxCell>
+
+    <mxCell id="edge_inh_co" edge="1" parent="1" source="coach" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=0;endSize=12;strokeWidth=1.2;strokeColor=#333333;" target="person">
+
+      <mxGeometry relative="1" as="geometry" />
+
+    </mxCell>
+
+    <mxCell id="edge_comp" edge="1" parent="1" source="sportsman" style="edgeStyle=orthogonalEdgeStyle;html=1;startArrow=diamond;startFill=1;startSize=14;endArrow=open;strokeWidth=1.5;strokeColor=#000000;" target="card">
+
+      <mxGeometry relative="1" as="geometry" />
+
+    </mxCell>
+
+    <mxCell id="lbl_comp_mult" connectable="0" parent="edge_comp" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;fontStyle=1;" value="1" vertex="1">
+
+      <mxGeometry relative="1" x="0.75" y="1" as="geometry">
+
+        <mxPoint x="9" y="2" as="offset" />
+
+      </mxGeometry>
+
+    </mxCell>
+
+    <mxCell id="hefns_tcsxgs4jsRIMp8-4" connectable="0" parent="edge_comp" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;fontStyle=1;" value="1" vertex="1">
+
+      <mxGeometry relative="1" x="0.75" y="1" as="geometry">
+
+        <mxPoint x="89" y="-53" as="offset" />
+
+      </mxGeometry>
+
+    </mxCell>
+
+    <mxCell id="edge_agg_co" edge="1" parent="1" source="section" style="edgeStyle=orthogonalEdgeStyle;html=1;startArrow=diamond;startFill=0;startSize=14;endArrow=open;strokeWidth=1.2;strokeColor=#000000;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="coach">
+
+      <mxGeometry relative="1" x="-0.04" as="geometry" />
+
+    </mxCell>
+
+    <mxCell id="lbl_agg_co_mult" connectable="0" parent="edge_agg_co" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;fontStyle=1;" value="1" vertex="1">
+
+      <mxGeometry relative="1" x="0.3571" as="geometry">
+
+        <mxPoint x="5" y="105" as="offset" />
+
+      </mxGeometry>
+
+    </mxCell>
+
+    <mxCell id="hefns_tcsxgs4jsRIMp8-1" connectable="0" parent="edge_agg_co" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;fontStyle=1;" value="1" vertex="1">
+
+      <mxGeometry relative="1" x="0.3571" as="geometry">
+
+        <mxPoint x="-760" y="45" as="offset" />
+
+      </mxGeometry>
+
+    </mxCell>
+
+    <mxCell id="edge_agg_sp" edge="1" parent="1" source="section" style="edgeStyle=orthogonalEdgeStyle;html=1;startArrow=diamond;startFill=0;startSize=14;endArrow=open;strokeWidth=1.2;strokeColor=#000000;" target="sportsman">
+
+      <mxGeometry relative="1" as="geometry" />
+
+    </mxCell>
+
+    <mxCell id="lbl_agg_sp_mult" connectable="0" parent="edge_agg_sp" style="edgeLabel;html=1;align=center;verticalAlign=bottom;resizable=0;points=[];fontSize=18;fontStyle=1;" value="*" vertex="1">
+
+      <mxGeometry relative="1" x="0.7" as="geometry">
+
+        <mxPoint x="255" y="-52" as="offset" />
+
+      </mxGeometry>
+
+    </mxCell>
+
+    <mxCell id="hefns_tcsxgs4jsRIMp8-5" connectable="0" parent="edge_agg_sp" style="edgeLabel;html=1;align=center;verticalAlign=bottom;resizable=0;points=[];fontSize=18;fontStyle=1;" value="*" vertex="1">
+
+      <mxGeometry relative="1" x="0.7" as="geometry">
+
+        <mxPoint x="535" y="-52" as="offset" />
+
+      </mxGeometry>
+
+    </mxCell>
+
+  
+    <mxCell id="sportgroup" parent="1" style="shape=rectangle;whiteSpace=wrap;html=1;overflow=hidden;rounded=4;strokeColor=#b0b0b0;fillColor=#fafafa;shadow=1;" value="&lt;table style=&quot;width:100%;border-collapse:collapse;text-align:left;&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style=&quot;text-align: center; padding: 6px; background: rgb(242, 242, 242); border-bottom: 1px solid rgb(176, 176, 176);&quot;&gt;&lt;span style=&quot;background: rgb(92, 184, 92); color: rgb(255, 255, 255); border-radius: 50%; padding: 2px 6px; font-weight: bold; font-size: 11px;&quot;&gt;C&lt;/span&gt; &lt;b&gt;SportGroup&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;padding: 6px; font-size: 11px; border-bottom: 1px solid rgb(176, 176, 176); line-height: 1.5;&quot;&gt;&lt;font color=&quot;#d9534f&quot;&gt;■&lt;/font&gt; string GroupName { get; set; }&lt;br&gt;&lt;font color=&quot;#d9534f&quot;&gt;■&lt;/font&gt; string Sport { get; set; }&lt;br&gt;&lt;font color=&quot;#d9534f&quot;&gt;■&lt;/font&gt; int MaxMembers { get; set; }&lt;br&gt;&lt;font color=&quot;#d9534f&quot;&gt;■&lt;/font&gt; Coach CuratorCoach { get; set; }&lt;br&gt;&lt;font color=&quot;#d9534f&quot;&gt;■&lt;/font&gt; Sportsman[] members&lt;br&gt;&lt;font color=&quot;#d9534f&quot;&gt;■&lt;/font&gt; int membersCount&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;padding:6px;font-size:11px;line-height:1.5;&quot;&gt;&lt;font color=&quot;#5cb85c&quot;&gt;●&lt;/font&gt; SportGroup()&lt;br&gt;&lt;font color=&quot;#5cb85c&quot;&gt;●&lt;/font&gt; SportGroup(...)&lt;br&gt;&lt;font color=&quot;#5cb85c&quot;&gt;●&lt;/font&gt; AddSportsman(sportsman) : bool&lt;br&gt;&lt;font color=&quot;#5cb85c&quot;&gt;●&lt;/font&gt; RemoveSportsman(index) : bool&lt;br&gt;&lt;font color=&quot;#5cb85c&quot;&gt;●&lt;/font&gt; AssignCoach(newCoach) : void&lt;br&gt;&lt;font color=&quot;#5cb85c&quot;&gt;●&lt;/font&gt; GetInfo() : string&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;" vertex="1">
+      <mxGeometry height="280" width="260" x="1160" y="340" as="geometry" />
+    </mxCell>
+    <mxCell id="edge_assoc_co" edge="1" parent="1" source="sportgroup" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;strokeWidth=1.2;strokeColor=#000000;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="coach">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="lbl_assoc_coach_mult" connectable="0" parent="edge_assoc_co" style="edgeLabel;html=1;align=center;verticalAlign=bottom;resizable=0;points=[];fontSize=11;fontStyle=1;" value="0..1" vertex="1">
+      <mxGeometry relative="1" x="0.75" y="-1" as="geometry">
+        <mxPoint x="10" y="-12" as="offset" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="lbl_assoc_group_mult" connectable="0" parent="edge_assoc_co" style="edgeLabel;html=1;align=center;verticalAlign=bottom;resizable=0;points=[];fontSize=18;fontStyle=1;" value="*" vertex="1">
+      <mxGeometry relative="1" x="-0.75" y="-1" as="geometry">
+        <mxPoint x="-10" y="-12" as="offset" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="edge_agg_sp_group" edge="1" parent="1" source="sportgroup" style="edgeStyle=orthogonalEdgeStyle;html=1;startArrow=diamond;startFill=0;startSize=14;endArrow=open;strokeWidth=1.2;strokeColor=#000000;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" target="sportsman">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="1290" y="70" />
+          <mxPoint x="153" y="70" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="lbl_agg_sp_grp_mult" connectable="0" parent="edge_agg_sp_group" style="edgeLabel;html=1;align=center;verticalAlign=bottom;resizable=0;points=[];fontSize=18;fontStyle=1;" value="*" vertex="1">
+      <mxGeometry relative="1" x="0.88" as="geometry">
+        <mxPoint x="-15" y="30" as="offset" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="lbl_agg_grp_mult" connectable="0" parent="edge_agg_sp_group" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;fontStyle=1;" value="1" vertex="1">
+      <mxGeometry relative="1" x="-0.88" as="geometry">
+        <mxPoint x="15" y="-20" as="offset" />
+      </mxGeometry>
+    </mxCell>
+</root>
+
+</mxGraphModel>

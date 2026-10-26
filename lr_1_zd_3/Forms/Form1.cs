@@ -529,6 +529,13 @@ namespace lr_1_zd_3
             form.Show();
         }
 
+        private void групиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormGroups form = new FormGroups();
+            form.Show();
+            this.Hide();
+        }
+
         private void toolStripButton4_Click(object sender, EventArgs e)
         {
             if (dataGridView1_Input.CurrentRow == null)

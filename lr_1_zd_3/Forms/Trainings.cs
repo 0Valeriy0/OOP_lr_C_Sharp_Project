@@ -1,5 +1,6 @@
 ﻿using lr_1_zd_3.Class;
 using lr_1_zd_3.Interface;
+using lr_1_zd_3.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -274,6 +275,13 @@ namespace lr_1_zd_3
         private void тренериToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form2_Trainers form = new Form2_Trainers();
+            form.Show();
+            this.Hide();
+        }
+
+        private void групиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormGroups form = new FormGroups();
             form.Show();
             this.Hide();
         }

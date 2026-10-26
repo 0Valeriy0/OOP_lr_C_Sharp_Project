@@ -128,6 +128,7 @@
             групиToolStripMenuItem.Name = "групиToolStripMenuItem";
             групиToolStripMenuItem.Size = new Size(224, 28);
             групиToolStripMenuItem.Text = "Групи";
+            групиToolStripMenuItem.Click += групиToolStripMenuItem_Click;
             // 
             // тренуванняToolStripMenuItem
             // 
