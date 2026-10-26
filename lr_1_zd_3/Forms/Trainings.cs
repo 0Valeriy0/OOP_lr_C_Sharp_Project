@@ -23,7 +23,6 @@ namespace lr_1_zd_3
         private DateTime[] bookingDates = new DateTime[100];
         private int[] bookingDurations = new int[100];
         private int bookingsCount = 0;
-        OpenFileDialog openDialog = new OpenFileDialog();
 
         public Trainings()
         {
@@ -152,14 +151,7 @@ namespace lr_1_zd_3
                     MessageBoxIcon.Warning);
                 return;
             }
-            /*            for (int i = 0; i < bookingsCount; i++)
-                        {
-                            if (bookedSportsmen[i] == currentSportsman && bookingDates[i] == selectedDate)
-                            {
-                                MessageBox.Show("Цей спортсмен вже має тренування на цей час!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                return;
-                            }
-                        }*/
+
             // Зберігаємо дані про нове тренування
             int duration = (int)numericUpDown1.Value;
             bookedSportsmen[bookingsCount] = currentSportsman;
@@ -269,7 +261,7 @@ namespace lr_1_zd_3
                     );
                 }
             }
-            toolStripStatusLabel1.Text = $"Дані тренувань успішно збережено у файл! `{openDialog.SafeFileName}`";
+            toolStripStatusLabel1.Text = $"Дані тренувань успішно збережено у файл! `{saveDialog.FileName}`";
 
         }
 
@@ -410,8 +402,8 @@ namespace lr_1_zd_3
             {
                 if (string.IsNullOrWhiteSpace(line)) continue;
                 string[] parts = line.Split(';');
-                // У файлі спортсменів 7 полів: Прізвище;Ім'я;По батькові;Спорт;Розряд;Дата;Призові
-                if (parts.Length == 7 && sportsmenCount < sportsmen.Length)
+               
+                if (parts.Length >= 7 && sportsmenCount < sportsmen.Length)
                 {
                     Sportsman sportsman = new Sportsman();
                     sportsman.Surname = parts[0];
@@ -498,7 +490,7 @@ namespace lr_1_zd_3
 
         private void вихідToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            this.Close();
         }
 
         private void toolStripStatusLabel1_Click(object sender, EventArgs e)

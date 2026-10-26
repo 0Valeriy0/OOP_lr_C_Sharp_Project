@@ -93,12 +93,12 @@
             // 
             dateTimePicker1.Font = new Font("Segoe UI", 13.8F);
             dateTimePicker1.Location = new Point(233, 308);
-            dateTimePicker1.MaxDate = new DateTime(2030, 2, 1, 0, 0, 0, 0);
-            dateTimePicker1.MinDate = new DateTime(2026, 10, 15, 3, 25, 50, 0);
+            dateTimePicker1.MaxDate = new DateTime(2026, 10, 19, 0, 0, 0, 0);
+            dateTimePicker1.MinDate = new DateTime(2020, 2, 1, 0, 0, 0, 0);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(288, 38);
             dateTimePicker1.TabIndex = 39;
-            dateTimePicker1.Value = new DateTime(2029, 12, 25, 23, 59, 59, 0);
+            dateTimePicker1.Value = new DateTime(2026, 10, 19, 0, 0, 0, 0);
             // 
             // label9
             // 

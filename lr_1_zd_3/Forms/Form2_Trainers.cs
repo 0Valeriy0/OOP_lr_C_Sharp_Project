@@ -413,7 +413,7 @@ namespace lr_1_zd_3
                 }
             }
 
-            toolStripStatusLabel1.Text = $"Дані записано у файл `{saveDialog.FileName}`";
+            toolStripStatusLabel1.Text = $"Дані записано у файл '{saveDialog.FileName}'";
         }
 
         private void очиститиФайлToolStripMenuItem_Click(object sender, EventArgs e)
@@ -465,7 +465,10 @@ namespace lr_1_zd_3
             }
         }
 
-
+        private void вихідToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 
 }

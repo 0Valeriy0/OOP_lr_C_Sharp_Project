@@ -240,7 +240,7 @@
             // 
             // менюToolStripMenuItem
             // 
-            менюToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { спортсмениToolStripMenuItem, тренериToolStripMenuItem, групиToolStripMenuItem, тренуванняToolStripMenuItem, змаганняToolStripMenuItem, результатиToolStripMenuItem, вихідToolStripMenuItem });
+            менюToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { спортсмениToolStripMenuItem, тренериToolStripMenuItem, тренуванняToolStripMenuItem, групиToolStripMenuItem, змаганняToolStripMenuItem, результатиToolStripMenuItem, вихідToolStripMenuItem });
             менюToolStripMenuItem.Name = "менюToolStripMenuItem";
             менюToolStripMenuItem.Size = new Size(72, 27);
             менюToolStripMenuItem.Text = "Меню";
@@ -248,46 +248,47 @@
             // спортсмениToolStripMenuItem
             // 
             спортсмениToolStripMenuItem.Name = "спортсмениToolStripMenuItem";
-            спортсмениToolStripMenuItem.Size = new Size(191, 28);
+            спортсмениToolStripMenuItem.Size = new Size(224, 28);
             спортсмениToolStripMenuItem.Text = "Спортсмени";
             спортсмениToolStripMenuItem.Click += спортсмениToolStripMenuItem_Click;
             // 
             // тренериToolStripMenuItem
             // 
             тренериToolStripMenuItem.Name = "тренериToolStripMenuItem";
-            тренериToolStripMenuItem.Size = new Size(191, 28);
+            тренериToolStripMenuItem.Size = new Size(224, 28);
             тренериToolStripMenuItem.Text = "Тренери";
             // 
             // групиToolStripMenuItem
             // 
             групиToolStripMenuItem.Name = "групиToolStripMenuItem";
-            групиToolStripMenuItem.Size = new Size(191, 28);
+            групиToolStripMenuItem.Size = new Size(224, 28);
             групиToolStripMenuItem.Text = "Групи";
             // 
             // тренуванняToolStripMenuItem
             // 
             тренуванняToolStripMenuItem.Name = "тренуванняToolStripMenuItem";
-            тренуванняToolStripMenuItem.Size = new Size(191, 28);
+            тренуванняToolStripMenuItem.Size = new Size(224, 28);
             тренуванняToolStripMenuItem.Text = "Тренування";
             тренуванняToolStripMenuItem.Click += тренуванняToolStripMenuItem_Click;
             // 
             // змаганняToolStripMenuItem
             // 
             змаганняToolStripMenuItem.Name = "змаганняToolStripMenuItem";
-            змаганняToolStripMenuItem.Size = new Size(191, 28);
+            змаганняToolStripMenuItem.Size = new Size(224, 28);
             змаганняToolStripMenuItem.Text = "Змагання";
             // 
             // результатиToolStripMenuItem
             // 
             результатиToolStripMenuItem.Name = "результатиToolStripMenuItem";
-            результатиToolStripMenuItem.Size = new Size(191, 28);
+            результатиToolStripMenuItem.Size = new Size(224, 28);
             результатиToolStripMenuItem.Text = "Результати";
             // 
             // вихідToolStripMenuItem
             // 
             вихідToolStripMenuItem.Name = "вихідToolStripMenuItem";
-            вихідToolStripMenuItem.Size = new Size(191, 28);
+            вихідToolStripMenuItem.Size = new Size(224, 28);
             вихідToolStripMenuItem.Text = "Вихід";
+            вихідToolStripMenuItem.Click += вихідToolStripMenuItem_Click;
             // 
             // роботаЗФайломToolStripMenuItem
             // 

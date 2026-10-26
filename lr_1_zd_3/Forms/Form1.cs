@@ -368,7 +368,7 @@ namespace lr_1_zd_3
                    DateTime.Parse(parts[5]),  // Дата народження
                    int.Parse(parts[6])       // Кількість призових місць
                    );
-                    if (parts.Length >=  10)
+                    if (parts.Length >= 10)
                     {
                         sportsman.MedicalCard.BloodGroup = parts[7];
                         sportsman.MedicalCard.HasAccessToCompete = bool.Parse(parts[8]);
@@ -416,7 +416,7 @@ namespace lr_1_zd_3
             ISortableBySurname sorter = new Sportsman();
             sorter.SortBySurname(sportsmen, sportsmenCount);
 
-               ShowSortedSportsmen();
+            ShowSortedSportsmen();
         }
         private void ShowSortedSportsmen()
         {
@@ -562,6 +562,11 @@ namespace lr_1_zd_3
                 }
             }
 
+        }
+
+        private void вихідToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
