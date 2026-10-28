@@ -25,6 +25,23 @@ namespace lr_1_zd_3
         private int[] bookingDurations = new int[100];
         private int bookingsCount = 0;
 
+        delegate void TrainingProcessDelegate(Sportsman sportsman);
+        //  Метод 1 перевірка 
+        private void CheckMedicalCard(Sportsman sportsman) {
+            if (sportsman.MedicalCard == null || !sportsman.MedicalCard.HasAccessToCompete) { 
+            throw new Exception($"Спортсмен {sportsman.Surname} {sportsman.Name} не має медичної довідки для участі у тренуваннях.");
+
+            }
+        
+        }
+        //Метод 2 оновлення статусу
+        private void UpdateBookingStatus(Sportsman sportsman)
+        {
+           toolStripStatusLabel1.Text = $"Спортсмен {sportsman.Surname} {sportsman.Name} успішно записаний на тренування.";
+        }
+
+
+
         public Trainings()
         {
             InitializeComponent();
