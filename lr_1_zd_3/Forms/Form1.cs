@@ -13,6 +13,15 @@ namespace lr_1_zd_3
 
         private Sportsman[] sportsmen = new Sportsman[100];
         private int sportsmenCount = 0;
+
+        delegate void StatusUpdateDelegate(string message);
+        private StatusUpdateDelegate setStatus;
+        private void UpdateStatusText(string message)
+        {
+            toolStripStatusLabel1.Text = message;
+        }
+
+
         private void Form1_Load(object sender, EventArgs e)
         {
             
@@ -101,8 +110,7 @@ namespace lr_1_zd_3
                 );
             }
 
-            toolStripStatusLabel1.Text =
-                $"Кількість спортсменів: {sportsmenCount}";
+            setStatus($"Кількість спортсменів: {sportsmenCount}");
         }
         private void RefreshOutputGrid()
         {
@@ -153,6 +161,7 @@ namespace lr_1_zd_3
             dateTimePicker1.Value = DateTime.Today;
         }
 
+        delegate void MyDelegate(string s);
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(textBox_inputNameSportsmen.Text) ||
@@ -179,6 +188,14 @@ namespace lr_1_zd_3
                 return;
             }
 
+            void Myfunc(string s)
+            {
+                MessageBox.Show(s);
+            }
+            MyDelegate del = new MyDelegate(Myfunc);
+            del("Викликано делегат\n" + "Імя: " + textBox_inputNameSportsmen.Text + "\n Прізвище: " + textBox_inputSurnameSportsmen.Text+"\nПобатьковві: "+ textBox_inputPobatkoviSportsmen.Text);
+
+
 
             sportsmen[sportsmenCount] = new Sportsman();
 
@@ -196,8 +213,7 @@ namespace lr_1_zd_3
             sportsmenCount++;
             RefreshInputGrid();
             ClearInputFields();
-            toolStripStatusLabel1.Text =
-                "Спортсмен успішно доданий";
+            setStatus("Спортсмен успішно доданий");
         }
 
         public Form1()
@@ -241,8 +257,7 @@ namespace lr_1_zd_3
 
                     RefreshInputGrid();
 
-                    toolStripStatusLabel1.Text =
-                        "Спортсмен видалений";
+                    setStatus("Спортсмен видалений");
                 }
             }
         }
@@ -323,8 +338,7 @@ namespace lr_1_zd_3
 
             RefreshInputGrid();
 
-            toolStripStatusLabel1.Text =
-                "Вибране поле успішно змінено";
+            setStatus("Вибране поле успішно змінено");
         }
 
         private void записУФайлToolStripMenuItem_Click(object sender, EventArgs e)
@@ -358,7 +372,7 @@ namespace lr_1_zd_3
                 }
             }
 
-            toolStripStatusLabel1.Text = $"Дані записано у файл '{saveDialog.FileName}'";
+            setStatus($"Дані записано у файл '{saveDialog.FileName}'");
         }
 
         private void читанняЗФайлToolStripMenuItem_Click(object sender, EventArgs e)
@@ -399,7 +413,7 @@ namespace lr_1_zd_3
 
             RefreshInputGrid();
 
-            toolStripStatusLabel1.Text = $"Дані завантажено з файлу '{openDialog.SafeFileName}'";
+            setStatus($"Дані завантажено з файлу '{openDialog.SafeFileName}'");
         }
 
         private void очиститиФайлToolStripMenuItem_Click(object sender, EventArgs e)
@@ -424,8 +438,7 @@ namespace lr_1_zd_3
             {
                 File.Delete(openDialog.FileName);
 
-                toolStripStatusLabel1.Text =
-                    $"Файл  '{openDialog.SafeFileName}' успішно очищено";
+                setStatus($"Файл  '{openDialog.SafeFileName}' успішно очищено");
             }
         }
 
@@ -480,7 +493,7 @@ namespace lr_1_zd_3
             {
                 sportsmen[index]++;
                 RefreshOutputGrid();
-                toolStripStatusLabel1.Text = "Кількість призових місць спортсмена збільшено на 1";
+                setStatus("Кількість призових місць спортсмена збільшено на 1");
 
             }
         }
@@ -496,7 +509,7 @@ namespace lr_1_zd_3
             {
                 sportsmen[index]--;
                 RefreshOutputGrid();
-                toolStripStatusLabel1.Text = "Кількість призових місць спортсмена зменшено на 1";
+                setStatus("Кількість призових місць спортсмена зменшено на 1");
 
             }
         }
@@ -586,7 +599,7 @@ namespace lr_1_zd_3
                 MedicalForm medForm = new MedicalForm(sportsmen[index]);
                 if (medForm.ShowDialog() == DialogResult.OK)
                 {
-                    toolStripStatusLabel1.Text = $"Медичну карту для {sportsmen[index].Surname} оновлено";
+                    setStatus($"Медичну карту для {sportsmen[index].Surname} оновлено");
                 }
             }
 
