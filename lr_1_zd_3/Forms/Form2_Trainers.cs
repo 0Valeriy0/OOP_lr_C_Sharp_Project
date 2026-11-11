@@ -114,7 +114,7 @@ namespace lr_1_zd_3
 
         // ОНОВЛЕННЯ ТАБЛИЦІ РЕЗУЛЬТАТІВ
 
-        private void RefreshOutputGrid()
+        private void RefreshOutputGrid(Coach[] sorted)
         {
             dataGridView2_Output.Rows.Clear();
 
@@ -134,12 +134,12 @@ namespace lr_1_zd_3
 
                 dataGridView2_Output.Rows.Add(
                     i,
-                    coaches[i].Surname,
-                    coaches[i].Name,
-                    coaches[i].Pobatkovi,
-                    coaches[i].Sport,
-                    coaches[i].CoachRank,
-                    coaches[i].BirthDate
+                    sorted[i].Surname,
+                    sorted[i].Name,
+                    sorted[i].Pobatkovi,
+                    sorted[i].Sport,
+                    sorted[i].CoachRank,
+                    sorted[i].BirthDate.ToShortDateString()
                 );
             }
         }
@@ -324,27 +324,19 @@ namespace lr_1_zd_3
 
         private void заПрізвищемToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
+            Coach[] sorted = new Coach[coachesCount];
+            for (int i = 0; i < coachesCount; i++)
+            {
+                sorted[i] = coaches[i];
+            }
+
             // Використовуємо той самий інтерфейс
             ISortableBySurname sorter = new Coach();
             // Сортуємо масив тренерів
-            sorter.SortBySurname(coaches, coachesCount);
+            sorter.SortBySurname(sorted, coachesCount);
 
-            /*            for (int i = 0; i < coachesCount - 1; i++)
-                        {
-                            for (int j = 0; j < coachesCount - i - 1; j++)
-                            {
-                                if (string.Compare(
-                                    coaches[j].Surname,
-                                    coaches[j + 1].Surname) > 0)
-                                {
-                                    Coach temp = coaches[j];
-                                    coaches[j] = coaches[j + 1];
-                                    coaches[j + 1] = temp;
-                                }
-                            }
-                        }*/
-
-            RefreshOutputGrid();
+            RefreshOutputGrid(sorted);
         }
 
         private void читанняЗФайлToolStripMenuItem_Click(object sender, EventArgs e)

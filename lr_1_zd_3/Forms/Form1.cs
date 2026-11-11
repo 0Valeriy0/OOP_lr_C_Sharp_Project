@@ -13,6 +13,7 @@ namespace lr_1_zd_3
 
         private Sportsman[] sportsmen = new Sportsman[100];
         private int sportsmenCount = 0;
+        //Делегат на метод класу
 
         delegate void StatusUpdateDelegate(string message);
         private StatusUpdateDelegate setStatus;
@@ -36,6 +37,8 @@ namespace lr_1_zd_3
             comboBox2.Items.Add("Майстер спорту України");
             comboBox1_sportSelect.SelectedIndex = 0;
             comboBox2.SelectedIndex = 0;
+            comboBox_bloodGroup.Items.AddRange(new object[] { "O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-" });
+            comboBox_bloodGroup.SelectedIndex = 0;
             setStatus("Готово");
 
         }
@@ -50,6 +53,9 @@ namespace lr_1_zd_3
             dataGridView1_Input.Columns.Add("SportRank", "Спортивний розряд");
             dataGridView1_Input.Columns.Add("BirthDate", "Дата народження");
             dataGridView1_Input.Columns.Add("PrizePlaces", "Кількість призових місць");
+            dataGridView1_Input.Columns.Add("BloodGroup", "Група крові");
+            dataGridView1_Input.Columns.Add("HasAccess", "Допуск до змагань");
+            dataGridView1_Input.Columns.Add("InspectDate", "Дата медогляду");
 
             dataGridView1_Input.AutoSizeColumnsMode =
                 DataGridViewAutoSizeColumnsMode.Fill;
@@ -67,6 +73,9 @@ namespace lr_1_zd_3
             dataGridView2_Output.Columns.Add("SportRank", "Спортивний розряд");
             dataGridView2_Output.Columns.Add("BirthDate", "Дата народження");
             dataGridView2_Output.Columns.Add("PrizePlaces", "Кількість призових місць");
+            dataGridView2_Output.Columns.Add("BloodGroup", "Група крові");
+            dataGridView2_Output.Columns.Add("HasAccess", "Допуск до змагань");
+            dataGridView2_Output.Columns.Add("InspectDate", "Дата медогляду");
 
 
             dataGridView2_Output.AutoSizeColumnsMode =
@@ -97,8 +106,11 @@ namespace lr_1_zd_3
                     sportsmen[i].Pobatkovi,
                     sportsmen[i].Sport,
                     sportsmen[i].SportRank,
-                    sportsmen[i].BirthDate,
-                    sportsmen[i].PrizePlaces
+                    sportsmen[i].BirthDate.ToShortDateString(),
+                    sportsmen[i].PrizePlaces,
+                    sportsmen[i].MedicalCard.BloodGroup,
+                    sportsmen[i].MedicalCard.HasAccessToCompete ? "Допущено" : "Не допущено",
+                    sportsmen[i].MedicalCard.InspectationDate.ToShortDateString()
                 );
             }
 
@@ -128,8 +140,11 @@ namespace lr_1_zd_3
                     sportsmen[i].Name,
                     sportsmen[i].Sport,
                     sportsmen[i].SportRank,
-                    sportsmen[i].BirthDate,
-                    sportsmen[i].PrizePlaces
+                    sportsmen[i].BirthDate.ToShortDateString(),
+                    sportsmen[i].PrizePlaces,
+                    sportsmen[i].MedicalCard.BloodGroup,
+                    sportsmen[i].MedicalCard.HasAccessToCompete ? "Допущено" : "Не допущено",
+                    sportsmen[i].MedicalCard.InspectationDate.ToShortDateString()
                 );
             }
         }
@@ -143,8 +158,11 @@ namespace lr_1_zd_3
             comboBox1_sportSelect.SelectedIndex = 0;
             comboBox2.SelectedIndex = 0;
             numericUpDown1_amountOfMedals.Value = 0;
+            comboBox_bloodGroup.SelectedIndex = 0;
+            checkBox_medAccess.Checked = false;
+            dateTimePicker_medInspection.Value = DateTime.Today;
         }
-
+        // Делегат як метод класу
         delegate void MyDelegate(string s);
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
@@ -190,6 +208,9 @@ namespace lr_1_zd_3
             sportsmen[sportsmenCount].SportRank = comboBox2.Text;
             sportsmen[sportsmenCount].BirthDate = dateTimePicker1_sportsmenBirthday.Value;
             sportsmen[sportsmenCount].PrizePlaces = (int)numericUpDown1_amountOfMedals.Value;
+            sportsmen[sportsmenCount].MedicalCard.BloodGroup = comboBox_bloodGroup.Text;
+            sportsmen[sportsmenCount].MedicalCard.HasAccessToCompete = checkBox_medAccess.Checked;
+            sportsmen[sportsmenCount].MedicalCard.InspectationDate = dateTimePicker_medInspection.Value;
             sportsmenCount++;
             RefreshInputGrid();
 
@@ -297,6 +318,21 @@ namespace lr_1_zd_3
                 case 7: // Кількість призових місць
                     sportsman.PrizePlaces =
                         (int)numericUpDown1_amountOfMedals.Value;
+                    break;
+
+                case 8: // Група крові
+                    sportsman.MedicalCard.BloodGroup =
+                        comboBox_bloodGroup.Text;
+                    break;
+
+                case 9: // Допуск до змагань
+                    sportsman.MedicalCard.HasAccessToCompete =
+                        checkBox_medAccess.Checked;
+                    break;
+
+                case 10: // Дата медогляду
+                    sportsman.MedicalCard.InspectationDate =
+                        dateTimePicker_medInspection.Value;
                     break;
 
                 case 0: // Індекс
@@ -416,12 +452,19 @@ namespace lr_1_zd_3
 
         private void заПрізвищемToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ISortableBySurname sorter = new Sportsman();
-            sorter.SortBySurname(sportsmen, sportsmenCount);
+            // Копіюємо масив, щоб основний залишився в порядку
+            Sportsman[] sorted = new Sportsman[sportsmenCount];
+             for (int i = 0; i < sportsmenCount; i++)
+            {
+                sorted[i] = sportsmen[i];
+            }
 
-            ShowSortedSportsmen();
+            ISortableBySurname sorter = new Sportsman();
+            sorter.SortBySurname(sorted, sportsmenCount);
+
+            ShowSortedSportsmen(sorted);
         }
-        private void ShowSortedSportsmen()
+        private void ShowSortedSportsmen(Sportsman[] sorted)
         {
             dataGridView2_Output.Rows.Clear();
 
@@ -437,7 +480,7 @@ namespace lr_1_zd_3
             }
             for (int i = 0; i < sportsmenCount; i++)
             {
-                Sportsman sportsman = sportsmen[i];
+                Sportsman sportsman = sorted[i];
 
                 dataGridView2_Output.Rows.Add(
                     i,
@@ -445,8 +488,11 @@ namespace lr_1_zd_3
                     sportsman.Name,
                     sportsman.Sport,
                     sportsman.SportRank,
-                    sportsman.BirthDate,
-                    sportsman.PrizePlaces
+                    sportsman.BirthDate.ToShortDateString(),
+                    sportsman.PrizePlaces,
+                    sportsman.MedicalCard.BloodGroup,
+                    sportsman.MedicalCard.HasAccessToCompete ? "Допущено" : "Не допущено",
+                    sportsman.MedicalCard.InspectationDate.ToShortDateString()
                 );
             }
         }
@@ -499,20 +545,27 @@ namespace lr_1_zd_3
 
         private void заІменемПеревантаженняОператорівToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // Копіюємо масив, щоб основний залишився в порядку
+            Sportsman[] sorted = new Sportsman[sportsmenCount];
+            for (int i = 0; i < sportsmenCount; i++)
+            {
+                sorted[i] = sportsmen[i];
+            }
+
             for (int i = 0; i < sportsmenCount - 1; i++)
             {
                 for (int j = 0; j < sportsmenCount - i - 1; j++)
                 {
-                    if (sportsmen[j] > sportsmen[j + 1])
+                    if (sorted[j] > sorted[j + 1])
                     {
-                        Sportsman temp = sportsmen[j];
-                        sportsmen[j] = sportsmen[j + 1];
-                        sportsmen[j + 1] = temp;
+                        Sportsman temp = sorted[j];
+                        sorted[j] = sorted[j + 1];
+                        sorted[j + 1] = temp;
                     }
                 }
             }
 
-            ShowSortedSportsmen();
+            ShowSortedSportsmen(sorted);
         }
 
         private void спортсмениToolStripMenuItem_Click(object sender, EventArgs e)
@@ -566,10 +619,8 @@ namespace lr_1_zd_3
             {
                 // Відкриваємо MedicalForm і передаємо туди обраного спортсмена
                 MedicalForm medForm = new MedicalForm(sportsmen[index]);
-                if (medForm.ShowDialog() == DialogResult.OK)
-                {
-                    setStatus($"Медичну карту для {sportsmen[index].Surname} оновлено");
-                }
+                medForm.MedicalCardSaved += (s, ev) =>  setStatus($"Медичну карту для {sportsmen[index].Surname} оновлено");
+                medForm.ShowDialog();
             }
 
         }

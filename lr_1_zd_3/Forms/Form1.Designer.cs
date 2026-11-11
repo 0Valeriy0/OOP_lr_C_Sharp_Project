@@ -59,6 +59,11 @@
             label3 = new Label();
             comboBox1_sportSelect = new ComboBox();
             groupBox2_sportRozrad = new GroupBox();
+            comboBox_bloodGroup = new ComboBox();
+            label_bloodGroup = new Label();
+            checkBox_medAccess = new CheckBox();
+            label_medDate = new Label();
+            dateTimePicker_medInspection = new DateTimePicker();
             numericUpDown1_amountOfMedals = new NumericUpDown();
             label4 = new Label();
             dateTimePicker1_sportsmenBirthday = new DateTimePicker();
@@ -325,12 +330,65 @@
             groupBox2_sportRozrad.Controls.Add(label5);
             groupBox2_sportRozrad.Controls.Add(label3);
             groupBox2_sportRozrad.Controls.Add(comboBox1_sportSelect);
+            groupBox2_sportRozrad.Controls.Add(label_bloodGroup);
+            groupBox2_sportRozrad.Controls.Add(comboBox_bloodGroup);
+            groupBox2_sportRozrad.Controls.Add(checkBox_medAccess);
+            groupBox2_sportRozrad.Controls.Add(label_medDate);
+            groupBox2_sportRozrad.Controls.Add(dateTimePicker_medInspection);
             groupBox2_sportRozrad.Location = new Point(12, 89);
             groupBox2_sportRozrad.Name = "groupBox2_sportRozrad";
             groupBox2_sportRozrad.Size = new Size(693, 649);
             groupBox2_sportRozrad.TabIndex = 12;
             groupBox2_sportRozrad.TabStop = false;
             groupBox2_sportRozrad.Text = "Панель редагування даних";
+            // 
+            // comboBox_bloodGroup
+            // 
+            comboBox_bloodGroup.Font = new Font("Segoe UI", 13.8F);
+            comboBox_bloodGroup.FormattingEnabled = true;
+            comboBox_bloodGroup.Location = new Point(242, 480);
+            comboBox_bloodGroup.Name = "comboBox_bloodGroup";
+            comboBox_bloodGroup.Size = new Size(257, 39);
+            comboBox_bloodGroup.TabIndex = 41;
+            // 
+            // label_bloodGroup
+            // 
+            label_bloodGroup.AutoSize = true;
+            label_bloodGroup.Font = new Font("Segoe UI", 13.8F);
+            label_bloodGroup.Location = new Point(38, 483);
+            label_bloodGroup.Name = "label_bloodGroup";
+            label_bloodGroup.Size = new Size(149, 31);
+            label_bloodGroup.TabIndex = 42;
+            label_bloodGroup.Text = "Група крові:";
+            // 
+            // checkBox_medAccess
+            // 
+            checkBox_medAccess.AutoSize = true;
+            checkBox_medAccess.Font = new Font("Segoe UI", 13.8F);
+            checkBox_medAccess.Location = new Point(42, 530);
+            checkBox_medAccess.Name = "checkBox_medAccess";
+            checkBox_medAccess.Size = new Size(245, 35);
+            checkBox_medAccess.TabIndex = 43;
+            checkBox_medAccess.Text = "Допуск до змагань";
+            checkBox_medAccess.UseVisualStyleBackColor = true;
+            // 
+            // label_medDate
+            // 
+            label_medDate.AutoSize = true;
+            label_medDate.Font = new Font("Segoe UI", 13.8F);
+            label_medDate.Location = new Point(38, 575);
+            label_medDate.Name = "label_medDate";
+            label_medDate.Size = new Size(181, 31);
+            label_medDate.TabIndex = 44;
+            label_medDate.Text = "Дата медогляду:";
+            // 
+            // dateTimePicker_medInspection
+            // 
+            dateTimePicker_medInspection.Font = new Font("Segoe UI", 13.8F);
+            dateTimePicker_medInspection.Location = new Point(242, 570);
+            dateTimePicker_medInspection.Name = "dateTimePicker_medInspection";
+            dateTimePicker_medInspection.Size = new Size(257, 38);
+            dateTimePicker_medInspection.TabIndex = 45;
             // 
             // numericUpDown1_amountOfMedals
             // 
@@ -619,5 +677,10 @@
         private ToolStripMenuItem заІменемПеревантаженняОператорівToolStripMenuItem;
         private ToolStripButton toolStripButton4;
         private ToolStripLabel toolStripLabel1;
+        private ComboBox comboBox_bloodGroup;
+        private Label label_bloodGroup;
+        private CheckBox checkBox_medAccess;
+        private Label label_medDate;
+        private DateTimePicker dateTimePicker_medInspection;
     }
 }

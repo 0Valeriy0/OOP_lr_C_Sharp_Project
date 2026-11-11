@@ -68,6 +68,7 @@ namespace lr_1_zd_3
             dataGridView1.Columns.Clear();
             dataGridView2.Columns.Clear();
             UpdateCoachesComboBox();
+            RefreshScheduleGrid();
             toolStripStatusLabel1.Text = "Готово до роботи";
         }
         private void CreateSportsmenGrid()
@@ -157,6 +158,17 @@ namespace lr_1_zd_3
                 return;
             }
 
+            // Без медичного допуску тренування не створюємо
+            try
+            {
+                CheckMedicalCard(currentSportsman);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Медичне застереження", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             ITrainingBooking bookingService = currentSportsman;
 
             if (!bookingService.SignUpForTraining(currentCoach, selectedDate))
@@ -180,6 +192,24 @@ namespace lr_1_zd_3
 
             // Оновлюємо нижню таблицю тренувань
             RefreshTrainingsGrid();
+
+            // Делегат для роботи із кількома методами
+            TrainingProcessDelegate del = new TrainingProcessDelegate(CheckMedicalCard);
+            del += new TrainingProcessDelegate(UpdateBookingStatus);
+
+            foreach (TrainingProcessDelegate d in del.GetInvocationList())
+            {
+                try
+                {
+                    d(currentSportsman);
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Медичне застереження", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
+            }
+
             MessageBox.Show(
                 $"Тренування успішно створено!\n" +
                 $"Спортсмен: {currentSportsman.Surname} {currentSportsman.Name}\n" +
@@ -194,6 +224,9 @@ namespace lr_1_zd_3
 
         private void RefreshTrainingsGrid()
         {
+            // Розклад на тиждень показує ті самі тренування, тому оновлюємо його разом зі списком
+            RefreshScheduleGrid();
+
             if (bookingsCount == 0)
             {
                 dataGridView2.Columns.Clear();
@@ -243,6 +276,7 @@ namespace lr_1_zd_3
                     bookedCoaches[bookingsCount - 1] = null;
                     bookingsCount--;
                     RefreshTrainingsGrid();
+
                     toolStripStatusLabel1.Text = "Тренування успішно скасовано!"    ;
 
 
@@ -428,7 +462,7 @@ namespace lr_1_zd_3
                 if (string.IsNullOrWhiteSpace(line)) continue;
                 string[] parts = line.Split(';');
                
-                if (parts.Length >= 7 && sportsmenCount < sportsmen.Length)
+                if (parts.Length >= 10 && sportsmenCount < sportsmen.Length)
                 {
                     Sportsman sportsman = new Sportsman();
                     sportsman.Surname = parts[0];
@@ -438,6 +472,10 @@ namespace lr_1_zd_3
                     sportsman.SportRank = parts[4];
                     sportsman.BirthDate = DateTime.Parse(parts[5]);
                     sportsman.PrizePlaces = int.Parse(parts[6]);
+                    sportsman.MedicalCard.BloodGroup = parts[7];
+                    sportsman.MedicalCard.HasAccessToCompete = bool.Parse(parts[8]);
+                    sportsman.MedicalCard.InspectationDate = DateTime.Parse(parts[9]);
+                    
                     sportsmen[sportsmenCount] = sportsman;
                     sportsmenCount++;
                 }
@@ -516,6 +554,132 @@ namespace lr_1_zd_3
         private void вихідToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        // РОЗКЛАД НА ТИЖДЕНЬ 
+
+        private readonly string[] dayNames =
+            { "Неділя", "Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота" };
+
+        // Неділя того тижня, до якого належить дата
+        private DateTime GetWeekStart(DateTime date)
+        {
+            // У C# DayOfWeek: неділя = 0, понеділок = 1, ..., субота = 6
+            return date.Date.AddDays(-(int)date.DayOfWeek);
+        }
+
+        private void CreateScheduleGrid()
+        {
+            dataGridViewSchedule.Columns.Clear();
+            dataGridViewSchedule.Columns.Add("Time", "Час");
+            for (int d = 0; d < 7; d++)
+            {
+                dataGridViewSchedule.Columns.Add("Day" + d, dayNames[d]);
+            }
+            foreach (DataGridViewColumn column in dataGridViewSchedule.Columns)
+            {
+                column.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
+
+            dataGridViewSchedule.ReadOnly = true;
+            dataGridViewSchedule.AllowUserToAddRows = false;
+            dataGridViewSchedule.AllowUserToResizeRows = false;
+            dataGridViewSchedule.RowHeadersVisible = false;
+            dataGridViewSchedule.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewSchedule.Columns["Time"].FillWeight = 40;
+
+            // Багаторядковий текст у клітинках і заголовках
+            dataGridViewSchedule.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dataGridViewSchedule.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridViewSchedule.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dataGridViewSchedule.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+        }
+
+        private void RefreshScheduleGrid()
+        {
+            if (dataGridViewSchedule.Columns.Count == 0)
+            {
+                CreateScheduleGrid();
+            }
+
+            DateTime weekStart = GetWeekStart(dateTimePickerWeek.Value);
+            DateTime nextWeekStart = weekStart.AddDays(7);
+            labelWeek.Text = $"Тиждень: {weekStart:dd.MM.yyyy} – {weekStart.AddDays(6):dd.MM.yyyy}";
+
+            // Заголовки з датами, сьогоднішній день підсвічуємо
+            for (int d = 0; d < 7; d++)
+            {
+                DateTime day = weekStart.AddDays(d);
+                dataGridViewSchedule.Columns[d + 1].HeaderText = $"{dayNames[d]}\n{day:dd.MM}";
+                dataGridViewSchedule.Columns[d + 1].DefaultCellStyle.BackColor =
+                    day == DateTime.Today ? Color.LightYellow : Color.Empty;
+            }
+
+            // Рядки завжди однакові: по одному на кожну годину доби, 00:00-23:00
+            dataGridViewSchedule.Rows.Clear();
+            for (int hour = 6; hour < 22; hour++)
+            {
+                dataGridViewSchedule.Rows.Add($"{hour:00}:00");
+            }
+
+            // Розкладаємо тренування обраного тижня по клітинках
+            for (int i = 0; i < bookingsCount; i++)
+            {
+                if (bookingDates[i] < weekStart || bookingDates[i] >= nextWeekStart)
+                    continue;
+
+                // Колонка 0 - це "Час", тому день тижня зсуваємо на 1; рядок = година
+                int column = (int)bookingDates[i].DayOfWeek + 1;
+                int row = bookingDates[i].Hour-6;
+                if (row < 0 || row >= dataGridViewSchedule.Rows.Count)
+                    continue;
+
+                string text =
+                    $"{bookingDates[i]:HH:mm} {bookedSportsmen[i].Sport}\n" +
+                    $"Тренер: {bookedCoaches[i].Surname} {bookedCoaches[i].Name}\n" +
+                    $"Спортсмен: {bookedSportsmen[i].Surname} {bookedSportsmen[i].Name}\n" +
+                    $"{bookingDurations[i]} хв";
+
+                DataGridViewCell cell = dataGridViewSchedule.Rows[row].Cells[column];
+                // Якщо на цю годину вже є тренування, дописуємо нижче
+                if (cell.Value == null)
+                {
+                  
+                    cell.Value = text;
+                }
+                else
+                {
+                    // у клітинці вже є тренування — дописуємо нове під ним через риску
+                    cell.Value = cell.Value + "\n———\n" + text;
+                }
+                cell.Style.BackColor = bookedSportsmen[i].Sport == "Веслування"
+                    ? Color.LightBlue
+                    : Color.LightGreen;
+            }
+
+            dataGridViewSchedule.ClearSelection();
+        }
+
+        private void buttonPrevWeek_Click(object sender, EventArgs e)
+        {
+            dateTimePickerWeek.Value = dateTimePickerWeek.Value.AddDays(-7);
+        }
+
+        private void buttonNextWeek_Click(object sender, EventArgs e)
+        {
+            dateTimePickerWeek.Value = dateTimePickerWeek.Value.AddDays(7);
+        }
+
+        private void dateTimePickerWeek_ValueChanged(object sender, EventArgs e)
+        {
+            RefreshScheduleGrid();
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Видалення працює з таблицею на вкладці "Запис", тому на розкладі кнопку вимикаємо
+            toolStripButton2.Enabled = tabControl1.SelectedTab == tabPage1;
+            RefreshScheduleGrid();
         }
 
         private void toolStripStatusLabel1_Click(object sender, EventArgs e)

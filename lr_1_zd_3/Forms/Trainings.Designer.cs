@@ -66,8 +66,20 @@
             comboBox1_sportSelect = new ComboBox();
             openFileDialog1 = new OpenFileDialog();
             saveFileDialog1 = new SaveFileDialog();
+            tabControl1 = new TabControl();
+            tabPage1 = new TabPage();
+            tabPage2 = new TabPage();
+            dataGridViewSchedule = new DataGridView();
+            buttonPrevWeek = new Button();
+            buttonNextWeek = new Button();
+            dateTimePickerWeek = new DateTimePicker();
+            labelWeek = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
+            tabControl1.SuspendLayout();
+            tabPage1.SuspendLayout();
+            tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewSchedule).BeginInit();
             menuStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
             groupBox2_sportRozrad.SuspendLayout();
@@ -78,10 +90,10 @@
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(697, 128);
+            dataGridView1.Location = new Point(6, 37);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(1215, 297);
+            dataGridView1.Size = new Size(1181, 280);
             dataGridView1.TabIndex = 56;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
@@ -89,7 +101,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            label2.Location = new Point(1257, 94);
+            label2.Location = new Point(525, 3);
             label2.Name = "label2";
             label2.Size = new Size(142, 31);
             label2.TabIndex = 57;
@@ -99,7 +111,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            label1.Location = new Point(1231, 428);
+            label1.Location = new Point(525, 322);
             label1.Name = "label1";
             label1.Size = new Size(138, 31);
             label1.TabIndex = 58;
@@ -108,10 +120,10 @@
             // dataGridView2
             // 
             dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView2.Location = new Point(697, 471);
+            dataGridView2.Location = new Point(6, 356);
             dataGridView2.Name = "dataGridView2";
             dataGridView2.RowHeadersWidth = 51;
-            dataGridView2.Size = new Size(1215, 297);
+            dataGridView2.Size = new Size(1181, 318);
             dataGridView2.TabIndex = 59;
             // 
             // menuStrip1
@@ -399,6 +411,95 @@
             // openFileDialog1
             // 
             openFileDialog1.FileName = "openFileDialog1";
+            //
+            // tabControl1
+            //
+            tabControl1.Controls.Add(tabPage1);
+            tabControl1.Controls.Add(tabPage2);
+            tabControl1.Font = new Font("Segoe UI", 10.2F);
+            tabControl1.Location = new Point(711, 64);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new Size(1201, 713);
+            tabControl1.TabIndex = 63;
+            tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
+            //
+            // tabPage1
+            //
+            tabPage1.Controls.Add(label2);
+            tabPage1.Controls.Add(dataGridView1);
+            tabPage1.Controls.Add(label1);
+            tabPage1.Controls.Add(dataGridView2);
+            tabPage1.Location = new Point(4, 32);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Padding = new Padding(3);
+            tabPage1.Size = new Size(1193, 677);
+            tabPage1.TabIndex = 0;
+            tabPage1.Text = "Запис";
+            tabPage1.UseVisualStyleBackColor = true;
+            //
+            // tabPage2
+            //
+            tabPage2.Controls.Add(labelWeek);
+            tabPage2.Controls.Add(buttonNextWeek);
+            tabPage2.Controls.Add(dateTimePickerWeek);
+            tabPage2.Controls.Add(buttonPrevWeek);
+            tabPage2.Controls.Add(dataGridViewSchedule);
+            tabPage2.Location = new Point(4, 32);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Padding = new Padding(3);
+            tabPage2.Size = new Size(1193, 677);
+            tabPage2.TabIndex = 1;
+            tabPage2.Text = "Розклад на тиждень";
+            tabPage2.UseVisualStyleBackColor = true;
+            //
+            // dataGridViewSchedule
+            //
+            dataGridViewSchedule.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dataGridViewSchedule.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewSchedule.Location = new Point(6, 50);
+            dataGridViewSchedule.Name = "dataGridViewSchedule";
+            dataGridViewSchedule.RowHeadersWidth = 51;
+            dataGridViewSchedule.Size = new Size(1181, 621);
+            dataGridViewSchedule.TabIndex = 0;
+            //
+            // buttonPrevWeek
+            //
+            buttonPrevWeek.Location = new Point(6, 8);
+            buttonPrevWeek.Name = "buttonPrevWeek";
+            buttonPrevWeek.Size = new Size(50, 34);
+            buttonPrevWeek.TabIndex = 1;
+            buttonPrevWeek.Text = "◀";
+            buttonPrevWeek.UseVisualStyleBackColor = true;
+            buttonPrevWeek.Click += buttonPrevWeek_Click;
+            //
+            // dateTimePickerWeek
+            //
+            dateTimePickerWeek.Format = DateTimePickerFormat.Short;
+            dateTimePickerWeek.Location = new Point(62, 10);
+            dateTimePickerWeek.Name = "dateTimePickerWeek";
+            dateTimePickerWeek.Size = new Size(160, 30);
+            dateTimePickerWeek.TabIndex = 2;
+            dateTimePickerWeek.ValueChanged += dateTimePickerWeek_ValueChanged;
+            //
+            // buttonNextWeek
+            //
+            buttonNextWeek.Location = new Point(228, 8);
+            buttonNextWeek.Name = "buttonNextWeek";
+            buttonNextWeek.Size = new Size(50, 34);
+            buttonNextWeek.TabIndex = 3;
+            buttonNextWeek.Text = "▶";
+            buttonNextWeek.UseVisualStyleBackColor = true;
+            buttonNextWeek.Click += buttonNextWeek_Click;
+            //
+            // labelWeek
+            //
+            labelWeek.AutoSize = true;
+            labelWeek.Location = new Point(294, 14);
+            labelWeek.Name = "labelWeek";
+            labelWeek.Size = new Size(76, 23);
+            labelWeek.TabIndex = 4;
+            labelWeek.Text = "Тиждень";
             // 
             // Trainings
             // 
@@ -408,10 +509,7 @@
             Controls.Add(groupBox2_sportRozrad);
             Controls.Add(toolStrip1);
             Controls.Add(menuStrip1);
-            Controls.Add(dataGridView2);
-            Controls.Add(label1);
-            Controls.Add(label2);
-            Controls.Add(dataGridView1);
+            Controls.Add(tabControl1);
             Name = "Trainings";
             Text = "Гавронський Валерій Пі-241";
             Load += Trainings_Load;
@@ -426,6 +524,12 @@
             statusStrip2.ResumeLayout(false);
             statusStrip2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+            tabControl1.ResumeLayout(false);
+            tabPage1.ResumeLayout(false);
+            tabPage1.PerformLayout();
+            tabPage2.ResumeLayout(false);
+            tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewSchedule).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -470,5 +574,13 @@
         private ToolStripMenuItem даніПроТренуванняToolStripMenuItem;
         private StatusStrip statusStrip2;
         private ToolStripStatusLabel toolStripStatusLabel1;
+        private TabControl tabControl1;
+        private TabPage tabPage1;
+        private TabPage tabPage2;
+        private DataGridView dataGridViewSchedule;
+        private Button buttonPrevWeek;
+        private Button buttonNextWeek;
+        private DateTimePicker dateTimePickerWeek;
+        private Label labelWeek;
     }
 }

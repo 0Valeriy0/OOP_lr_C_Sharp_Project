@@ -21,6 +21,8 @@ namespace lr_1_zd_3.Forms
             currentSportsman = sportsman;
 
         }
+        public event EventHandler MedicalCardSaved;
+
         private void MedicalForm_Load(object sender, EventArgs e)
         {
             comboBox1_bloodGroup.Items.AddRange(new object[] { "O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-" });
@@ -41,6 +43,9 @@ namespace lr_1_zd_3.Forms
                 currentSportsman.MedicalCard.BloodGroup = comboBox1_bloodGroup.Text;
                 currentSportsman.MedicalCard.HasAccessToCompete = checkBox1.Checked;
                 currentSportsman.MedicalCard.InspectationDate = dateTimePicker1.Value;
+
+                MedicalCardSaved?.Invoke(this, EventArgs.Empty);
+
                 MessageBox.Show("Дані медичної карти успішно збережено!", "Успіх", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.DialogResult = DialogResult.OK;
                 this.Close();
