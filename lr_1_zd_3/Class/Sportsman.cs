@@ -47,25 +47,6 @@ namespace lr_1_zd_3.Class
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         private Coach[] coaches = new Coach[100];
         private DateTime[] trainingDates = new DateTime[100];
         private int bookingsCount = 0;
@@ -111,6 +92,23 @@ namespace lr_1_zd_3.Class
             bookingsCount++;
 
             return true;
+        }
+        public void CancelTraining(Coach coach, DateTime date)
+        {
+            for (int i = 0; i < bookingsCount; i++)
+            {
+                if (coaches[i] == coach && trainingDates[i] == date)
+                {
+                    // Зсуваємо наступні записи на місце видаленого
+                    for (int j = i; j < bookingsCount - 1; j++)
+                    {
+                        coaches[j] = coaches[j + 1];
+                        trainingDates[j] = trainingDates[j + 1];
+                    }
+                    bookingsCount--;
+                    return;
+                }
+            }
         }
         public override void ShowInfo()
         {

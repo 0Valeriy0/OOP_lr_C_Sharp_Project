@@ -3,6 +3,8 @@ using System.Text;
 
 namespace lr_1_zd_3.Class
 {
+    // 1. Делегат задає сигнатуру обробників
+    internal delegate void MembersChangedDelegate(SportGroup group, string message);
     internal class SportGroup
     {
         public string GroupName { get; set; }      
@@ -19,6 +21,16 @@ namespace lr_1_zd_3.Class
 
         public Sportsman[] Members => members;
         public int MembersCount => membersCount;
+
+        // 2. Події — поля класу-джерела
+        public event MembersChangedDelegate MembersChanged;
+        public event EventHandler GroupFilled;
+        // 3. Метод, який створює подію
+        private void CreateMembersChangedEvent(string message)
+        {
+            MembersChanged?.Invoke(this, message);
+            if (membersCount == MaxMembers) GroupFilled?.Invoke(this, EventArgs.Empty);
+        }
 
         public SportGroup()
         {
@@ -58,6 +70,7 @@ namespace lr_1_zd_3.Class
 
             members[membersCount] = sportsman;
             membersCount++;
+            CreateMembersChangedEvent($"До групи '{GroupName}' додано: {sportsman.Surname} {sportsman.Name}");
             return true;
         }
 
@@ -71,6 +84,7 @@ namespace lr_1_zd_3.Class
             }
             members[membersCount - 1] = null!;
             membersCount--;
+            CreateMembersChangedEvent($"З групи '{GroupName}' видалено спортсмена за індексом {index}");
             return true;
         }
 

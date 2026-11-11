@@ -265,6 +265,7 @@ namespace lr_1_zd_3
                 DialogResult res = MessageBox.Show("Ви дійсно хочете скасувати це тренування?", "Підтвердження", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (res == DialogResult.Yes)
                 {
+                    bookedSportsmen[index].CancelTraining(bookedCoaches[index], bookingDates[index]);
                     for (int i = index; i < bookingsCount - 1; i++)
                     {
                         bookedSportsmen[i] = bookedSportsmen[i + 1];

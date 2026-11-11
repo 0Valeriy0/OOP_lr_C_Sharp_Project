@@ -18,11 +18,19 @@ namespace lr_1_zd_3.Forms
         // 3. Колекція доступних спортсменів для додавання в групи
         private Sportsman[] availableSportsmen = new Sportsman[100];
         private int sportsmenCount = 0;
-
         public FormGroups()
         {
             InitializeComponent();
         }
+        // 4. Методи-обробники
+        private void OnMembersChanged_Grid(SportGroup group, string message) { 
+            RefreshGroupsGrid();
+        }
+        private void OnMembersChanged_Status(SportGroup group, string message)
+        {
+            toolStripStatusLabel1.Text = message;
+        }
+
 
         private void FormGroups_Load(object sender, EventArgs e)
         {
@@ -79,7 +87,16 @@ namespace lr_1_zd_3.Forms
             dataGridView_Members.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView_Members.MultiSelect = false;
         }
-
+        // 5. Реєстрація обробників події
+        private void SubscribeToGroup(SportGroup group)
+        {
+            group.MembersChanged += new MembersChangedDelegate(OnMembersChanged_Grid);
+            group.MembersChanged += new MembersChangedDelegate(OnMembersChanged_Status);
+            group.GroupFilled += delegate (object sender, EventArgs e)
+            {
+                MessageBox.Show("Група заповнена, вільних місць немає!", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            };
+        }
         // --- ОНОВЛЕННЯ ТАБЛИЦЬ ---
 
         private void RefreshGroupsGrid()
@@ -235,7 +252,7 @@ namespace lr_1_zd_3.Forms
             {
                 groups[groupsCount].CuratorCoach = null;
             }
-
+            SubscribeToGroup(groups[groupsCount]);
             groupsCount++;
 
             RefreshGroupsGrid();
@@ -272,13 +289,14 @@ namespace lr_1_zd_3.Forms
             if (res != DialogResult.Yes) return;
 
             string deletedName = groups[index].GroupName;
-
+            groups[index].MembersChanged -= new MembersChangedDelegate(OnMembersChanged_Grid);
+            groups[index].MembersChanged -= new MembersChangedDelegate(OnMembersChanged_Status);
             for (int i = index; i < groupsCount - 1; i++)
             {
                 groups[i] = groups[i + 1];
             }
             groups[groupsCount - 1] = null!;
-            groupsCount--;
+              groupsCount--;
 
             RefreshGroupsGrid();
             toolStripStatusLabel1.Text = $"Групу '{deletedName}' успішно видалено!";
@@ -578,7 +596,7 @@ namespace lr_1_zd_3.Forms
                             }
                         }
                     }
-
+                    SubscribeToGroup(groups[groupsCount]);
                     groupsCount++;
                 }
             }
