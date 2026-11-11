@@ -158,24 +158,24 @@ namespace lr_1_zd_3
                 return;
             }
 
-            // Без медичного допуску тренування не створюємо
-            try
-            {
-                CheckMedicalCard(currentSportsman);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Медичне застереження", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
             ITrainingBooking bookingService = currentSportsman;
-
+            for (int i = 0; i < bookingsCount; i++)
+            {
+                if (bookedSportsmen[i].Surname == currentSportsman.Surname &&
+                    bookedSportsmen[i].Name == currentSportsman.Name &&
+                    bookedCoaches[i].Surname == currentCoach.Surname &&
+                    bookedCoaches[i].Name == currentCoach.Name &&
+                    bookingDates[i].Date == selectedDate.Date)
+                {
+                    MessageBox.Show("Цей спортсмен уже записаний до цього тренера на цей день!", "Повторний запис", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
             if (!bookingService.SignUpForTraining(currentCoach, selectedDate))
             {
                 MessageBox.Show(
                     "Неможливо записати спортсмена!\n" +
-                    "Перевірте: чи збігається вид спорту тренера і спортсмена, чи дата не в минулому, та чи немає повторного запису.",
+                    "Перевірте: чи збігається вид спорту тренера і спортсмена та чи дата не в минулому.",
                     "Помилка запису",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
@@ -206,6 +206,7 @@ namespace lr_1_zd_3
                 catch(Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Медичне застереження", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
 
             }
@@ -265,7 +266,6 @@ namespace lr_1_zd_3
                 DialogResult res = MessageBox.Show("Ви дійсно хочете скасувати це тренування?", "Підтвердження", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (res == DialogResult.Yes)
                 {
-                    bookedSportsmen[index].CancelTraining(bookedCoaches[index], bookingDates[index]);
                     for (int i = index; i < bookingsCount - 1; i++)
                     {
                         bookedSportsmen[i] = bookedSportsmen[i + 1];

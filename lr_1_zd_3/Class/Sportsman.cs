@@ -46,11 +46,6 @@ namespace lr_1_zd_3.Class
             return string.Compare(sportsman1.Name, sportsman2.Name) < 0;
         }
 
-
-        private Coach[] coaches = new Coach[100];
-        private DateTime[] trainingDates = new DateTime[100];
-        private int bookingsCount = 0;
-
         public bool SignUpForTraining(Coach coach, DateTime date)
         {
             if (coach == null)
@@ -70,45 +65,7 @@ namespace lr_1_zd_3.Class
                 return false;
             }
 
-            // Перевіряємо повторний запис
-            for (int i = 0; i < bookingsCount; i++)
-            {
-                if (coaches[i] == coach &&
-                    trainingDates[i].Date == date.Date)
-                {
-                    return false;
-                }
-            }
-
-            // Перевіряємо вільне місце в масиві
-            if (bookingsCount >= coaches.Length)
-            {
-                return false;
-            }
-
-            // Зберігаємо запис
-            coaches[bookingsCount] = coach;
-            trainingDates[bookingsCount] = date;
-            bookingsCount++;
-
             return true;
-        }
-        public void CancelTraining(Coach coach, DateTime date)
-        {
-            for (int i = 0; i < bookingsCount; i++)
-            {
-                if (coaches[i] == coach && trainingDates[i] == date)
-                {
-                    // Зсуваємо наступні записи на місце видаленого
-                    for (int j = i; j < bookingsCount - 1; j++)
-                    {
-                        coaches[j] = coaches[j + 1];
-                        trainingDates[j] = trainingDates[j + 1];
-                    }
-                    bookingsCount--;
-                    return;
-                }
-            }
         }
         public override void ShowInfo()
         {
