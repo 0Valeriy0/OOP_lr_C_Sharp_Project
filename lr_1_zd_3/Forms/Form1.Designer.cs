@@ -33,8 +33,8 @@
             менюToolStripMenuItem = new ToolStripMenuItem();
             спортсмениToolStripMenuItem = new ToolStripMenuItem();
             тренериToolStripMenuItem = new ToolStripMenuItem();
-            групиToolStripMenuItem = new ToolStripMenuItem();
             тренуванняToolStripMenuItem = new ToolStripMenuItem();
+            групиToolStripMenuItem = new ToolStripMenuItem();
             змаганняToolStripMenuItem = new ToolStripMenuItem();
             результатиToolStripMenuItem = new ToolStripMenuItem();
             вихідToolStripMenuItem = new ToolStripMenuItem();
@@ -82,6 +82,13 @@
             toolStripLabel1 = new ToolStripLabel();
             openFileDialog1 = new OpenFileDialog();
             saveFileDialog1 = new SaveFileDialog();
+            checkBox1 = new CheckBox();
+            comboBox1_bloodGroup = new ComboBox();
+            dateTimePicker1 = new DateTimePicker();
+            label11 = new Label();
+            label12 = new Label();
+            label13 = new Label();
+            label14 = new Label();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1_Input).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2_Output).BeginInit();
@@ -112,47 +119,47 @@
             // спортсмениToolStripMenuItem
             // 
             спортсмениToolStripMenuItem.Name = "спортсмениToolStripMenuItem";
-            спортсмениToolStripMenuItem.Size = new Size(224, 28);
+            спортсмениToolStripMenuItem.Size = new Size(191, 28);
             спортсмениToolStripMenuItem.Text = "Спортсмени";
             спортсмениToolStripMenuItem.Click += спортсмениToolStripMenuItem_Click;
             // 
             // тренериToolStripMenuItem
             // 
             тренериToolStripMenuItem.Name = "тренериToolStripMenuItem";
-            тренериToolStripMenuItem.Size = new Size(224, 28);
+            тренериToolStripMenuItem.Size = new Size(191, 28);
             тренериToolStripMenuItem.Text = "Тренери";
             тренериToolStripMenuItem.Click += тренериToolStripMenuItem_Click;
-            // 
-            // групиToolStripMenuItem
-            // 
-            групиToolStripMenuItem.Name = "групиToolStripMenuItem";
-            групиToolStripMenuItem.Size = new Size(224, 28);
-            групиToolStripMenuItem.Text = "Групи";
-            групиToolStripMenuItem.Click += групиToolStripMenuItem_Click;
             // 
             // тренуванняToolStripMenuItem
             // 
             тренуванняToolStripMenuItem.Name = "тренуванняToolStripMenuItem";
-            тренуванняToolStripMenuItem.Size = new Size(224, 28);
+            тренуванняToolStripMenuItem.Size = new Size(191, 28);
             тренуванняToolStripMenuItem.Text = "Тренування";
             тренуванняToolStripMenuItem.Click += тренуванняToolStripMenuItem_Click;
+            // 
+            // групиToolStripMenuItem
+            // 
+            групиToolStripMenuItem.Name = "групиToolStripMenuItem";
+            групиToolStripMenuItem.Size = new Size(191, 28);
+            групиToolStripMenuItem.Text = "Групи";
+            групиToolStripMenuItem.Click += групиToolStripMenuItem_Click;
             // 
             // змаганняToolStripMenuItem
             // 
             змаганняToolStripMenuItem.Name = "змаганняToolStripMenuItem";
-            змаганняToolStripMenuItem.Size = new Size(224, 28);
+            змаганняToolStripMenuItem.Size = new Size(191, 28);
             змаганняToolStripMenuItem.Text = "Змагання";
             // 
             // результатиToolStripMenuItem
             // 
             результатиToolStripMenuItem.Name = "результатиToolStripMenuItem";
-            результатиToolStripMenuItem.Size = new Size(224, 28);
+            результатиToolStripMenuItem.Size = new Size(191, 28);
             результатиToolStripMenuItem.Text = "Результати";
             // 
             // вихідToolStripMenuItem
             // 
             вихідToolStripMenuItem.Name = "вихідToolStripMenuItem";
-            вихідToolStripMenuItem.Size = new Size(224, 28);
+            вихідToolStripMenuItem.Size = new Size(191, 28);
             вихідToolStripMenuItem.Text = "Вихід";
             вихідToolStripMenuItem.Click += вихідToolStripMenuItem_Click;
             // 
@@ -235,7 +242,7 @@
             // 
             розрядToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem2, toolStripMenuItem3 });
             розрядToolStripMenuItem.Name = "розрядToolStripMenuItem";
-            розрядToolStripMenuItem.Size = new Size(210, 28);
+            розрядToolStripMenuItem.Size = new Size(224, 28);
             розрядToolStripMenuItem.Text = "Призове місце";
             // 
             // toolStripMenuItem2
@@ -310,6 +317,13 @@
             // 
             // groupBox2_sportRozrad
             // 
+            groupBox2_sportRozrad.Controls.Add(label14);
+            groupBox2_sportRozrad.Controls.Add(checkBox1);
+            groupBox2_sportRozrad.Controls.Add(comboBox1_bloodGroup);
+            groupBox2_sportRozrad.Controls.Add(dateTimePicker1);
+            groupBox2_sportRozrad.Controls.Add(label11);
+            groupBox2_sportRozrad.Controls.Add(label12);
+            groupBox2_sportRozrad.Controls.Add(label13);
             groupBox2_sportRozrad.Controls.Add(numericUpDown1_amountOfMedals);
             groupBox2_sportRozrad.Controls.Add(label4);
             groupBox2_sportRozrad.Controls.Add(dateTimePicker1_sportsmenBirthday);
@@ -325,9 +339,9 @@
             groupBox2_sportRozrad.Controls.Add(label5);
             groupBox2_sportRozrad.Controls.Add(label3);
             groupBox2_sportRozrad.Controls.Add(comboBox1_sportSelect);
-            groupBox2_sportRozrad.Location = new Point(12, 89);
+            groupBox2_sportRozrad.Location = new Point(12, 61);
             groupBox2_sportRozrad.Name = "groupBox2_sportRozrad";
-            groupBox2_sportRozrad.Size = new Size(693, 649);
+            groupBox2_sportRozrad.Size = new Size(693, 690);
             groupBox2_sportRozrad.TabIndex = 12;
             groupBox2_sportRozrad.TabStop = false;
             groupBox2_sportRozrad.Text = "Панель редагування даних";
@@ -335,9 +349,9 @@
             // numericUpDown1_amountOfMedals
             // 
             numericUpDown1_amountOfMedals.Font = new Font("Segoe UI", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            numericUpDown1_amountOfMedals.Location = new Point(264, 434);
+            numericUpDown1_amountOfMedals.Location = new Point(242, 434);
             numericUpDown1_amountOfMedals.Name = "numericUpDown1_amountOfMedals";
-            numericUpDown1_amountOfMedals.Size = new Size(235, 37);
+            numericUpDown1_amountOfMedals.Size = new Size(257, 37);
             numericUpDown1_amountOfMedals.TabIndex = 40;
             // 
             // label4
@@ -357,7 +371,7 @@
             dateTimePicker1_sportsmenBirthday.MaxDate = new DateTime(2026, 1, 2, 0, 0, 0, 0);
             dateTimePicker1_sportsmenBirthday.MinDate = new DateTime(1950, 12, 30, 0, 0, 0, 0);
             dateTimePicker1_sportsmenBirthday.Name = "dateTimePicker1_sportsmenBirthday";
-            dateTimePicker1_sportsmenBirthday.Size = new Size(257, 38);
+            dateTimePicker1_sportsmenBirthday.Size = new Size(390, 38);
             dateTimePicker1_sportsmenBirthday.TabIndex = 38;
             dateTimePicker1_sportsmenBirthday.Value = new DateTime(2026, 1, 2, 0, 0, 0, 0);
             // 
@@ -532,6 +546,79 @@
             // 
             openFileDialog1.FileName = "openFileDialog1";
             // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 204);
+            checkBox1.Location = new Point(481, 597);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(18, 17);
+            checkBox1.TabIndex = 72;
+            checkBox1.UseVisualStyleBackColor = true;
+            checkBox1.CheckedChanged += checkBox1_CheckedChanged;
+            // 
+            // comboBox1_bloodGroup
+            // 
+            comboBox1_bloodGroup.Font = new Font("Segoe UI", 13.8F);
+            comboBox1_bloodGroup.FormattingEnabled = true;
+            comboBox1_bloodGroup.Location = new Point(242, 530);
+            comboBox1_bloodGroup.Name = "comboBox1_bloodGroup";
+            comboBox1_bloodGroup.Size = new Size(257, 39);
+            comboBox1_bloodGroup.TabIndex = 71;
+            comboBox1_bloodGroup.SelectedIndexChanged += comboBox1_bloodGroup_SelectedIndexChanged;
+            // 
+            // dateTimePicker1
+            // 
+            dateTimePicker1.Font = new Font("Segoe UI", 13.8F);
+            dateTimePicker1.Location = new Point(239, 644);
+            dateTimePicker1.MaxDate = new DateTime(2026, 10, 19, 0, 0, 0, 0);
+            dateTimePicker1.MinDate = new DateTime(2020, 2, 1, 0, 0, 0, 0);
+            dateTimePicker1.Name = "dateTimePicker1";
+            dateTimePicker1.Size = new Size(393, 38);
+            dateTimePicker1.TabIndex = 70;
+            dateTimePicker1.Value = new DateTime(2026, 10, 19, 0, 0, 0, 0);
+            dateTimePicker1.ValueChanged += dateTimePicker1_ValueChanged;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Font = new Font("Segoe UI", 13.8F);
+            label11.Location = new Point(38, 538);
+            label11.Name = "label11";
+            label11.Size = new Size(142, 31);
+            label11.TabIndex = 69;
+            label11.Text = "Група крові:";
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Font = new Font("Segoe UI", 13.8F);
+            label12.Location = new Point(38, 594);
+            label12.Name = "label12";
+            label12.Size = new Size(216, 31);
+            label12.TabIndex = 68;
+            label12.Text = "Допуск до змагань:";
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Font = new Font("Segoe UI", 13.8F);
+            label13.Location = new Point(38, 650);
+            label13.Name = "label13";
+            label13.Size = new Size(201, 31);
+            label13.TabIndex = 67;
+            label13.Text = "Дата проведення:";
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Font = new Font("Segoe UI", 13.8F);
+            label14.Location = new Point(187, 483);
+            label14.Name = "label14";
+            label14.Size = new Size(175, 31);
+            label14.TabIndex = 73;
+            label14.Text = "Медична карта";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -619,5 +706,12 @@
         private ToolStripMenuItem заІменемПеревантаженняОператорівToolStripMenuItem;
         private ToolStripButton toolStripButton4;
         private ToolStripLabel toolStripLabel1;
+        private CheckBox checkBox1;
+        private ComboBox comboBox1_bloodGroup;
+        private DateTimePicker dateTimePicker1;
+        private Label label11;
+        private Label label12;
+        private Label label13;
+        private Label label14;
     }
 }

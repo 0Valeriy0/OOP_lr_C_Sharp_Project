@@ -15,7 +15,7 @@ namespace lr_1_zd_3
         private int sportsmenCount = 0;
         private void Form1_Load(object sender, EventArgs e)
         {
-            ;
+            
             comboBox1_sportSelect.Items.Add("Веслування");
             comboBox1_sportSelect.Items.Add("Велоспорт");
             comboBox2.Items.Add("Без розряду");
@@ -27,6 +27,7 @@ namespace lr_1_zd_3
             comboBox1_sportSelect.SelectedIndex = 0;
             comboBox2.SelectedIndex = 0;
             toolStripStatusLabel1.Text = "Готово";
+            comboBox1_bloodGroup.Items.AddRange(new object[] { "O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-" });
         }
         private void CreateInputGrid()
         {
@@ -39,6 +40,9 @@ namespace lr_1_zd_3
             dataGridView1_Input.Columns.Add("SportRank", "Спортивний розряд");
             dataGridView1_Input.Columns.Add("BirthDate", "Дата народження");
             dataGridView1_Input.Columns.Add("PrizePlaces", "Кількість призових місць");
+            dataGridView1_Input.Columns.Add("BloodGroup", "Група крові");
+            dataGridView1_Input.Columns.Add("HasAccess", "Допуск до змагань");
+            dataGridView1_Input.Columns.Add("InspectDate", "Дата медогляду");
 
             dataGridView1_Input.AutoSizeColumnsMode =
                 DataGridViewAutoSizeColumnsMode.Fill;
@@ -56,6 +60,9 @@ namespace lr_1_zd_3
             dataGridView2_Output.Columns.Add("SportRank", "Спортивний розряд");
             dataGridView2_Output.Columns.Add("BirthDate", "Дата народження");
             dataGridView2_Output.Columns.Add("PrizePlaces", "Кількість призових місць");
+            dataGridView2_Output.Columns.Add("BloodGroup", "Група крові");
+            dataGridView2_Output.Columns.Add("HasAccess", "Допуск до змагань");
+            dataGridView2_Output.Columns.Add("InspectDate", "Дата медогляду");
 
 
             dataGridView2_Output.AutoSizeColumnsMode =
@@ -87,7 +94,10 @@ namespace lr_1_zd_3
                     sportsmen[i].Sport,
                     sportsmen[i].SportRank,
                     sportsmen[i].BirthDate,
-                    sportsmen[i].PrizePlaces
+                    sportsmen[i].PrizePlaces,
+                    sportsmen[i].MedicalCard.BloodGroup,
+                    sportsmen[i].MedicalCard.HasAccessToCompete ? "Допущено" : "Не допущено",
+                    sportsmen[i].MedicalCard.InspectationDate.ToShortDateString()
                 );
             }
 
@@ -119,7 +129,11 @@ namespace lr_1_zd_3
                     sportsmen[i].Sport,
                     sportsmen[i].SportRank,
                     sportsmen[i].BirthDate,
-                    sportsmen[i].PrizePlaces
+                    sportsmen[i].PrizePlaces,
+                    sportsmen[i].MedicalCard.BloodGroup,
+                    sportsmen[i].MedicalCard.HasAccessToCompete ? "Допущено" : "Не допущено",
+                    sportsmen[i].MedicalCard.InspectationDate.ToShortDateString()
+
                 );
             }
         }
@@ -133,6 +147,10 @@ namespace lr_1_zd_3
             comboBox1_sportSelect.SelectedIndex = 0;
             comboBox2.SelectedIndex = 0;
             numericUpDown1_amountOfMedals.Value = 0;
+
+            comboBox1_bloodGroup.SelectedIndex = 0;
+            checkBox1.Checked = false;
+            dateTimePicker1.Value = DateTime.Today;
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)
@@ -171,21 +189,12 @@ namespace lr_1_zd_3
             sportsmen[sportsmenCount].SportRank = comboBox2.Text;
             sportsmen[sportsmenCount].BirthDate = dateTimePicker1_sportsmenBirthday.Value;
             sportsmen[sportsmenCount].PrizePlaces = (int)numericUpDown1_amountOfMedals.Value;
+
+            sportsmen[sportsmenCount].MedicalCard.BloodGroup = comboBox1_bloodGroup.Text;
+            sportsmen[sportsmenCount].MedicalCard.HasAccessToCompete = checkBox1.Checked;
+            sportsmen[sportsmenCount].MedicalCard.InspectationDate = dateTimePicker1.Value;
             sportsmenCount++;
             RefreshInputGrid();
-
-
-
-            /*
-                            textBox_inputNameSportsmen.Text,
-                            textBox_inputSurnameSportsmen.Text,
-                            textBox_inputPobatkoviSportsmen.Text,
-                            comboBox1_sportSelect.Text,
-                            comboBox2.Text,
-                            dateTimePicker1_sportsmenBirthday.Value,
-                            (int)numericUpDown1_amountOfMedals.Value
-                        );*/
-
             ClearInputFields();
             toolStripStatusLabel1.Text =
                 "Спортсмен успішно доданий";
@@ -292,6 +301,15 @@ namespace lr_1_zd_3
                 case 7: // Кількість призових місць
                     sportsman.PrizePlaces =
                         (int)numericUpDown1_amountOfMedals.Value;
+                    break;
+                case 8: // Група крові
+                    sportsman.MedicalCard.BloodGroup = comboBox1_bloodGroup.Text;
+                    break;
+                case 9: // Допуск до змагань
+                    sportsman.MedicalCard.HasAccessToCompete = checkBox1.Checked;
+                    break;
+                case 10: // Дата медогляду
+                    sportsman.MedicalCard.InspectationDate = dateTimePicker1.Value;
                     break;
 
                 case 0: // Індекс
@@ -443,7 +461,10 @@ namespace lr_1_zd_3
                     sportsman.Sport,
                     sportsman.SportRank,
                     sportsman.BirthDate,
-                    sportsman.PrizePlaces
+                    sportsman.PrizePlaces,
+                    sportsman.MedicalCard.BloodGroup,
+                    sportsman.MedicalCard.HasAccessToCompete ? "Допущено" : "Не допущено",
+                    sportsman.MedicalCard.InspectationDate.ToShortDateString()
                 );
             }
         }
@@ -574,6 +595,21 @@ namespace lr_1_zd_3
         private void вихідToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void comboBox1_bloodGroup_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

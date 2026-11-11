@@ -139,7 +139,7 @@ namespace lr_1_zd_3
                     coaches[i].Pobatkovi,
                     coaches[i].Sport,
                     coaches[i].CoachRank,
-                    coaches[i].BirthDate
+                    coaches[i].BirthDate.ToShortDateString()
                 );
             }
         }

@@ -36,8 +36,8 @@
             менюToolStripMenuItem = new ToolStripMenuItem();
             спортсмениToolStripMenuItem = new ToolStripMenuItem();
             тренериToolStripMenuItem = new ToolStripMenuItem();
-            групиToolStripMenuItem = new ToolStripMenuItem();
             тренуванняToolStripMenuItem = new ToolStripMenuItem();
+            групиToolStripMenuItem = new ToolStripMenuItem();
             змаганняToolStripMenuItem = new ToolStripMenuItem();
             результатиToolStripMenuItem = new ToolStripMenuItem();
             вихідToolStripMenuItem = new ToolStripMenuItem();
@@ -66,6 +66,9 @@
             comboBox1_sportSelect = new ComboBox();
             openFileDialog1 = new OpenFileDialog();
             saveFileDialog1 = new SaveFileDialog();
+            tabControl1 = new TabControl();
+            tabPage1 = new TabPage();
+            tabPage2 = new TabPage();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             menuStrip1.SuspendLayout();
@@ -73,6 +76,7 @@
             groupBox2_sportRozrad.SuspendLayout();
             statusStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+            tabControl1.SuspendLayout();
             SuspendLayout();
             // 
             // dataGridView1
@@ -135,46 +139,46 @@
             // спортсмениToolStripMenuItem
             // 
             спортсмениToolStripMenuItem.Name = "спортсмениToolStripMenuItem";
-            спортсмениToolStripMenuItem.Size = new Size(224, 28);
+            спортсмениToolStripMenuItem.Size = new Size(191, 28);
             спортсмениToolStripMenuItem.Text = "Спортсмени";
             спортсмениToolStripMenuItem.Click += спортсмениToolStripMenuItem_Click;
             // 
             // тренериToolStripMenuItem
             // 
             тренериToolStripMenuItem.Name = "тренериToolStripMenuItem";
-            тренериToolStripMenuItem.Size = new Size(224, 28);
+            тренериToolStripMenuItem.Size = new Size(191, 28);
             тренериToolStripMenuItem.Text = "Тренери";
             тренериToolStripMenuItem.Click += тренериToolStripMenuItem_Click;
-            // 
-            // групиToolStripMenuItem
-            // 
-            групиToolStripMenuItem.Name = "групиToolStripMenuItem";
-            групиToolStripMenuItem.Size = new Size(224, 28);
-            групиToolStripMenuItem.Text = "Групи";
-            групиToolStripMenuItem.Click += групиToolStripMenuItem_Click;
             // 
             // тренуванняToolStripMenuItem
             // 
             тренуванняToolStripMenuItem.Name = "тренуванняToolStripMenuItem";
-            тренуванняToolStripMenuItem.Size = new Size(224, 28);
+            тренуванняToolStripMenuItem.Size = new Size(191, 28);
             тренуванняToolStripMenuItem.Text = "Тренування";
+            // 
+            // групиToolStripMenuItem
+            // 
+            групиToolStripMenuItem.Name = "групиToolStripMenuItem";
+            групиToolStripMenuItem.Size = new Size(191, 28);
+            групиToolStripMenuItem.Text = "Групи";
+            групиToolStripMenuItem.Click += групиToolStripMenuItem_Click;
             // 
             // змаганняToolStripMenuItem
             // 
             змаганняToolStripMenuItem.Name = "змаганняToolStripMenuItem";
-            змаганняToolStripMenuItem.Size = new Size(224, 28);
+            змаганняToolStripMenuItem.Size = new Size(191, 28);
             змаганняToolStripMenuItem.Text = "Змагання";
             // 
             // результатиToolStripMenuItem
             // 
             результатиToolStripMenuItem.Name = "результатиToolStripMenuItem";
-            результатиToolStripMenuItem.Size = new Size(224, 28);
+            результатиToolStripMenuItem.Size = new Size(191, 28);
             результатиToolStripMenuItem.Text = "Результати";
             // 
             // вихідToolStripMenuItem
             // 
             вихідToolStripMenuItem.Name = "вихідToolStripMenuItem";
-            вихідToolStripMenuItem.Size = new Size(224, 28);
+            вихідToolStripMenuItem.Size = new Size(191, 28);
             вихідToolStripMenuItem.Text = "Вихід";
             вихідToolStripMenuItem.Click += вихідToolStripMenuItem_Click;
             // 
@@ -400,11 +404,42 @@
             // 
             openFileDialog1.FileName = "openFileDialog1";
             // 
+            // tabControl1
+            // 
+            tabControl1.Controls.Add(tabPage1);
+            tabControl1.Controls.Add(tabPage2);
+            tabControl1.Location = new Point(0, 0);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new Size(250, 125);
+            tabControl1.TabIndex = 63;
+            // 
+            // tabPage1
+            // 
+            tabPage1.Location = new Point(4, 29);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Padding = new Padding(3);
+            tabPage1.Size = new Size(242, 92);
+            tabPage1.TabIndex = 0;
+            tabPage1.Text = "tabPage1";
+            tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            tabPage2.Location = new Point(4, 29);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Padding = new Padding(3);
+            tabPage2.Size = new Size(242, 92);
+            tabPage2.TabIndex = 1;
+            tabPage2.Text = "tabPage2";
+            tabPage2.UseVisualStyleBackColor = true;
+            // 
             // Trainings
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1924, 780);
+            Controls.Add(tabControl1);
             Controls.Add(groupBox2_sportRozrad);
             Controls.Add(toolStrip1);
             Controls.Add(menuStrip1);
@@ -426,6 +461,7 @@
             statusStrip2.ResumeLayout(false);
             statusStrip2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+            tabControl1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -470,5 +506,8 @@
         private ToolStripMenuItem даніПроТренуванняToolStripMenuItem;
         private StatusStrip statusStrip2;
         private ToolStripStatusLabel toolStripStatusLabel1;
+        private TabControl tabControl1;
+        private TabPage tabPage1;
+        private TabPage tabPage2;
     }
 }
