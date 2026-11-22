@@ -1,7 +1,11 @@
 using lr_1_zd_3.Class;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 using lr_1_zd_3.Forms;
 using lr_1_zd_3.Interface;
-using System.Xml.Linq;
+
+using System.Text.Json;
+
 
 
 
@@ -9,10 +13,16 @@ namespace lr_1_zd_3
 {
     public partial class Form1 : Form
     {
+        // Налаштування JSON: відступи для читабельності, кирилиця без \u-кодів
+        private static readonly JsonSerializerOptions jsonOptions = new JsonSerializerOptions
+        {
+            WriteIndented = true,
+            Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
+        };
 
-
-        private Sportsman[] sportsmen = new Sportsman[100];
-        private int sportsmenCount = 0;
+        // private Sportsman[] sportsmen = new Sportsman[100];
+        private List<Sportsman> sportsmen = new List<Sportsman>();
+        //private int sportsmenCount = 0;
         //Делегат на метод класу
 
         delegate void StatusUpdateDelegate(string message);
@@ -86,7 +96,7 @@ namespace lr_1_zd_3
         }
         private void RefreshInputGrid()
         {
-            if (sportsmenCount == 0)
+            if (sportsmen.Count == 0)
             {
                 dataGridView1_Input.Columns.Clear();
                 return;
@@ -96,7 +106,7 @@ namespace lr_1_zd_3
                 CreateInputGrid();
             }
             dataGridView1_Input.Rows.Clear();
-            for (int i = 0; i < sportsmenCount; i++)
+            for (int i = 0; i < sportsmen.Count; i++)
             {
 
                 dataGridView1_Input.Rows.Add(
@@ -114,13 +124,13 @@ namespace lr_1_zd_3
                 );
             }
 
-            setStatus($"Кількість спортсменів: {sportsmenCount}");
+            setStatus($"Кількість спортсменів: {sportsmen.Count}");
         }
         private void RefreshOutputGrid()
         {
             dataGridView2_Output.Rows.Clear();
 
-            if (sportsmenCount == 0)
+            if (sportsmen.Count == 0)
             {
                 dataGridView2_Output.Columns.Clear();
                 return;
@@ -131,7 +141,7 @@ namespace lr_1_zd_3
                 CreateOutputGrid();
             }
 
-            for (int i = 0; i < sportsmenCount; i++)
+            for (int i = 0; i < sportsmen.Count; i++)
             {
 
                 dataGridView2_Output.Rows.Add(
@@ -178,8 +188,8 @@ namespace lr_1_zd_3
 
                 return;
             }
-            // Перевірка кількості
-            if (sportsmenCount >= sportsmen.Length)
+         /*   // Перевірка кількості
+            if (sportsmenCount >= sportsmen.Count)
             {
                 MessageBox.Show(
                     "Досягнуто максимальну кількість спортсменів!",
@@ -188,7 +198,7 @@ namespace lr_1_zd_3
                     MessageBoxIcon.Warning);
 
                 return;
-            }
+            }*/
 
             void Myfunc(string s)
             {
@@ -199,19 +209,23 @@ namespace lr_1_zd_3
 
 
 
-            sportsmen[sportsmenCount] = new Sportsman();
+            sportsmen.Add(new Sportsman {
+                Name = textBox_inputNameSportsmen.Text,
+                Surname = textBox_inputSurnameSportsmen.Text,
+                Pobatkovi = textBox_inputPobatkoviSportsmen.Text,
+                Sport = comboBox1_sportSelect.Text,
+                SportRank = comboBox2.Text,
+                BirthDate = dateTimePicker1_sportsmenBirthday.Value,
+                PrizePlaces = (int)numericUpDown1_amountOfMedals.Value,
+                MedicalCard = new MedicalCard
+                {
+                    BloodGroup = comboBox_bloodGroup.Text,
+                    HasAccessToCompete = checkBox_medAccess.Checked,
+                    InspectationDate = dateTimePicker_medInspection.Value
+                }
+            });
 
-            sportsmen[sportsmenCount].Name = textBox_inputNameSportsmen.Text;
-            sportsmen[sportsmenCount].Surname = textBox_inputSurnameSportsmen.Text;
-            sportsmen[sportsmenCount].Pobatkovi = textBox_inputPobatkoviSportsmen.Text;
-            sportsmen[sportsmenCount].Sport = comboBox1_sportSelect.Text;
-            sportsmen[sportsmenCount].SportRank = comboBox2.Text;
-            sportsmen[sportsmenCount].BirthDate = dateTimePicker1_sportsmenBirthday.Value;
-            sportsmen[sportsmenCount].PrizePlaces = (int)numericUpDown1_amountOfMedals.Value;
-            sportsmen[sportsmenCount].MedicalCard.BloodGroup = comboBox_bloodGroup.Text;
-            sportsmen[sportsmenCount].MedicalCard.HasAccessToCompete = checkBox_medAccess.Checked;
-            sportsmen[sportsmenCount].MedicalCard.InspectationDate = dateTimePicker_medInspection.Value;
-            sportsmenCount++;
+
             RefreshInputGrid();
 
             ClearInputFields();
@@ -238,7 +252,7 @@ namespace lr_1_zd_3
 
             int index = dataGridView1_Input.CurrentRow.Index;
 
-            if (index >= 0 && index < sportsmenCount)
+            if (index >= 0 && index < sportsmen.Count)
             {
                 DialogResult result = MessageBox.Show(
                     "Ви дійсно хочете видалити цього спортсмена?",
@@ -249,13 +263,15 @@ namespace lr_1_zd_3
                 if (result == DialogResult.Yes)
                 {
                     // Зсуваємо всі наступні елементи на одну позицію вліво
-                    for (int i = index; i < sportsmenCount - 1; i++)
+   /*                 for (int i = index; i < sportsmenCount - 1; i++)
                     {
                         sportsmen[i] = sportsmen[i + 1];
                     }
 
-                    sportsmen[sportsmenCount - 1] = null;
-                    sportsmenCount--;
+                    sportsmen[sportsmenCount - 1] = null;*/
+
+                    sportsmen.RemoveAt(index);
+         
 
                     RefreshInputGrid();
 
@@ -271,7 +287,7 @@ namespace lr_1_zd_3
 
             int rowIndex = dataGridView1_Input.CurrentCell.RowIndex;
             int columnIndex = dataGridView1_Input.CurrentCell.ColumnIndex;
-            if (rowIndex < 0 || rowIndex >= sportsmenCount)
+            if (rowIndex < 0 || rowIndex >= sportsmen.Count)
                 return;
 
             Sportsman sportsman = sportsmen[rowIndex];
@@ -351,77 +367,117 @@ namespace lr_1_zd_3
 
         private void записУФайлToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            /*      SaveFileDialog saveDialog = new SaveFileDialog();
+
+                  saveDialog.Filter = "Текстові файли (*.txt)|*.txt|Усі файли (*.*)|*.*";
+                  saveDialog.Title = "Зберегти дані спортсменів";
+
+                  if (saveDialog.ShowDialog() != DialogResult.OK)
+                      return;
+
+                  using (StreamWriter writer = new StreamWriter(saveDialog.FileName))
+                  {
+                      for (int i = 0; i < sportsmen.Count; i++)
+                      {
+
+
+                          writer.WriteLine(
+                              $"{sportsmen[i].Surname};" +
+                              $"{sportsmen[i].Name};" +
+                              $"{sportsmen[i].Pobatkovi};" +
+                              $"{sportsmen[i].Sport};" +
+                              $"{sportsmen[i].SportRank};" +
+                              $"{sportsmen[i].BirthDate};" +
+                              $"{sportsmen[i].PrizePlaces};" +
+                              $"{sportsmen[i].MedicalCard.BloodGroup};" +
+                              $"{sportsmen[i].MedicalCard.HasAccessToCompete};" +
+                              $"{sportsmen[i].MedicalCard.InspectationDate:dd.MM.yyyy}"
+                          );
+                      }
+                  }
+
+                  setStatus($"Дані записано у файл '{saveDialog.FileName}'");*/
             SaveFileDialog saveDialog = new SaveFileDialog();
 
-            saveDialog.Filter = "Текстові файли (*.txt)|*.txt|Усі файли (*.*)|*.*";
+            saveDialog.Filter = "JSON-файли (*.json)|*.json|Усі файли (*.*)|*.*";
             saveDialog.Title = "Зберегти дані спортсменів";
+            saveDialog.FileName = "sportsmen.json";
 
             if (saveDialog.ShowDialog() != DialogResult.OK)
                 return;
 
-            using (StreamWriter writer = new StreamWriter(saveDialog.FileName))
+            // Серіалізація: увесь список спортсменів разом із медичними картами одним викликом
+            using (FileStream fs = new FileStream(saveDialog.FileName, FileMode.Create))
             {
-                for (int i = 0; i < sportsmenCount; i++)
-                {
-
-
-                    writer.WriteLine(
-                        $"{sportsmen[i].Surname};" +
-                        $"{sportsmen[i].Name};" +
-                        $"{sportsmen[i].Pobatkovi};" +
-                        $"{sportsmen[i].Sport};" +
-                        $"{sportsmen[i].SportRank};" +
-                        $"{sportsmen[i].BirthDate};" +
-                        $"{sportsmen[i].PrizePlaces};" +
-                        $"{sportsmen[i].MedicalCard.BloodGroup};" +
-                        $"{sportsmen[i].MedicalCard.HasAccessToCompete};" +
-                        $"{sportsmen[i].MedicalCard.InspectationDate:dd.MM.yyyy}"
-                    );
-                }
+                JsonSerializer.Serialize(fs, sportsmen, jsonOptions);
             }
 
-            setStatus($"Дані записано у файл '{saveDialog.FileName}'");
+            setStatus($"Дані серіалізовано у файл '{saveDialog.FileName}'");
         }
 
         private void читанняЗФайлToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog openDialog = new OpenFileDialog();
-            openDialog.Filter = "Текстові файли (*.txt)|*.txt|Усі файли (*.*)|*.*";
+            openDialog.Filter = "JSON-файли (*.json)|*.json|Усі файли (*.*)|*.*";
             openDialog.Title = "Відкрити файл зі спортсменами";
             if (openDialog.ShowDialog() != DialogResult.OK)
                 return;
 
-            sportsmenCount = 0;
-            string[] lines = File.ReadAllLines(openDialog.FileName);
-            foreach (string line in lines)
+            try
             {
-                string[] parts = line.Split(';');
-                if (parts.Length >= 7)
+                // Десеріалізація: відновлюємо список спортсменів разом із медичними картами
+                using (FileStream fs = new FileStream(openDialog.FileName, FileMode.Open))
                 {
-                    Sportsman sportsman = new Sportsman(
-
-                   parts[1],                // Ім'я
-                   parts[0],                // Прізвище
-                   parts[2],                // По батькові
-                   parts[3],                // Вид спорту
-                   parts[4],               // Спортивний розряд
-                   DateTime.Parse(parts[5]),  // Дата народження
-                   int.Parse(parts[6])       // Кількість призових місць
-                   );
-                    if (parts.Length >= 10)
-                    {
-                        sportsman.MedicalCard.BloodGroup = parts[7];
-                        sportsman.MedicalCard.HasAccessToCompete = bool.Parse(parts[8]);
-                        sportsman.MedicalCard.InspectationDate = DateTime.Parse(parts[9]);
-                    }
-                    sportsmen[sportsmenCount] = sportsman;
-                    sportsmenCount++;
+                    List<Sportsman>? loaded = JsonSerializer.Deserialize<List<Sportsman>>(fs, jsonOptions);
+                    sportsmen.Clear();
+                    if (loaded != null) sportsmen.AddRange(loaded);
                 }
+
+                RefreshInputGrid();
+                setStatus($"Дані десеріалізовано з файлу '{openDialog.SafeFileName}'");
+            }
+            catch (JsonException)
+            {
+                MessageBox.Show("Файл не є коректним JSON-файлом зі спортсменами!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            RefreshInputGrid();
+            /*            OpenFileDialog openDialog = new OpenFileDialog();
+                        openDialog.Filter = "Текстові файли (*.txt)|*.txt|Усі файли (*.*)|*.*";
+                        openDialog.Title = "Відкрити файл зі спортсменами";
+                        if (openDialog.ShowDialog() != DialogResult.OK)
+                            return;
 
-            setStatus($"Дані завантажено з файлу '{openDialog.SafeFileName}'");
+                        sportsmen.Clear();
+                        List<string> lines = File.ReadAllLines(openDialog.FileName).ToList();
+                        foreach (string line in lines)
+                        {
+                            string[] parts = line.Split(';');
+                            if (parts.Length >= 7)
+                            {
+                                Sportsman sportsman = new Sportsman(
+
+                               parts[1],                // Ім'я
+                               parts[0],                // Прізвище
+                               parts[2],                // По батькові
+                               parts[3],                // Вид спорту
+                               parts[4],               // Спортивний розряд
+                               DateTime.Parse(parts[5]),  // Дата народження
+                               int.Parse(parts[6])       // Кількість призових місць
+                               );
+                                if (parts.Length >= 10)
+                                {
+                                    sportsman.MedicalCard.BloodGroup = parts[7];
+                                    sportsman.MedicalCard.HasAccessToCompete = bool.Parse(parts[8]);
+                                    sportsman.MedicalCard.InspectationDate = DateTime.Parse(parts[9]);
+                                }
+                                sportsmen.Add(sportsman);
+
+                            }
+                        }
+
+                        RefreshInputGrid();
+
+                        setStatus($"Дані завантажено з файлу '{openDialog.SafeFileName}'");*/
         }
 
         private void очиститиФайлToolStripMenuItem_Click(object sender, EventArgs e)
@@ -453,22 +509,22 @@ namespace lr_1_zd_3
         private void заПрізвищемToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Копіюємо масив, щоб основний залишився в порядку
-            Sportsman[] sorted = new Sportsman[sportsmenCount];
-             for (int i = 0; i < sportsmenCount; i++)
-            {
-                sorted[i] = sportsmen[i];
-            }
+            List<Sportsman> sorted = new List<Sportsman>(sportsmen);
+            /*      for (int i = 0; i < sportsmenCount; i++)
+                 {
+                     sorted[i] = sportsmen[i];
+                 }*/
 
             ISortableBySurname sorter = new Sportsman();
-            sorter.SortBySurname(sorted, sportsmenCount);
+            sorter.SortBySurname(sorted);
 
             ShowSortedSportsmen(sorted);
         }
-        private void ShowSortedSportsmen(Sportsman[] sorted)
+        private void ShowSortedSportsmen(List<Sportsman> sorted)
         {
             dataGridView2_Output.Rows.Clear();
 
-            if (sportsmenCount == 0)
+            if (sportsmen.Count == 0)
             {
                 dataGridView2_Output.Columns.Clear();
                 return;
@@ -478,7 +534,7 @@ namespace lr_1_zd_3
             {
                 CreateOutputGrid();
             }
-            for (int i = 0; i < sportsmenCount; i++)
+            for (int i = 0; i < sportsmen.Count; i++)
             {
                 Sportsman sportsman = sorted[i];
 
@@ -504,7 +560,7 @@ namespace lr_1_zd_3
 
 
             int index = dataGridView1_Input.CurrentRow.Index;
-            if (index >= 0 && index < sportsmenCount)
+            if (index >= 0 && index < sportsmen.Count)
             {
                 sportsmen[index]++;
                 RefreshOutputGrid();
@@ -520,7 +576,7 @@ namespace lr_1_zd_3
 
 
             int index = dataGridView1_Input.CurrentRow.Index;
-            if (index >= 0 && index < sportsmenCount)
+            if (index >= 0 && index < sportsmen.Count)
             {
                 sportsmen[index]--;
                 RefreshOutputGrid();
@@ -546,12 +602,9 @@ namespace lr_1_zd_3
         private void заІменемПеревантаженняОператорівToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Копіюємо масив, щоб основний залишився в порядку
-            Sportsman[] sorted = new Sportsman[sportsmenCount];
-            for (int i = 0; i < sportsmenCount; i++)
-            {
-                sorted[i] = sportsmen[i];
-            }
-
+            List<Sportsman> sorted = new List<Sportsman>(sportsmen);
+            sorted.Sort((x, y) => string.Compare(x.Name, y.Name));
+/*
             for (int i = 0; i < sportsmenCount - 1; i++)
             {
                 for (int j = 0; j < sportsmenCount - i - 1; j++)
@@ -563,7 +616,7 @@ namespace lr_1_zd_3
                         sorted[j + 1] = temp;
                     }
                 }
-            }
+            }*/
 
             ShowSortedSportsmen(sorted);
         }
@@ -600,7 +653,7 @@ namespace lr_1_zd_3
                 return;
             }
             int index = dataGridView1_Input.CurrentRow.Index;
-            if (index >= 0 && index < sportsmenCount)
+            if (index >= 0 && index < sportsmen.Count)
             {
                 sportsmen[index].ShowInfo();
             }
@@ -615,7 +668,7 @@ namespace lr_1_zd_3
                 return;
             }
             int index = dataGridView1_Input.CurrentRow.Index;
-            if (index >= 0 && index < sportsmenCount)
+            if (index >= 0 && index < sportsmen.Count)
             {
                 // Відкриваємо MedicalForm і передаємо туди обраного спортсмена
                 MedicalForm medForm = new MedicalForm(sportsmen[index]);

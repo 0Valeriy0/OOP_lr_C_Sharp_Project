@@ -159,7 +159,7 @@ namespace lr_1_zd_3.Forms
             }
 
             int groupIndex = dataGridView_Groups.CurrentRow.Index;
-            groupBox_Members.Text = $"Склад обраної групи: '{groups[groupIndex].GroupName}' ({groups[groupIndex].MembersCount} з {groups[groupIndex].MaxMembers} осіб)";
+            groupBox_Members.Text = $"Склад обраної групи: '{groups[groupIndex].GroupName}' " + $"({groups[groupIndex].MembersCount} з {groups[groupIndex].MaxMembers} осіб, у черзі: {groups[groupIndex].WaitingList.Count})";
 
             if (groups[groupIndex].MembersCount == 0)
             {
@@ -307,6 +307,56 @@ namespace lr_1_zd_3.Forms
         private void toolStripButton_AddMember_Click(object sender, EventArgs e)
         {
             if (dataGridView_Groups.CurrentRow == null ||
+    dataGridView_Groups.CurrentRow.Index < 0 ||
+    dataGridView_Groups.CurrentRow.Index >= groupsCount)
+            {
+                MessageBox.Show("Оберіть групу в таблиці вище, до якої потрібно додати спортсмена!", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            SportGroup group = groups[dataGridView_Groups.CurrentRow.Index];
+
+            // 1. Визначаємо, кого додаємо: вибраного зі списку або введеного вручну
+            Sportsman sportsman;
+            if (comboBox_Sportsman.SelectedIndex > 0 && (comboBox_Sportsman.SelectedIndex - 1) < sportsmenCount)
+            {
+                sportsman = availableSportsmen[comboBox_Sportsman.SelectedIndex - 1];
+            }
+            else if (!string.IsNullOrWhiteSpace(comboBox_Sportsman.Text) && comboBox_Sportsman.Text != "--- Оберіть зі списку або введіть ПІБ ---")
+            {
+                string[] parts = comboBox_Sportsman.Text.Trim().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                sportsman = new Sportsman
+                {
+                    Surname = parts.Length > 0 ? parts[0] : "Спортсмен",
+                    Name = parts.Length > 1 ? parts[1] : "Новий",
+                    Pobatkovi = parts.Length > 2 ? parts[2] : "",
+                    Sport = group.Sport,
+                    SportRank = "Без розряду",
+                    BirthDate = DateTime.Now.AddYears(-18)
+                };
+            }
+            else
+            {
+                MessageBox.Show("Оберіть спортсмена зі списку або введіть його Прізвище та Ім'я в поле вибору!", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // 2. Група заповнена — пропонуємо поставити в чергу
+            if (group.IsFull)
+            {
+                DialogResult answer = MessageBox.Show(
+                    $"Група '{group.GroupName}' заповнена ({group.MaxMembers} осіб). Додати спортсмена в чергу очікування?",
+                    "Група заповнена", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (answer == DialogResult.Yes && !group.AddToWaitingList(sportsman))
+                    MessageBox.Show("Цей спортсмен уже є в групі або в черзі!", "Повідомлення", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            // 3. Є вільні місця — додаємо в групу
+            if (!group.AddSportsman(sportsman))
+                MessageBox.Show("Цей спортсмен уже є в групі або в черзі!", "Повідомлення", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            /*if (dataGridView_Groups.CurrentRow == null ||
                 dataGridView_Groups.CurrentRow.Index < 0 ||
                 dataGridView_Groups.CurrentRow.Index >= groupsCount)
             {
@@ -361,7 +411,7 @@ namespace lr_1_zd_3.Forms
             else
             {
                 MessageBox.Show("Оберіть спортсмена зі списку або введіть його Прізвище та Ім'я в поле вибору!", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+            }*/
         }
 
         private void toolStripButton_RemoveMember_Click(object sender, EventArgs e)

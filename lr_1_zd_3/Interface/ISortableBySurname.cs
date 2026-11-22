@@ -7,7 +7,7 @@ namespace lr_1_zd_3.Interface
 {
     internal interface ISortableBySurname
     {
-        void SortBySurname(Person[] people, int count);
-
+        // void SortBySurname(List<Person> people);
+        void SortBySurname<T>(List<T> people) where T : Person;
     }
 }

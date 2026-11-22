@@ -25,20 +25,10 @@ namespace lr_1_zd_3.Class
 
 
         }
-        public void SortBySurname(Person[] people, int count)
+        public void SortBySurname<T>(List<T> people) where T : Person
         {
-            for (int i = 0; i < count - 1; i++)
-            {
-                for (int j = 0; j < count - i - 1; j++)
-                {
-                    if (string.Compare(people[j].Surname,  people[j + 1].Surname) > 0)
-                    {
-                        Person temp = people[j];
-                        people[j] = people[j + 1];
-                        people[j + 1] = temp;
-                    }
-                }
-            }
+            people.Sort((x, y) => String.Compare(x.Surname, y.Surname));
+        
         }
         public int CalculateAge()
         {

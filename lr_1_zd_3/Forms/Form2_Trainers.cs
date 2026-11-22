@@ -8,6 +8,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 
 namespace lr_1_zd_3
 {
@@ -17,8 +18,12 @@ namespace lr_1_zd_3
         {
             InitializeComponent();
         }
-        private Coach[] coaches = new Coach[100];
-        private int coachesCount = 0;
+        // private Coach[] coaches = new Coach[100];
+        private List<Coach> coaches = new List<Coach>();
+        // Серіалізатор XML для списку тренерів: тип вказується один раз при створенні
+        private static readonly XmlSerializer coachesSerializer = new 
+        XmlSerializer(typeof(List<Coach>));
+        //private int coachesCount = 0;
 
 
         private void Form2_Trainers_Load(object sender, EventArgs e)
@@ -36,8 +41,6 @@ namespace lr_1_zd_3
             comboBox1_sportSelect.SelectedIndex = 0;
             comboBox_RankCoach.SelectedIndex = 0;
 
-            CreateInputGrid();
-            CreateOutputGrid();
 
             // Підключення кнопок
             toolStripButton1.Click += toolStripButton1_Click;
@@ -97,7 +100,12 @@ namespace lr_1_zd_3
         {
             dataGridView1_Input.Rows.Clear();
 
-            for (int i = 0; i < coachesCount; i++)
+            if (dataGridView1_Input.Columns.Count == 0)
+            {
+                CreateInputGrid();
+            }
+
+            for (int i = 0; i < coaches.Count; i++)
             {
 
                 dataGridView1_Input.Rows.Add(
@@ -114,11 +122,11 @@ namespace lr_1_zd_3
 
         // ОНОВЛЕННЯ ТАБЛИЦІ РЕЗУЛЬТАТІВ
 
-        private void RefreshOutputGrid(Coach[] sorted)
+        private void RefreshOutputGrid(List<Coach> sorted)
         {
             dataGridView2_Output.Rows.Clear();
 
-            if (coachesCount == 0)
+            if (coaches.Count == 0)
             {
                 dataGridView2_Output.Columns.Clear();
                 return;
@@ -129,7 +137,7 @@ namespace lr_1_zd_3
                 CreateOutputGrid();
             }
 
-            for (int i = 0; i < coachesCount; i++)
+            for (int i = 0; i < coaches.Count; i++)
             {
 
                 dataGridView2_Output.Rows.Add(
@@ -162,17 +170,17 @@ namespace lr_1_zd_3
                 return;
             }
 
-            // Перевірка кількості
-            if (coachesCount >= coaches.Length)
-            {
-                MessageBox.Show(
-                    "Досягнуто максимальну кількість тренерів!",
-                    "Помилка",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
+            /*            // Перевірка кількості
+                        if (coachesCount >= coaches.Count)
+                        {
+                            MessageBox.Show(
+                                "Досягнуто максимальну кількість тренерів!",
+                                "Помилка",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
 
-                return;
-            }
+                            return;
+                        }*/
 
             // Створення об'єкта Coach
             Coach coach = new Coach(
@@ -185,8 +193,8 @@ namespace lr_1_zd_3
             );
 
             // Додавання в масив
-            coaches[coachesCount] = coach;
-            coachesCount++;
+            coaches.Add(coach);
+            //coachesCount++;
 
             RefreshInputGrid();
 
@@ -213,7 +221,7 @@ namespace lr_1_zd_3
 
             int index = dataGridView1_Input.CurrentRow.Index;
 
-            if (index < 0 || index >= coachesCount)
+            if (index < 0 || index >= coaches.Count)
                 return;
 
             DialogResult result = MessageBox.Show(
@@ -224,14 +232,17 @@ namespace lr_1_zd_3
 
             if (result == DialogResult.Yes)
             {
-                // Зсуваємо елементи масиву
-                for (int i = index; i < coachesCount - 1; i++)
-                {
-                    coaches[i] = coaches[i + 1];
-                }
+                coaches.RemoveAt(index);
 
-                coaches[coachesCount - 1] = null;
-                coachesCount--;
+
+                /*          // Зсуваємо елементи масиву
+                          for (int i = index; i < coachesCount - 1; i++)
+                          {
+                              coaches[i] = coaches[i + 1];
+                          }
+
+                          coaches[coachesCount - 1] = null;*/
+                //coachesCount--;
 
                 RefreshInputGrid();
 
@@ -256,7 +267,7 @@ namespace lr_1_zd_3
 
             int index = dataGridView1_Input.CurrentRow.Index;
 
-            if (index < 0 || index >= coachesCount)
+            if (index < 0 || index >= coaches.Count)
                 return;
 
             if (string.IsNullOrWhiteSpace(textBox_inputNameCoach.Text) ||
@@ -325,88 +336,131 @@ namespace lr_1_zd_3
         private void заПрізвищемToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            Coach[] sorted = new Coach[coachesCount];
-            for (int i = 0; i < coachesCount; i++)
+           // Coach[] sorted = new Coach[coaches.Count];
+            List <Coach> sorted = new List<Coach>(coaches);
+
+/*            for (int i = 0; i < coaches.Count; i++)
             {
                 sorted[i] = coaches[i];
-            }
+            }*/
 
             // Використовуємо той самий інтерфейс
             ISortableBySurname sorter = new Coach();
             // Сортуємо масив тренерів
-            sorter.SortBySurname(sorted, coachesCount);
+            sorter.SortBySurname(sorted);
 
             RefreshOutputGrid(sorted);
         }
 
         private void читанняЗФайлToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
             OpenFileDialog openDialog = new OpenFileDialog();
-
-            openDialog.Filter =
-                "Текстові файли (*.txt)|*.txt|Усі файли (*.*)|*.*";
-
+            openDialog.Filter = "XML-файли (*.xml)|*.xml|Усі файли (*.*)|*.*";
             openDialog.Title = "Відкрити файл з тренерами";
 
             if (openDialog.ShowDialog() != DialogResult.OK)
                 return;
 
-            coachesCount = 0;
-
-            string[] lines = File.ReadAllLines(openDialog.FileName);
-
-            foreach (string line in lines)
+            try
             {
-                string[] parts = line.Split(';');
-
-                if (parts.Length == 6)
+                // Десеріалізація: відновлюємо список тренерів із XML-файлу
+                using (FileStream fs = new FileStream(openDialog.FileName, FileMode.Open))
                 {
-                    Coach coach = new Coach(
-                        parts[1],                 // Ім'я
-                        parts[0],                 // Прізвище
-                        parts[2],                 // По батькові
-                        DateTime.Parse(parts[5]), // Дата народження
-                        parts[3],                 // Вид спорту
-                        parts[4]                  // Звання тренера
-                    );
-
-                    coaches[coachesCount] = coach;
-                    coachesCount++;
+                    List<Coach>? loaded = coachesSerializer.Deserialize(fs) as List<Coach>;
+                    coaches.Clear();
+                    if (loaded != null) coaches.AddRange(loaded);
                 }
+
+                RefreshInputGrid();
+                toolStripStatusLabel1.Text = $"Дані десеріалізовано з файлу '{openDialog.SafeFileName}'";
             }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("Файл не є коректним XML-файлом з тренерами!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            /*            OpenFileDialog openDialog = new OpenFileDialog();
 
-            RefreshInputGrid();
+                          openDialog.Filter =
+                              "Текстові файли (*.txt)|*.txt|Усі файли (*.*)|*.*";
 
-            toolStripStatusLabel1.Text = $"Дані завантажено з файлу `{openDialog.SafeFileName}`";
+                          openDialog.Title = "Відкрити файл з тренерами";
+
+                          if (openDialog.ShowDialog() != DialogResult.OK)
+                              return;
+
+                          coaches.Clear();
+                          string[] lines = File.ReadAllLines(openDialog.FileName);
+
+                          foreach (string line in lines)
+                          {
+                              string[] parts = line.Split(';');
+
+                              if (parts.Length == 6)
+                              {
+                                  Coach coach = new Coach(
+                                      parts[1],                 // Ім'я
+                                      parts[0],                 // Прізвище
+                                      parts[2],                 // По батькові
+                                      DateTime.Parse(parts[5]), // Дата народження
+                                      parts[3],                 // Вид спорту
+                                      parts[4]                  // Звання тренера
+                                  );
+
+                                  coaches.Add(coach);
+
+                              }
+                          }
+
+                          RefreshInputGrid();
+
+                          toolStripStatusLabel1.Text = $"Дані завантажено з файлу `{openDialog.SafeFileName}`";*/
         }
 
         private void записУФайлToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveDialog = new SaveFileDialog();
-
-            saveDialog.Filter = "Текстові файли (*.txt)|*.txt|Усі файли (*.*)|*.*";
+            saveDialog.Filter = "XML-файли (*.xml)|*.xml|Усі файли (*.*)|*.*";
             saveDialog.Title = "Зберегти дані тренерів";
+            saveDialog.FileName = "coaches.xml";
 
             if (saveDialog.ShowDialog() != DialogResult.OK)
                 return;
 
-            using (StreamWriter writer = new StreamWriter(saveDialog.FileName))
+            // Серіалізація: увесь список тренерів у XML одним викликом
+            using (FileStream fs = new FileStream(saveDialog.FileName, FileMode.Create))
             {
-                for (int i = 0; i < coachesCount; i++)
-                {
-
-                    writer.WriteLine(
-                        $"{coaches[i].Surname};" +
-                        $"{coaches[i].Name};" +
-                        $"{coaches[i].Pobatkovi};" +
-                        $"{coaches[i].Sport};" +
-                        $"{coaches[i].CoachRank};" +
-                        $"{coaches[i].BirthDate}"
-                    );
-                }
+                coachesSerializer.Serialize(fs, coaches);
             }
 
-            toolStripStatusLabel1.Text = $"Дані записано у файл '{saveDialog.FileName}'";
+            toolStripStatusLabel1.Text = $"Дані серіалізовано у файл '{saveDialog.FileName}'";
+
+
+            /*       SaveFileDialog saveDialog = new SaveFileDialog();
+
+                   saveDialog.Filter = "Текстові файли (*.txt)|*.txt|Усі файли (*.*)|*.*";
+                   saveDialog.Title = "Зберегти дані тренерів";
+
+                   if (saveDialog.ShowDialog() != DialogResult.OK)
+                       return;
+
+                   using (StreamWriter writer = new StreamWriter(saveDialog.FileName))
+                   {
+                       for (int i = 0; i < coaches.Count; i++)
+                       {
+
+                           writer.WriteLine(
+                               $"{coaches[i].Surname};" +
+                               $"{coaches[i].Name};" +
+                               $"{coaches[i].Pobatkovi};" +
+                               $"{coaches[i].Sport};" +
+                               $"{coaches[i].CoachRank};" +
+                               $"{coaches[i].BirthDate}"
+                           );
+                       }
+                   }
+
+                   toolStripStatusLabel1.Text = $"Дані записано у файл '{saveDialog.FileName}'";*/
         }
 
         private void очиститиФайлToolStripMenuItem_Click(object sender, EventArgs e)
@@ -458,7 +512,7 @@ namespace lr_1_zd_3
                 return;
             }
             int index = dataGridView1_Input.CurrentRow.Index;
-            if (index >= 0 && index < coachesCount)
+            if (index >= 0 && index < coaches.Count)
             {
 
                 coaches[index].ShowInfo();
@@ -468,6 +522,11 @@ namespace lr_1_zd_3
         private void вихідToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void toolStripButton2_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 
