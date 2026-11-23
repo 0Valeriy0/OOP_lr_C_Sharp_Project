@@ -10,6 +10,7 @@ using System.Text.Json;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using ClassLibrary1.Class;
+using lr_1_zd_3.Aditionals;
 
 namespace lr_1_zd_3
 {
@@ -84,6 +85,11 @@ namespace lr_1_zd_3
             UpdateCoachesComboBox();
             RefreshScheduleGrid();
             toolStripStatusLabel1.Text = "Готово до роботи";
+
+            // Автоматичне завантаження баз з папки Data
+            if (File.Exists(DataFiles.Sportsmen)) LoadSportsmen(DataFiles.Sportsmen);
+            if (File.Exists(DataFiles.Coaches)) LoadCoaches(DataFiles.Coaches);
+            if (File.Exists(DataFiles.Trainings)) LoadTrainings(DataFiles.Trainings);
         }
         private void CreateSportsmenGrid()
         {
@@ -136,8 +142,8 @@ namespace lr_1_zd_3
             }
 
             int selectedRow = dataGridView1.CurrentRow.Index;
-            string sportsmanSurname = dataGridView1.Rows[selectedRow].Cells["Surname"].Value.ToString();
-            string sportsmanName = dataGridView1.Rows[selectedRow].Cells["Name"].Value?.ToString();
+            string sportsmanSurname = dataGridView1.Rows[selectedRow].Cells["Surname"].Value?.ToString() ?? "";
+            string sportsmanName = dataGridView1.Rows[selectedRow].Cells["Name"].Value?.ToString() ?? "";
 
             Sportsman currentSportsman = null;
             for (int i = 0; i < sportsmenCount; i++)
@@ -436,13 +442,20 @@ namespace lr_1_zd_3
             OpenFileDialog openDialog = new OpenFileDialog();
             openDialog.Filter = "XML-файли (*.xml)|*.xml|Усі файли (*.*)|*.*";
             openDialog.Title = "Відкрити файл з тренерами";
+            openDialog.InitialDirectory = DataFiles.Folder;
             if (openDialog.ShowDialog() != DialogResult.OK)
                 return;
+            LoadCoaches(openDialog.FileName);
+        }
+
+        // Читання тренерів з XML-файлу: викликається з меню та автоматично при відкритті форми
+        private void LoadCoaches(string path)
+        {
             try
             {
                 // Десеріалізація тренерів з того самого XML-файлу, що й у формі «Тренери»
                 List<Coach>? loaded;
-                using (FileStream fs = new FileStream(openDialog.FileName, FileMode.Open))
+                using (FileStream fs = new FileStream(path, FileMode.Open))
                 {
                     loaded = coachesSerializer.Deserialize(fs) as List<Coach>;
                 }
@@ -464,7 +477,7 @@ namespace lr_1_zd_3
             }
             // Оновлюємо випадаючий список тренерів
             UpdateCoachesComboBox();
-            toolStripStatusLabel1.Text = $"Дані тренерів завантажено з файлу  '{openDialog.SafeFileName}'";
+            toolStripStatusLabel1.Text = $"Дані тренерів завантажено з файлу  '{Path.GetFileName(path)}'";
         }
 
         private void даніПроСпортсменівToolStripMenuItem_Click(object sender, EventArgs e)
@@ -472,13 +485,20 @@ namespace lr_1_zd_3
             OpenFileDialog openDialog = new OpenFileDialog();
             openDialog.Filter = "JSON-файли (*.json)|*.json|Усі файли (*.*)|*.*";
             openDialog.Title = "Відкрити файл зі спортсменами";
+            openDialog.InitialDirectory = DataFiles.Folder;
             if (openDialog.ShowDialog() != DialogResult.OK)
                 return;
+            LoadSportsmen(openDialog.FileName);
+        }
+
+        // Читання спортсменів з JSON-файлу: викликається з меню та автоматично при відкритті форми
+        private void LoadSportsmen(string path)
+        {
             try
             {
                 // Десеріалізація спортсменів (разом із медичними картами) з JSON-файлу форми «Спортсмени»
                 List<Sportsman>? loaded;
-                using (FileStream fs = new FileStream(openDialog.FileName, FileMode.Open))
+                using (FileStream fs = new FileStream(path, FileMode.Open))
                 {
                     loaded = JsonSerializer.Deserialize<List<Sportsman>>(fs);
                 }
@@ -500,7 +520,7 @@ namespace lr_1_zd_3
             }
             // Оновлюємо верхню таблицю зі спортсменами
             RefreshSportsmenGrid();
-            toolStripStatusLabel1.Text = $"Дані спортсменів завантажено з файлу '{openDialog.SafeFileName}'";
+            toolStripStatusLabel1.Text = $"Дані спортсменів завантажено з файлу '{Path.GetFileName(path)}'";
         }
 
         private void даніПроТренуванняToolStripMenuItem_Click(object sender, EventArgs e)
@@ -508,10 +528,17 @@ namespace lr_1_zd_3
             OpenFileDialog openDialog = new OpenFileDialog();
             openDialog.Filter = "Текстові файли (*.txt)|*.txt|Усі файли (*.*)|*.*";
             openDialog.Title = "Відкрити файл з тренуваннями";
+            openDialog.InitialDirectory = DataFiles.Folder;
             if (openDialog.ShowDialog() != DialogResult.OK)
                 return;
+            LoadTrainings(openDialog.FileName);
+        }
+
+        // Читання тренувань з текстового файлу: викликається з меню та автоматично при відкритті форми
+        private void LoadTrainings(string path)
+        {
             bookingsCount = 0;
-            string[] lines = File.ReadAllLines(openDialog.FileName);
+            string[] lines = File.ReadAllLines(path);
             foreach (string line in lines)
             {
                 if (string.IsNullOrWhiteSpace(line)) continue;
@@ -538,7 +565,7 @@ namespace lr_1_zd_3
             }
             // Оновлюємо нижню таблицю тренувань
             RefreshTrainingsGrid();
-            toolStripStatusLabel1.Text = $"Дані тренувань завантажено з файлу '{openDialog.SafeFileName}'";
+            toolStripStatusLabel1.Text = $"Дані тренувань завантажено з файлу '{Path.GetFileName(path)}'";
         }
 
         private void toolStripButton3_Click(object sender, EventArgs e)
@@ -604,7 +631,7 @@ namespace lr_1_zd_3
             dataGridViewSchedule.AllowUserToResizeRows = false;
             dataGridViewSchedule.RowHeadersVisible = false;
             dataGridViewSchedule.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewSchedule.Columns["Time"].FillWeight = 40;
+            dataGridViewSchedule.Columns["Time"]!.FillWeight = 40;   // стовпець «Time» створено вище, тому «!»
 
             // Багаторядковий текст у клітинках і заголовках
             dataGridViewSchedule.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
@@ -645,7 +672,7 @@ namespace lr_1_zd_3
                 DateTime day = weekStart.AddDays(d);
                 dataGridViewSchedule.Columns[d + 1].HeaderText = $"{dayNames[d]}\n{day:dd.MM}";
                 dataGridViewSchedule.Columns[d + 1].DefaultCellStyle.BackColor =
-                    day == DateTime.Today ? Color.LightYellow : Color.Empty;
+                    day == DateTime.Today ? Color.FromArgb(255, 246, 213) : Color.Empty;   // м'який жовтий
             }
 
             // Рядки завжди однакові: по одному на кожну годину доби, 00:00-23:00
@@ -686,8 +713,8 @@ namespace lr_1_zd_3
                     cell.Value = cell.Value + "\n———\n" + text;
                 }
                 cell.Style.BackColor = bookedSportsmen[i].Sport == "Веслування"
-                    ? Color.LightBlue
-                    : Color.LightGreen;
+                    ? Color.FromArgb(207, 228, 250)    // веслування — світло-блакитний
+                    : Color.FromArgb(212, 237, 218);   // велоспорт — світло-зелений
             }
 
             FitScheduleRows();

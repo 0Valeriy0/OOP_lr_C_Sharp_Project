@@ -1,4 +1,5 @@
 using ClassLibrary1.Class;
+using lr_1_zd_3.Aditionals;
 using lr_1_zd_3.Class;
 using System;
 using System.IO;
@@ -63,6 +64,12 @@ namespace lr_1_zd_3.Forms
             dataGridView_Members.Columns.Clear();
 
             toolStripStatusLabel1.Text = "Готово до роботи зі спортивними групами";
+
+            // Автоматичне завантаження баз з папки Data.
+            // Порядок важливий: спочатку тренери, бо групи шукають серед них своїх кураторів
+            if (File.Exists(DataFiles.Coaches)) LoadCoaches(DataFiles.Coaches);
+            if (File.Exists(DataFiles.Sportsmen)) LoadSportsmen(DataFiles.Sportsmen);
+            if (File.Exists(DataFiles.Groups)) LoadGroups(DataFiles.Groups);
         }
 
         // --- ІНІЦІАЛІЗАЦІЯ СТРУКТУРИ ТАБЛИЦЬ ---
@@ -131,13 +138,15 @@ namespace lr_1_zd_3.Forms
 
             for (int i = 0; i < groupsCount; i++)
             {
+                // Куратора зберігаємо в змінну: так компілятор бачить, що перевірка на null стосується саме її
+                Coach? curator = groups[i].CuratorCoach;
                 dataGridView_Groups.Rows.Add(
                     i,
                     groups[i].GroupName,
                     groups[i].Sport,
                     $"{groups[i].MembersCount} / {groups[i].MaxMembers}",
-                    groups[i].CuratorCoach != null
-                        ? $"{groups[i].CuratorCoach.Surname} {groups[i].CuratorCoach.Name}"
+                    curator != null
+                        ? $"{curator.Surname} {curator.Name}"
                         : "Не призначено"
                 );
             }
@@ -269,8 +278,9 @@ namespace lr_1_zd_3.Forms
 
             RefreshGroupsGrid();
 
-            string coachInfo = groups[groupsCount - 1].CuratorCoach != null
-                ? $"{groups[groupsCount - 1].CuratorCoach.Surname} {groups[groupsCount - 1].CuratorCoach.Name}"
+            Coach? addedCurator = groups[groupsCount - 1].CuratorCoach;
+            string coachInfo = addedCurator != null
+                ? $"{addedCurator.Surname} {addedCurator.Name}"
                 : "без куратора";
 
             toolStripStatusLabel1.Text = $"Групу '{groups[groupsCount - 1].GroupName}' успішно додано ({coachInfo})";
@@ -479,15 +489,23 @@ namespace lr_1_zd_3.Forms
         {
             openFileDialog1.Filter = "XML-файли (*.xml)|*.xml|Усі файли (*.*)|*.*";
             openFileDialog1.Title = "Відкрити файл з тренерами";
+            openFileDialog1.InitialDirectory = DataFiles.Folder;
 
             if (openFileDialog1.ShowDialog() != DialogResult.OK)
                 return;
 
+            if (LoadCoaches(openFileDialog1.FileName))
+                MessageBox.Show($"Успішно завантажено {coachesCount} тренерів для призначення кураторами!", "Успіх", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        // Читання тренерів з XML-файлу: викликається з меню та автоматично при відкритті форми
+        private bool LoadCoaches(string path)
+        {
             try
             {
                 // Десеріалізація тренерів з того самого XML-файлу, що й у формі «Тренери»
                 List<Coach>? loaded;
-                using (FileStream fs = new FileStream(openFileDialog1.FileName, FileMode.Open))
+                using (FileStream fs = new FileStream(path, FileMode.Open))
                 {
                     loaded = coachesSerializer.Deserialize(fs) as List<Coach>;
                 }
@@ -506,27 +524,35 @@ namespace lr_1_zd_3.Forms
             catch (InvalidOperationException)
             {
                 MessageBox.Show("Файл не є коректним XML-файлом з тренерами!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                return false;
             }
 
             UpdateCoachesComboBox();
-            toolStripStatusLabel1.Text = $"Завантажено {coachesCount} тренерів з файлу '{Path.GetFileName(openFileDialog1.FileName)}'";
-            MessageBox.Show($"Успішно завантажено {coachesCount} тренерів для призначення кураторами!", "Успіх", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            toolStripStatusLabel1.Text = $"Завантажено {coachesCount} тренерів з файлу '{Path.GetFileName(path)}'";
+            return true;
         }
 
         private void завантажитиСпортсменівToolStripMenuItem_Click(object sender, EventArgs e)
         {
             openFileDialog1.Filter = "JSON-файли (*.json)|*.json|Усі файли (*.*)|*.*";
             openFileDialog1.Title = "Відкрити файл зі спортсменами";
+            openFileDialog1.InitialDirectory = DataFiles.Folder;
 
             if (openFileDialog1.ShowDialog() != DialogResult.OK)
                 return;
 
+            if (LoadSportsmen(openFileDialog1.FileName))
+                MessageBox.Show($"Успішно завантажено {sportsmenCount} спортсменів! Тепер їх можна додавати до груп.", "Успіх", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        // Читання спортсменів з JSON-файлу: викликається з меню та автоматично при відкритті форми
+        private bool LoadSportsmen(string path)
+        {
             try
             {
                 // Десеріалізація спортсменів з того самого JSON-файлу, що й у формі «Спортсмени»
                 List<Sportsman>? loaded;
-                using (FileStream fs = new FileStream(openFileDialog1.FileName, FileMode.Open))
+                using (FileStream fs = new FileStream(path, FileMode.Open))
                 {
                     loaded = JsonSerializer.Deserialize<List<Sportsman>>(fs);
                 }
@@ -545,12 +571,12 @@ namespace lr_1_zd_3.Forms
             catch (JsonException)
             {
                 MessageBox.Show("Файл не є коректним JSON-файлом зі спортсменами!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                return false;
             }
 
             UpdateSportsmenComboBox();
-            toolStripStatusLabel1.Text = $"Завантажено {sportsmenCount} спортсменів з файлу '{Path.GetFileName(openFileDialog1.FileName)}'";
-            MessageBox.Show($"Успішно завантажено {sportsmenCount} спортсменів! Тепер їх можна додавати до груп.", "Успіх", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            toolStripStatusLabel1.Text = $"Завантажено {sportsmenCount} спортсменів з файлу '{Path.GetFileName(path)}'";
+            return true;
         }
 
         private void записУФайлToolStripMenuItem_Click(object sender, EventArgs e)
@@ -605,12 +631,20 @@ namespace lr_1_zd_3.Forms
         {
             openFileDialog1.Filter = "Текстові файли (*.txt)|*.txt|Усі файли (*.*)|*.*";
             openFileDialog1.Title = "Відкрити файл зі спортивними групами";
+            openFileDialog1.InitialDirectory = DataFiles.Folder;
 
             if (openFileDialog1.ShowDialog() != DialogResult.OK)
                 return;
 
+            LoadGroups(openFileDialog1.FileName);
+            MessageBox.Show($"Успішно завантажено {groupsCount} груп!", "Інформація", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        // Читання груп з текстового файлу: викликається з меню та автоматично при відкритті форми
+        private void LoadGroups(string path)
+        {
             groupsCount = 0;
-            string[] lines = File.ReadAllLines(openFileDialog1.FileName);
+            string[] lines = File.ReadAllLines(path);
 
             foreach (string line in lines)
             {
@@ -671,8 +705,7 @@ namespace lr_1_zd_3.Forms
             }
 
             RefreshGroupsGrid();
-            toolStripStatusLabel1.Text = $"Дані груп завантажено з файлу '{Path.GetFileName(openFileDialog1.FileName)}' ({groupsCount} груп)";
-            MessageBox.Show($"Успішно завантажено {groupsCount} груп!", "Інформація", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            toolStripStatusLabel1.Text = $"Дані груп завантажено з файлу '{Path.GetFileName(path)}' ({groupsCount} груп)";
         }
 
         // --- НАВІГАЦІЯ МІЖ ФОРМАМИ ---

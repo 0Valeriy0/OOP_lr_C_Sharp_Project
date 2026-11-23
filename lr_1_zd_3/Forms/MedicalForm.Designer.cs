@@ -161,9 +161,12 @@
             toolStrip1.Size = new Size(614, 27);
             toolStrip1.TabIndex = 54;
             toolStrip1.Text = "toolStrip1";
+            toolStrip1.BackColor = Color.FromArgb(232, 243, 233);
+            toolStrip1.RenderMode = ToolStripRenderMode.System;
             // 
             // MedicalForm
             // 
+            BackColor = Color.FromArgb(245, 249, 245);
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(614, 450);

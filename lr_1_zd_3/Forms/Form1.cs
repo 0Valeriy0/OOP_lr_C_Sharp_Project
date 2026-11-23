@@ -11,6 +11,7 @@ using SportsmenList = System.Collections.Generic.List<ClassLibrary1.Class.Sports
 using ClassLibrary1.Class;
 using ClassLibrary1;
 using static System.String;
+using lr_1_zd_3.Aditionals;
 
 
 
@@ -64,6 +65,9 @@ namespace lr_1_zd_3
             comboBox_bloodGroup.SelectedIndex = 0;
             setStatus("Готово");
 
+            // Автоматичне завантаження бази спортсменів з папки Data
+            if (File.Exists(DataFiles.Sportsmen))
+                LoadSportsmen(DataFiles.Sportsmen);
         }
         private void CreateInputGrid()
         {
@@ -305,7 +309,8 @@ namespace lr_1_zd_3
             if (!inputControl())
                 return;
 
-            int rowIndex = dataGridView1_Input.CurrentCell.RowIndex;
+            // inputControl() вже перевірив, що рядок вибрано, тому ставимо «!» — тут точно не null
+            int rowIndex = dataGridView1_Input.CurrentCell!.RowIndex;
             int columnIndex = dataGridView1_Input.CurrentCell.ColumnIndex;
             if (rowIndex < 0 || rowIndex >= sportsmen.Count)
                 return;
@@ -440,13 +445,20 @@ namespace lr_1_zd_3
             OpenFileDialog openDialog = new OpenFileDialog();
             openDialog.Filter = "JSON-файли (*.json)|*.json|Усі файли (*.*)|*.*";
             openDialog.Title = "Відкрити файл зі спортсменами";
+            openDialog.InitialDirectory = DataFiles.Folder;
             if (openDialog.ShowDialog() != DialogResult.OK)
                 return;
 
+            LoadSportsmen(openDialog.FileName);
+        }
+
+        // Читання спортсменів з JSON-файлу: викликається з меню та автоматично при відкритті форми
+        private void LoadSportsmen(string path)
+        {
             try
             {
                 // Десеріалізація: відновлюємо список спортсменів разом із медичними картами
-                using (FileStream fs = new FileStream(openDialog.FileName, FileMode.Open))
+                using (FileStream fs = new FileStream(path, FileMode.Open))
                 {
                     SportsmenList? loaded = JsonSerializer.Deserialize<SportsmenList>(fs, jsonOptions);
                     sportsmen.Clear();
@@ -454,7 +466,7 @@ namespace lr_1_zd_3
                 }
 
                 RefreshInputGrid();
-                setStatus($"Дані десеріалізовано з файлу '{openDialog.SafeFileName}'");
+                setStatus($"Дані десеріалізовано з файлу '{Path.GetFileName(path)}'");
             }
             catch (JsonException)
             {
@@ -558,7 +570,84 @@ namespace lr_1_zd_3
             }
 
             ShowSortedSportsmen(filtered);
+            // Запам'ятовуємо результат, щоб його можна було записати у файл
+            filteredSportsmen = filtered;
+            filteredSport = sport;
             setStatus($"Фільтр «{sport}»: знайдено {filtered.Count} з {sportsmen.Count} спортсменів");
+        }
+
+        // Останній результат фільтрування (null — фільтр не застосовано)
+        private SportsmenList? filteredSportsmen;
+        private string filteredSport = "";
+
+        // Фільтрування → Записати результат у JSON
+        private void записФільтруJsonToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (filteredSportsmen == null)
+            {
+                MessageBox.Show("Спочатку виберіть фільтр: «Веслування» або «Велоспорт»!", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (filteredSportsmen.Count == 0)
+            {
+                MessageBox.Show($"За фільтром «{filteredSport}» не знайдено жодного спортсмена — записувати нічого.", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            SaveFileDialog saveDialog = new SaveFileDialog();
+            saveDialog.Filter = "JSON-файли (*.json)|*.json|Усі файли (*.*)|*.*";
+            saveDialog.Title = "Зберегти результат фільтрування";
+            saveDialog.InitialDirectory = DataFiles.Folder;
+            saveDialog.FileName = $"Спортсмени_{filteredSport}.json";
+
+            if (saveDialog.ShowDialog() != DialogResult.OK)
+                return;
+
+            // Серіалізація лише відфільтрованих спортсменів (разом із медичними картами)
+            using (FileStream fs = new FileStream(saveDialog.FileName, FileMode.Create))
+            {
+                JsonSerializer.Serialize(fs, filteredSportsmen, jsonOptions);
+            }
+
+            setStatus($"Результат фільтра «{filteredSport}» ({filteredSportsmen.Count} спортсменів) записано у файл '{Path.GetFileName(saveDialog.FileName)}'");
+        }
+
+        // Фільтрування → Прочитати результат з JSON:
+        // показує збережений результат у таблиці результатів, основний список спортсменів не змінюється
+        private void читанняФільтруJsonToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openDialog = new OpenFileDialog();
+            openDialog.Filter = "JSON-файли (*.json)|*.json|Усі файли (*.*)|*.*";
+            openDialog.Title = "Відкрити результат фільтрування";
+            openDialog.InitialDirectory = DataFiles.Folder;
+
+            if (openDialog.ShowDialog() != DialogResult.OK)
+                return;
+
+            try
+            {
+                SportsmenList? loaded;
+                using (FileStream fs = new FileStream(openDialog.FileName, FileMode.Open))
+                {
+                    loaded = JsonSerializer.Deserialize<SportsmenList>(fs, jsonOptions);
+                }
+
+                if (loaded == null || loaded.Count == 0)
+                {
+                    MessageBox.Show("У файлі немає жодного спортсмена!", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                ShowSortedSportsmen(loaded);
+                // Прочитаний результат можна знову записати у файл
+                filteredSportsmen = loaded;
+                filteredSport = Path.GetFileNameWithoutExtension(openDialog.FileName);
+                setStatus($"Прочитано {loaded.Count} спортсменів з файлу '{Path.GetFileName(openDialog.FileName)}'");
+            }
+            catch (JsonException)
+            {
+                MessageBox.Show("Файл не є коректним JSON-файлом зі спортсменами!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void веслуванняФільтрToolStripMenuItem_Click(object sender, EventArgs e)
@@ -573,15 +662,19 @@ namespace lr_1_zd_3
 
         private void усіСпортсмениФільтрToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            filteredSportsmen = null;   // фільтр знято — записувати нічого
             RefreshOutputGrid();
             setStatus("Фільтр знято: показано всіх спортсменів");
         }
 
         private void ShowSortedSportsmen(SportsmenList sorted)
         {
+            // Будь-яке нове виведення (наприклад, сортування) скасовує попередній фільтр
+            filteredSportsmen = null;
             dataGridView2_Output.Rows.Clear();
 
-            if (sportsmen.Count == 0)
+            // Перевіряємо саме переданий список: він може бути прочитаний з файлу, коли основний порожній
+            if (sorted.Count == 0)
             {
                 dataGridView2_Output.Columns.Clear();
                 return;
@@ -616,8 +709,8 @@ namespace lr_1_zd_3
             if (!inputControl())
                 return;
 
-
-            int index = dataGridView1_Input.CurrentRow.Index;
+            // inputControl() вже перевірив, що рядок вибрано, тому ставимо «!» — тут точно не null
+            int index = dataGridView1_Input.CurrentRow!.Index;
             if (index >= 0 && index < sportsmen.Count)
             {
                 sportsmen[index]++;
@@ -632,8 +725,8 @@ namespace lr_1_zd_3
             if (!inputControl())
                 return;
 
-
-            int index = dataGridView1_Input.CurrentRow.Index;
+            // inputControl() вже перевірив, що рядок вибрано, тому ставимо «!» — тут точно не null
+            int index = dataGridView1_Input.CurrentRow!.Index;
             if (index >= 0 && index < sportsmen.Count)
             {
                 sportsmen[index]--;

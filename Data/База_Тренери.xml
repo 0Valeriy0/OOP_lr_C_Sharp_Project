@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfCoach xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Coach>
+    <Name>Сергій</Name>
+    <Surname>Заруденський</Surname>
+    <Pobatkovi>Олексійович</Pobatkovi>
+    <BirthDate>1964-05-16T00:00:00</BirthDate>
+    <Sport>Веслування</Sport>
+    <CoachRank>Заслужений тренер</CoachRank>
+  </Coach>
+  <Coach>
+    <Name>Олексій</Name>
+    <Surname>Слівінський</Surname>
+    <Pobatkovi>Олегович</Pobatkovi>
+    <BirthDate>1984-05-31T00:00:00</BirthDate>
+    <Sport>Веслування</Sport>
+    <CoachRank>Заслужений тренер</CoachRank>
+  </Coach>
+  <Coach>
+    <Name>Тетяна</Name>
+    <Surname>Боднар</Surname>
+    <Pobatkovi>Вікторівна</Pobatkovi>
+    <BirthDate>2000-03-19T00:00:00</BirthDate>
+    <Sport>Велоспорт</Sport>
+    <CoachRank>Молодший тренер</CoachRank>
+  </Coach>
+  <Coach>
+    <Name>Віктор</Name>
+    <Surname>Петренко</Surname>
+    <Pobatkovi>Іванович</Pobatkovi>
+    <BirthDate>1975-02-10T00:00:00</BirthDate>
+    <Sport>Велоспорт</Sport>
+    <CoachRank>Старший тренер</CoachRank>
+  </Coach>
+  <Coach>
+    <Name>Наталія</Name>
+    <Surname>Литвиненко</Surname>
+    <Pobatkovi>Сергіївна</Pobatkovi>
+    <BirthDate>1988-07-22T00:00:00</BirthDate>
+    <Sport>Веслування</Sport>
+    <CoachRank>Старший тренер</CoachRank>
+  </Coach>
+  <Coach>
+    <Name>Андрій</Name>
+    <Surname>Мороз</Surname>
+    <Pobatkovi>Володимирович</Pobatkovi>
+    <BirthDate>1970-12-05T00:00:00</BirthDate>
+    <Sport>Велоспорт</Sport>
+    <CoachRank>Заслужений тренер</CoachRank>
+  </Coach>
+  <Coach>
+    <Name>Ірина</Name>
+    <Surname>Савченко</Surname>
+    <Pobatkovi>Олегівна</Pobatkovi>
+    <BirthDate>1995-04-18T00:00:00</BirthDate>
+    <Sport>Веслування</Sport>
+    <CoachRank>Молодший тренер</CoachRank>
+  </Coach>
+  <Coach>
+    <Name>Юрій</Name>
+    <Surname>Гончар</Surname>
+    <Pobatkovi>Миколайович</Pobatkovi>
+    <BirthDate>1980-09-01T00:00:00</BirthDate>
+    <Sport>Велоспорт</Sport>
+    <CoachRank>Старший тренер</CoachRank>
+  </Coach>
+  <Coach>
+    <Name>Оксана</Name>
+    <Surname>Кузьменко</Surname>
+    <Pobatkovi>Петрівна</Pobatkovi>
+    <BirthDate>1992-03-27T00:00:00</BirthDate>
+    <Sport>Веслування</Sport>
+    <CoachRank>Молодший тренер</CoachRank>
+  </Coach>
+  <Coach>
+    <Name>Роман</Name>
+    <Surname>Дорошенко</Surname>
+    <Pobatkovi>Ігорович</Pobatkovi>
+    <BirthDate>1985-10-14T00:00:00</BirthDate>
+    <Sport>Велоспорт</Sport>
+    <CoachRank>Молодший тренер</CoachRank>
+  </Coach>
+</ArrayOfCoach>

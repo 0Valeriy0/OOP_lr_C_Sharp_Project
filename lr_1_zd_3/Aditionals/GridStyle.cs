@@ -1,4 +1,4 @@
-namespace lr_1_zd_3
+namespace lr_1_zd_3.Aditionals
 {
     // Єдиний вигляд і розкладка таблиць у всіх формах
     public static class GridStyle

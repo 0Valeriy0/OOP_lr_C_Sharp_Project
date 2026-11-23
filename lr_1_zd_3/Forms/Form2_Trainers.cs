@@ -8,7 +8,11 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using System.Text.Json;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 using ClassLibrary1.Class;
+using lr_1_zd_3.Aditionals;
 
 namespace lr_1_zd_3
 {
@@ -23,6 +27,12 @@ namespace lr_1_zd_3
         // Серіалізатор XML для списку тренерів: тип вказується один раз при створенні
         private static readonly XmlSerializer coachesSerializer = new 
         XmlSerializer(typeof(List<Coach>));
+        // Налаштування JSON для запису результату фільтрування: з відступами та українськими літерами
+        private static readonly JsonSerializerOptions jsonOptions = new JsonSerializerOptions
+        {
+            WriteIndented = true,
+            Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
+        };
         //private int coachesCount = 0;
 
 
@@ -53,6 +63,10 @@ namespace lr_1_zd_3
             toolStripButton3.Click += toolStripButton3_Click;
 
             toolStripStatusLabel1.Text = "Готово до роботи";
+
+            // Автоматичне завантаження бази тренерів з папки Data
+            if (File.Exists(DataFiles.Coaches))
+                LoadCoaches(DataFiles.Coaches);
         }
 
 
@@ -129,9 +143,12 @@ namespace lr_1_zd_3
 
         private void RefreshOutputGrid(List<Coach> sorted)
         {
+            // Будь-яке нове виведення (наприклад, сортування) скасовує попередній фільтр
+            filteredCoaches = null;
             dataGridView2_Output.Rows.Clear();
 
-            if (coaches.Count == 0)
+            // Перевіряємо саме переданий список: він може бути відфільтрованим або прочитаним з файлу
+            if (sorted.Count == 0)
             {
                 dataGridView2_Output.Columns.Clear();
                 return;
@@ -142,11 +159,12 @@ namespace lr_1_zd_3
                 CreateOutputGrid();
             }
 
-            for (int i = 0; i < coaches.Count; i++)
+            // Проходимо саме по переданому списку: після фільтрування він коротший за основний
+            for (int i = 0; i < sorted.Count; i++)
             {
 
                 dataGridView2_Output.Rows.Add(
-                    i,
+                    i + 1,
                     sorted[i].Surname,
                     sorted[i].Name,
                     sorted[i].Pobatkovi,
@@ -366,20 +384,140 @@ namespace lr_1_zd_3
             RefreshOutputGrid(sorted);
         }
 
-        private void читанняЗФайлToolStripMenuItem_Click(object sender, EventArgs e)
+        //  Фільтрування тренерів за видом спорту
+        private void FilterBySport(string sport)
         {
+            if (coaches.Count == 0)
+            {
+                MessageBox.Show("Список тренерів порожній!", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
+            List<Coach> filtered = new List<Coach>();
+            foreach (Coach c in coaches)
+            {
+                if (c.Sport == sport)
+                    filtered.Add(c);
+            }
+
+            RefreshOutputGrid(filtered);
+            // Запам'ятовуємо результат, щоб його можна було записати у файл
+            filteredCoaches = filtered;
+            filteredSport = sport;
+            toolStripStatusLabel1.Text = $"Фільтр «{sport}»: знайдено {filtered.Count} з {coaches.Count} тренерів";
+        }
+
+        // Останній результат фільтрування (null — фільтр не застосовано)
+        private List<Coach>? filteredCoaches;
+        private string filteredSport = "";
+
+        private void веслуванняФільтрToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FilterBySport("Веслування");
+        }
+
+        private void велоспортФільтрToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FilterBySport("Велоспорт");
+        }
+
+        private void усіТренериФільтрToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RefreshOutputGrid(coaches);   // також скидає filteredCoaches — записувати нічого
+            toolStripStatusLabel1.Text = "Фільтр знято: показано всіх тренерів";
+        }
+
+        // Фільтрування → Записати результат у JSON
+        private void записФільтруJsonToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (filteredCoaches == null)
+            {
+                MessageBox.Show("Спочатку виберіть фільтр: «Веслування» або «Велоспорт»!", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (filteredCoaches.Count == 0)
+            {
+                MessageBox.Show($"За фільтром «{filteredSport}» не знайдено жодного тренера — записувати нічого.", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            SaveFileDialog saveDialog = new SaveFileDialog();
+            saveDialog.Filter = "JSON-файли (*.json)|*.json|Усі файли (*.*)|*.*";
+            saveDialog.Title = "Зберегти результат фільтрування";
+            saveDialog.InitialDirectory = DataFiles.Folder;
+            saveDialog.FileName = $"Тренери_{filteredSport}.json";
+
+            if (saveDialog.ShowDialog() != DialogResult.OK)
+                return;
+
+            // Серіалізація лише відфільтрованих тренерів
+            using (FileStream fs = new FileStream(saveDialog.FileName, FileMode.Create))
+            {
+                JsonSerializer.Serialize(fs, filteredCoaches, jsonOptions);
+            }
+
+            toolStripStatusLabel1.Text = $"Результат фільтра «{filteredSport}» ({filteredCoaches.Count} тренерів) записано у файл '{Path.GetFileName(saveDialog.FileName)}'";
+        }
+
+        // Фільтрування → Прочитати результат з JSON:
+        // показує збережений результат у таблиці результатів, основний список тренерів не змінюється
+        private void читанняФільтруJsonToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             OpenFileDialog openDialog = new OpenFileDialog();
-            openDialog.Filter = "XML-файли (*.xml)|*.xml|Усі файли (*.*)|*.*";
-            openDialog.Title = "Відкрити файл з тренерами";
+            openDialog.Filter = "JSON-файли (*.json)|*.json|Усі файли (*.*)|*.*";
+            openDialog.Title = "Відкрити результат фільтрування";
+            openDialog.InitialDirectory = DataFiles.Folder;
 
             if (openDialog.ShowDialog() != DialogResult.OK)
                 return;
 
             try
             {
-                // Десеріалізація: відновлюємо список тренерів із XML-файлу
+                List<Coach>? loaded;
                 using (FileStream fs = new FileStream(openDialog.FileName, FileMode.Open))
+                {
+                    loaded = JsonSerializer.Deserialize<List<Coach>>(fs, jsonOptions);
+                }
+
+                if (loaded == null || loaded.Count == 0)
+                {
+                    MessageBox.Show("У файлі немає жодного тренера!", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                RefreshOutputGrid(loaded);
+                // Прочитаний результат можна знову записати у файл
+                filteredCoaches = loaded;
+                filteredSport = Path.GetFileNameWithoutExtension(openDialog.FileName);
+                toolStripStatusLabel1.Text = $"Прочитано {loaded.Count} тренерів з файлу '{Path.GetFileName(openDialog.FileName)}'";
+            }
+            catch (JsonException)
+            {
+                MessageBox.Show("Файл не є коректним JSON-файлом з тренерами!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void читанняЗФайлToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            OpenFileDialog openDialog = new OpenFileDialog();
+            openDialog.Filter = "XML-файли (*.xml)|*.xml|Усі файли (*.*)|*.*";
+            openDialog.Title = "Відкрити файл з тренерами";
+            openDialog.InitialDirectory = DataFiles.Folder;
+
+            if (openDialog.ShowDialog() != DialogResult.OK)
+                return;
+
+            LoadCoaches(openDialog.FileName);
+        }
+
+        // Читання тренерів з XML-файлу: викликається з меню та автоматично при відкритті форми
+        private void LoadCoaches(string path)
+        {
+            try
+            {
+                // Десеріалізація: відновлюємо список тренерів із XML-файлу
+                using (FileStream fs = new FileStream(path, FileMode.Open))
                 {
                     List<Coach>? loaded = coachesSerializer.Deserialize(fs) as List<Coach>;
                     coaches.Clear();
@@ -387,7 +525,7 @@ namespace lr_1_zd_3
                 }
 
                 RefreshInputGrid();
-                toolStripStatusLabel1.Text = $"Дані десеріалізовано з файлу '{openDialog.SafeFileName}'";
+                toolStripStatusLabel1.Text = $"Дані десеріалізовано з файлу '{Path.GetFileName(path)}'";
             }
             catch (InvalidOperationException)
             {

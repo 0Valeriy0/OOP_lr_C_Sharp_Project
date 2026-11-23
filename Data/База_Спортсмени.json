@@ -1,0 +1,142 @@
+[
+  {
+    "SportRank": "3 розряд",
+    "PrizePlaces": 2,
+    "MedicalCard": {
+      "BloodGroup": "AB-",
+      "HasAccessToCompete": false,
+      "InspectationDate": "2026-10-19T00:00:00"
+    },
+    "Name": "Артем",
+    "Surname": "Мельник",
+    "Pobatkovi": "Брійович",
+    "BirthDate": "1989-02-24T13:02:37",
+    "Sport": "Веслування"
+  },
+  {
+    "SportRank": "Кандитат у майстри спорту України",
+    "PrizePlaces": 15,
+    "MedicalCard": {
+      "BloodGroup": "A+",
+      "HasAccessToCompete": true,
+      "InspectationDate": "2026-10-15T00:00:00"
+    },
+    "Name": "Валерій",
+    "Surname": "Гавронський",
+    "Pobatkovi": "Віталійович",
+    "BirthDate": "2008-09-11T23:40:49",
+    "Sport": "Веслування"
+  },
+  {
+    "SportRank": "Кандитат у майстри спорту України",
+    "PrizePlaces": 31,
+    "MedicalCard": {
+      "BloodGroup": "O-",
+      "HasAccessToCompete": true,
+      "InspectationDate": "2026-10-19T00:00:00"
+    },
+    "Name": "Макисм",
+    "Surname": "Мельник",
+    "Pobatkovi": "Сергійович",
+    "BirthDate": "2010-03-17T23:40:49",
+    "Sport": "Велоспорт"
+  },
+  {
+    "SportRank": "Без розряду",
+    "PrizePlaces": 5,
+    "MedicalCard": {
+      "BloodGroup": "A-",
+      "HasAccessToCompete": true,
+      "InspectationDate": "2026-10-24T00:00:00"
+    },
+    "Name": "Вероніка",
+    "Surname": "Ямоква",
+    "Pobatkovi": "Юрівна",
+    "BirthDate": "2011-03-16T00:00:00",
+    "Sport": "Веслування"
+  },
+  {
+    "SportRank": "1 розряд",
+    "PrizePlaces": 1,
+    "MedicalCard": {
+      "BloodGroup": "B-",
+      "HasAccessToCompete": true,
+      "InspectationDate": "2025-12-19T00:00:00"
+    },
+    "Name": "Богдан",
+    "Surname": "Баланюк",
+    "Pobatkovi": "Ігорович",
+    "BirthDate": "2007-07-05T00:00:00",
+    "Sport": "Веслування"
+  },
+  {
+    "SportRank": "2 розряд",
+    "PrizePlaces": 7,
+    "MedicalCard": {
+      "BloodGroup": "O+",
+      "HasAccessToCompete": true,
+      "InspectationDate": "2026-09-30T00:00:00"
+    },
+    "Name": "Дмитро",
+    "Surname": "Коваленко",
+    "Pobatkovi": "Олександрович",
+    "BirthDate": "2009-04-12T00:00:00",
+    "Sport": "Велоспорт"
+  },
+  {
+    "SportRank": "1 розряд",
+    "PrizePlaces": 12,
+    "MedicalCard": {
+      "BloodGroup": "A+",
+      "HasAccessToCompete": true,
+      "InspectationDate": "2026-11-05T00:00:00"
+    },
+    "Name": "Анна",
+    "Surname": "Шевченко",
+    "Pobatkovi": "Миколаївна",
+    "BirthDate": "2008-11-03T00:00:00",
+    "Sport": "Веслування"
+  },
+  {
+    "SportRank": "Майстер спорту України",
+    "PrizePlaces": 40,
+    "MedicalCard": {
+      "BloodGroup": "B+",
+      "HasAccessToCompete": true,
+      "InspectationDate": "2026-08-14T00:00:00"
+    },
+    "Name": "Ігор",
+    "Surname": "Бондаренко",
+    "Pobatkovi": "Петрович",
+    "BirthDate": "2001-06-21T00:00:00",
+    "Sport": "Велоспорт"
+  },
+  {
+    "SportRank": "Без розряду",
+    "PrizePlaces": 0,
+    "MedicalCard": {
+      "BloodGroup": "AB+",
+      "HasAccessToCompete": false,
+      "InspectationDate": "2025-11-20T00:00:00"
+    },
+    "Name": "Софія",
+    "Surname": "Ткаченко",
+    "Pobatkovi": "Андріївна",
+    "BirthDate": "2012-01-09T00:00:00",
+    "Sport": "Велоспорт"
+  },
+  {
+    "SportRank": "3 розряд",
+    "PrizePlaces": 3,
+    "MedicalCard": {
+      "BloodGroup": "O-",
+      "HasAccessToCompete": true,
+      "InspectationDate": "2026-10-02T00:00:00"
+    },
+    "Name": "Олег",
+    "Surname": "Кравчук",
+    "Pobatkovi": "Васильович",
+    "BirthDate": "2010-08-27T00:00:00",
+    "Sport": "Веслування"
+  }
+]

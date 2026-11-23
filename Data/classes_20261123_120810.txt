@@ -1,0 +1,56 @@
+=== БІБЛІОТЕКА: ClassLibrary1 ===
+
+[КЛАС] lr_1_zd_3.Class.Coach
+  ├── Успадковано від (базовий клас): Person
+  ├── Реалізує інтерфейси: IPerson, ISortableBySurname
+  ├── Властивості:
+  │     • String CoachRank
+  └── Методи:
+        • String ShowInfo()
+--------------------------------------------------
+[КЛАС] lr_1_zd_3.Class.MedicalCard
+  ├── Властивості:
+  │     • String BloodGroup
+  │     • Boolean HasAccessToCompete
+  │     • DateTime InspectationDate
+--------------------------------------------------
+[АБСТРАКТНИЙ КЛАС] lr_1_zd_3.Class.Person
+  ├── Реалізує інтерфейси: IPerson, ISortableBySurname
+  ├── Властивості:
+  │     • String Name
+  │     • String Surname
+  │     • String Pobatkovi
+  │     • DateTime BirthDate
+  │     • String Sport
+  └── Методи:
+        • Void SortBySurname(List`1 people)
+        • Int32 CalculateAge()
+        • String ShowInfo()
+--------------------------------------------------
+[КЛАС] lr_1_zd_3.Class.Sportsman
+  ├── Успадковано від (базовий клас): Person
+  ├── Реалізує інтерфейси: IPerson, ISortableBySurname, ITrainingBooking
+  ├── Властивості:
+  │     • String SportRank
+  │     • Int32 PrizePlaces
+  │     • MedicalCard MedicalCard
+  └── Методи:
+        • Boolean SignUpForTraining(Coach coach, DateTime date)
+        • String ShowInfo()
+--------------------------------------------------
+[ІНТЕРФЕЙС] lr_1_zd_3.Interface.IPerson
+  ├── Властивості:
+  │     • String Name
+  │     • String Surname
+  │     • String Pobatkovi
+  │     • DateTime BirthDate
+  │     • String Sport
+--------------------------------------------------
+[ІНТЕРФЕЙС] lr_1_zd_3.Interface.ISortableBySurname
+  └── Методи:
+        • Void SortBySurname(List`1 people)
+--------------------------------------------------
+[ІНТЕРФЕЙС] lr_1_zd_3.Interface.ITrainingBooking
+  └── Методи:
+        • Boolean SignUpForTraining(Coach coach, DateTime date)
+--------------------------------------------------

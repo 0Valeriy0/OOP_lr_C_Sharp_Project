@@ -52,6 +52,9 @@
             веслуванняФільтрToolStripMenuItem = new ToolStripMenuItem();
             велоспортФільтрToolStripMenuItem = new ToolStripMenuItem();
             усіСпортсмениФільтрToolStripMenuItem = new ToolStripMenuItem();
+            фільтрРоздільникToolStripSeparator = new ToolStripSeparator();
+            записФільтруJsonToolStripMenuItem = new ToolStripMenuItem();
+            читанняФільтруJsonToolStripMenuItem = new ToolStripMenuItem();
             перевантаженняОператорівToolStripMenuItem = new ToolStripMenuItem();
             розрядToolStripMenuItem = new ToolStripMenuItem();
             toolStripMenuItem2 = new ToolStripMenuItem();
@@ -111,6 +114,14 @@
             menuStrip1.Size = new Size(1924, 31);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
+            menuStrip1.BackColor = Color.FromArgb(27, 94, 32);
+            menuStrip1.RenderMode = ToolStripRenderMode.System;
+            менюToolStripMenuItem.ForeColor = Color.White;
+            роботаЗФайломToolStripMenuItem.ForeColor = Color.White;
+            довідкаToolStripMenuItem.ForeColor = Color.White;
+            сортуванняToolStripMenuItem.ForeColor = Color.White;
+            фільтруванняToolStripMenuItem.ForeColor = Color.White;
+            перевантаженняОператорівToolStripMenuItem.ForeColor = Color.White;
             // 
             // менюToolStripMenuItem
             // 
@@ -237,7 +248,7 @@
             //
             // фільтруванняToolStripMenuItem
             //
-            фільтруванняToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { веслуванняФільтрToolStripMenuItem, велоспортФільтрToolStripMenuItem, усіСпортсмениФільтрToolStripMenuItem });
+            фільтруванняToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { веслуванняФільтрToolStripMenuItem, велоспортФільтрToolStripMenuItem, усіСпортсмениФільтрToolStripMenuItem, фільтрРоздільникToolStripSeparator, записФільтруJsonToolStripMenuItem, читанняФільтруJsonToolStripMenuItem });
             фільтруванняToolStripMenuItem.Name = "фільтруванняToolStripMenuItem";
             фільтруванняToolStripMenuItem.Size = new Size(124, 27);
             фільтруванняToolStripMenuItem.Text = "Фільтрування";
@@ -262,6 +273,25 @@
             усіСпортсмениФільтрToolStripMenuItem.Size = new Size(260, 28);
             усіСпортсмениФільтрToolStripMenuItem.Text = "Показати всіх";
             усіСпортсмениФільтрToolStripMenuItem.Click += усіСпортсмениФільтрToolStripMenuItem_Click;
+            //
+            // фільтрРоздільникToolStripSeparator
+            //
+            фільтрРоздільникToolStripSeparator.Name = "фільтрРоздільникToolStripSeparator";
+            фільтрРоздільникToolStripSeparator.Size = new Size(257, 6);
+            //
+            // записФільтруJsonToolStripMenuItem
+            //
+            записФільтруJsonToolStripMenuItem.Name = "записФільтруJsonToolStripMenuItem";
+            записФільтруJsonToolStripMenuItem.Size = new Size(260, 28);
+            записФільтруJsonToolStripMenuItem.Text = "Записати результат у JSON...";
+            записФільтруJsonToolStripMenuItem.Click += записФільтруJsonToolStripMenuItem_Click;
+            //
+            // читанняФільтруJsonToolStripMenuItem
+            //
+            читанняФільтруJsonToolStripMenuItem.Name = "читанняФільтруJsonToolStripMenuItem";
+            читанняФільтруJsonToolStripMenuItem.Size = new Size(260, 28);
+            читанняФільтруJsonToolStripMenuItem.Text = "Прочитати результат з JSON...";
+            читанняФільтруJsonToolStripMenuItem.Click += читанняФільтруJsonToolStripMenuItem_Click;
             // 
             // перевантаженняОператорівToolStripMenuItem
             // 
@@ -310,6 +340,21 @@
             dataGridView1_Input.RowHeadersWidth = 51;
             dataGridView1_Input.Size = new Size(1215, 297);
             dataGridView1_Input.TabIndex = 2;
+            dataGridView1_Input.BackgroundColor = Color.White;
+            dataGridView1_Input.GridColor = Color.FromArgb(210, 227, 212);
+            dataGridView1_Input.BorderStyle = BorderStyle.FixedSingle;
+            dataGridView1_Input.EnableHeadersVisualStyles = false;
+            dataGridView1_Input.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridView1_Input.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(27, 94, 32);
+            dataGridView1_Input.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dataGridView1_Input.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(27, 94, 32);
+            dataGridView1_Input.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
+            dataGridView1_Input.RowHeadersDefaultCellStyle.BackColor = Color.FromArgb(232, 243, 233);
+            dataGridView1_Input.RowHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(208, 235, 211);
+            dataGridView1_Input.DefaultCellStyle.ForeColor = Color.FromArgb(33, 37, 41);
+            dataGridView1_Input.DefaultCellStyle.SelectionBackColor = Color.FromArgb(208, 235, 211);
+            dataGridView1_Input.DefaultCellStyle.SelectionForeColor = Color.FromArgb(33, 37, 41);
+            dataGridView1_Input.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(242, 249, 243);
             // 
             // label2
             // 
@@ -331,6 +376,21 @@
             dataGridView2_Output.RowHeadersWidth = 51;
             dataGridView2_Output.Size = new Size(1213, 300);
             dataGridView2_Output.TabIndex = 4;
+            dataGridView2_Output.BackgroundColor = Color.White;
+            dataGridView2_Output.GridColor = Color.FromArgb(210, 227, 212);
+            dataGridView2_Output.BorderStyle = BorderStyle.FixedSingle;
+            dataGridView2_Output.EnableHeadersVisualStyles = false;
+            dataGridView2_Output.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridView2_Output.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(27, 94, 32);
+            dataGridView2_Output.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dataGridView2_Output.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(27, 94, 32);
+            dataGridView2_Output.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
+            dataGridView2_Output.RowHeadersDefaultCellStyle.BackColor = Color.FromArgb(232, 243, 233);
+            dataGridView2_Output.RowHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(208, 235, 211);
+            dataGridView2_Output.DefaultCellStyle.ForeColor = Color.FromArgb(33, 37, 41);
+            dataGridView2_Output.DefaultCellStyle.SelectionBackColor = Color.FromArgb(208, 235, 211);
+            dataGridView2_Output.DefaultCellStyle.SelectionForeColor = Color.FromArgb(33, 37, 41);
+            dataGridView2_Output.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(242, 249, 243);
             // 
             // label3
             // 
@@ -559,6 +619,9 @@
             statusStrip2.Size = new Size(1924, 26);
             statusStrip2.TabIndex = 13;
             statusStrip2.Text = "statusStrip2";
+            statusStrip2.BackColor = Color.FromArgb(27, 94, 32);
+            statusStrip2.RenderMode = ToolStripRenderMode.System;
+            toolStripStatusLabel1.ForeColor = Color.White;
             // 
             // toolStripStatusLabel1
             // 
@@ -576,6 +639,8 @@
             toolStrip1.Size = new Size(1924, 27);
             toolStrip1.TabIndex = 14;
             toolStrip1.Text = "toolStrip1";
+            toolStrip1.BackColor = Color.FromArgb(232, 243, 233);
+            toolStrip1.RenderMode = ToolStripRenderMode.System;
             // 
             // toolStripButton1
             // 
@@ -637,6 +702,7 @@
             // 
             // Form1
             // 
+            BackColor = Color.FromArgb(245, 249, 245);
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1924, 780);
@@ -718,6 +784,9 @@
         private ToolStripMenuItem веслуванняФільтрToolStripMenuItem;
         private ToolStripMenuItem велоспортФільтрToolStripMenuItem;
         private ToolStripMenuItem усіСпортсмениФільтрToolStripMenuItem;
+        private ToolStripSeparator фільтрРоздільникToolStripSeparator;
+        private ToolStripMenuItem записФільтруJsonToolStripMenuItem;
+        private ToolStripMenuItem читанняФільтруJsonToolStripMenuItem;
         private ToolStripMenuItem перевантаженняОператорівToolStripMenuItem;
         private ToolStripMenuItem розрядToolStripMenuItem;
         private Label label4;

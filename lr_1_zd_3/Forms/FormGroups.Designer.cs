@@ -87,6 +87,10 @@ namespace lr_1_zd_3.Forms
             menuStrip1.Size = new Size(1924, 31);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
+            menuStrip1.BackColor = Color.FromArgb(27, 94, 32);
+            menuStrip1.RenderMode = ToolStripRenderMode.System;
+            менюToolStripMenuItem.ForeColor = Color.White;
+            роботаЗФайломToolStripMenuItem.ForeColor = Color.White;
             // 
             // менюToolStripMenuItem
             // 
@@ -168,6 +172,8 @@ namespace lr_1_zd_3.Forms
             toolStrip1.Size = new Size(1924, 31);
             toolStrip1.TabIndex = 1;
             toolStrip1.Text = "toolStrip1";
+            toolStrip1.BackColor = Color.FromArgb(232, 243, 233);
+            toolStrip1.RenderMode = ToolStripRenderMode.System;
             // 
             // toolStripButton_AddGroup
             // 
@@ -353,6 +359,21 @@ namespace lr_1_zd_3.Forms
             dataGridView_Groups.Size = new Size(1215, 275);
             dataGridView_Groups.TabIndex = 4;
             dataGridView_Groups.SelectionChanged += dataGridView_Groups_SelectionChanged;
+            dataGridView_Groups.BackgroundColor = Color.White;
+            dataGridView_Groups.GridColor = Color.FromArgb(210, 227, 212);
+            dataGridView_Groups.BorderStyle = BorderStyle.FixedSingle;
+            dataGridView_Groups.EnableHeadersVisualStyles = false;
+            dataGridView_Groups.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridView_Groups.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(27, 94, 32);
+            dataGridView_Groups.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dataGridView_Groups.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(27, 94, 32);
+            dataGridView_Groups.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
+            dataGridView_Groups.RowHeadersDefaultCellStyle.BackColor = Color.FromArgb(232, 243, 233);
+            dataGridView_Groups.RowHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(208, 235, 211);
+            dataGridView_Groups.DefaultCellStyle.ForeColor = Color.FromArgb(33, 37, 41);
+            dataGridView_Groups.DefaultCellStyle.SelectionBackColor = Color.FromArgb(208, 235, 211);
+            dataGridView_Groups.DefaultCellStyle.SelectionForeColor = Color.FromArgb(33, 37, 41);
+            dataGridView_Groups.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(242, 249, 243);
             // 
             // groupBox_Members
             // 
@@ -377,6 +398,21 @@ namespace lr_1_zd_3.Forms
             dataGridView_Members.RowHeadersWidth = 51;
             dataGridView_Members.Size = new Size(1185, 225);
             dataGridView_Members.TabIndex = 5;
+            dataGridView_Members.BackgroundColor = Color.White;
+            dataGridView_Members.GridColor = Color.FromArgb(210, 227, 212);
+            dataGridView_Members.BorderStyle = BorderStyle.FixedSingle;
+            dataGridView_Members.EnableHeadersVisualStyles = false;
+            dataGridView_Members.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridView_Members.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(27, 94, 32);
+            dataGridView_Members.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dataGridView_Members.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(27, 94, 32);
+            dataGridView_Members.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
+            dataGridView_Members.RowHeadersDefaultCellStyle.BackColor = Color.FromArgb(232, 243, 233);
+            dataGridView_Members.RowHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(208, 235, 211);
+            dataGridView_Members.DefaultCellStyle.ForeColor = Color.FromArgb(33, 37, 41);
+            dataGridView_Members.DefaultCellStyle.SelectionBackColor = Color.FromArgb(208, 235, 211);
+            dataGridView_Members.DefaultCellStyle.SelectionForeColor = Color.FromArgb(33, 37, 41);
+            dataGridView_Members.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(242, 249, 243);
             // 
             // comboBox_Sportsman
             // 
@@ -407,6 +443,9 @@ namespace lr_1_zd_3.Forms
             statusStrip1.Size = new Size(1924, 36);
             statusStrip1.TabIndex = 6;
             statusStrip1.Text = "statusStrip1";
+            statusStrip1.BackColor = Color.FromArgb(27, 94, 32);
+            statusStrip1.RenderMode = ToolStripRenderMode.System;
+            toolStripStatusLabel1.ForeColor = Color.White;
             // 
             // toolStripStatusLabel1
             // 
@@ -420,6 +459,7 @@ namespace lr_1_zd_3.Forms
             // 
             // FormGroups
             // 
+            BackColor = Color.FromArgb(245, 249, 245);
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1924, 780);

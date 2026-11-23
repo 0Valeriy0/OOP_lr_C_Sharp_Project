@@ -1,3 +1,5 @@
+using lr_1_zd_3.Aditionals;
+
 namespace lr_1_zd_3.Forms
 {
     // Вікно «Про програму»: тема та можливості програми на весь екран
@@ -31,7 +33,6 @@ namespace lr_1_zd_3.Forms
 
         private void FormAbout_Load(object sender, EventArgs e)
         {
-
         }
     }
 }

@@ -39,7 +39,6 @@ namespace lr_1_zd_3.Forms
             // 
             label_Title.Dock = DockStyle.Top;
             label_Title.Font = new Font("Segoe UI", 28F, FontStyle.Bold);
-            label_Title.ForeColor = Color.FromArgb(31, 78, 121);
             label_Title.Location = new Point(0, 0);
             label_Title.Name = "label_Title";
             label_Title.Padding = new Padding(40, 30, 40, 10);
@@ -47,6 +46,8 @@ namespace lr_1_zd_3.Forms
             label_Title.TabIndex = 0;
             label_Title.Text = "Автоматизація роботи\r\nДитячо-юнацької спортивної школи (ДЮСШ)";
             label_Title.TextAlign = ContentAlignment.MiddleCenter;
+            label_Title.BackColor = Color.FromArgb(27, 94, 32);
+            label_Title.ForeColor = Color.White;
             // 
             // label_Description
             // 
@@ -77,14 +78,21 @@ namespace lr_1_zd_3.Forms
             button_Close.Size = new Size(200, 55);
             button_Close.TabIndex = 0;
             button_Close.Text = "Закрити";
-            button_Close.UseVisualStyleBackColor = true;
+            button_Close.UseVisualStyleBackColor = false;
+            button_Close.FlatStyle = FlatStyle.Flat;
+            button_Close.FlatAppearance.BorderSize = 0;
+            button_Close.FlatAppearance.MouseOverBackColor = Color.FromArgb(46, 125, 50);
+            button_Close.FlatAppearance.MouseDownBackColor = Color.FromArgb(67, 160, 71);
+            button_Close.BackColor = Color.FromArgb(27, 94, 32);
+            button_Close.ForeColor = Color.White;
+            button_Close.Cursor = Cursors.Hand;
             // 
             // FormAbout
             // 
+            BackColor = Color.FromArgb(245, 249, 245);
             AcceptButton = button_Close;
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.White;
             CancelButton = button_Close;
             ClientSize = new Size(1400, 810);
             Controls.Add(label_Description);

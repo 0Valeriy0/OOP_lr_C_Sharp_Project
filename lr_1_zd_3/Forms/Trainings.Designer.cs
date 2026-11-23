@@ -97,6 +97,21 @@
             dataGridView1.Size = new Size(1181, 280);
             dataGridView1.TabIndex = 56;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            dataGridView1.BackgroundColor = Color.White;
+            dataGridView1.GridColor = Color.FromArgb(210, 227, 212);
+            dataGridView1.BorderStyle = BorderStyle.FixedSingle;
+            dataGridView1.EnableHeadersVisualStyles = false;
+            dataGridView1.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(27, 94, 32);
+            dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dataGridView1.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(27, 94, 32);
+            dataGridView1.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
+            dataGridView1.RowHeadersDefaultCellStyle.BackColor = Color.FromArgb(232, 243, 233);
+            dataGridView1.RowHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(208, 235, 211);
+            dataGridView1.DefaultCellStyle.ForeColor = Color.FromArgb(33, 37, 41);
+            dataGridView1.DefaultCellStyle.SelectionBackColor = Color.FromArgb(208, 235, 211);
+            dataGridView1.DefaultCellStyle.SelectionForeColor = Color.FromArgb(33, 37, 41);
+            dataGridView1.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(242, 249, 243);
             // 
             // label2
             // 
@@ -129,6 +144,21 @@
             dataGridView2.RowHeadersWidth = 51;
             dataGridView2.Size = new Size(1181, 318);
             dataGridView2.TabIndex = 59;
+            dataGridView2.BackgroundColor = Color.White;
+            dataGridView2.GridColor = Color.FromArgb(210, 227, 212);
+            dataGridView2.BorderStyle = BorderStyle.FixedSingle;
+            dataGridView2.EnableHeadersVisualStyles = false;
+            dataGridView2.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridView2.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(27, 94, 32);
+            dataGridView2.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dataGridView2.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(27, 94, 32);
+            dataGridView2.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
+            dataGridView2.RowHeadersDefaultCellStyle.BackColor = Color.FromArgb(232, 243, 233);
+            dataGridView2.RowHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(208, 235, 211);
+            dataGridView2.DefaultCellStyle.ForeColor = Color.FromArgb(33, 37, 41);
+            dataGridView2.DefaultCellStyle.SelectionBackColor = Color.FromArgb(208, 235, 211);
+            dataGridView2.DefaultCellStyle.SelectionForeColor = Color.FromArgb(33, 37, 41);
+            dataGridView2.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(242, 249, 243);
             // 
             // menuStrip1
             // 
@@ -140,6 +170,10 @@
             menuStrip1.Size = new Size(1924, 31);
             menuStrip1.TabIndex = 60;
             menuStrip1.Text = "menuStrip1";
+            menuStrip1.BackColor = Color.FromArgb(27, 94, 32);
+            menuStrip1.RenderMode = ToolStripRenderMode.System;
+            менюToolStripMenuItem.ForeColor = Color.White;
+            роботаЗФайломToolStripMenuItem.ForeColor = Color.White;
             // 
             // менюToolStripMenuItem
             // 
@@ -253,6 +287,8 @@
             toolStrip1.Size = new Size(1924, 27);
             toolStrip1.TabIndex = 61;
             toolStrip1.Text = "toolStrip1";
+            toolStrip1.BackColor = Color.FromArgb(232, 243, 233);
+            toolStrip1.RenderMode = ToolStripRenderMode.System;
             // 
             // toolStripButton1
             // 
@@ -286,7 +322,6 @@
             // 
             // groupBox2_sportRozrad
             // 
-            groupBox2_sportRozrad.Controls.Add(statusStrip2);
             groupBox2_sportRozrad.Controls.Add(comboBox1_trainerPicker);
             groupBox2_sportRozrad.Controls.Add(numericUpDown1);
             groupBox2_sportRozrad.Controls.Add(dateTimePicker1);
@@ -296,9 +331,10 @@
             groupBox2_sportRozrad.Controls.Add(label5);
             groupBox2_sportRozrad.Controls.Add(label3);
             groupBox2_sportRozrad.Controls.Add(comboBox1_sportSelect);
+            groupBox2_sportRozrad.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             groupBox2_sportRozrad.Location = new Point(12, 128);
             groupBox2_sportRozrad.Name = "groupBox2_sportRozrad";
-            groupBox2_sportRozrad.Size = new Size(693, 649);
+            groupBox2_sportRozrad.Size = new Size(693, 620);
             groupBox2_sportRozrad.TabIndex = 62;
             groupBox2_sportRozrad.TabStop = false;
             groupBox2_sportRozrad.Text = "Панель редагування даних";
@@ -307,11 +343,14 @@
             // 
             statusStrip2.ImageScalingSize = new Size(20, 20);
             statusStrip2.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel1 });
-            statusStrip2.Location = new Point(3, 620);
+            statusStrip2.Location = new Point(0, 754);
             statusStrip2.Name = "statusStrip2";
-            statusStrip2.Size = new Size(687, 26);
+            statusStrip2.Size = new Size(1924, 26);
             statusStrip2.TabIndex = 65;
             statusStrip2.Text = "statusStrip2";
+            statusStrip2.BackColor = Color.FromArgb(27, 94, 32);
+            statusStrip2.RenderMode = ToolStripRenderMode.System;
+            toolStripStatusLabel1.ForeColor = Color.White;
             // 
             // toolStripStatusLabel1
             // 
@@ -425,7 +464,7 @@
             tabControl1.Location = new Point(711, 64);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(1201, 713);
+            tabControl1.Size = new Size(1201, 687);
             tabControl1.TabIndex = 63;
             tabControl1.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
             //
@@ -441,7 +480,8 @@
             tabPage1.Size = new Size(1193, 677);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Запис";
-            tabPage1.UseVisualStyleBackColor = true;
+            tabPage1.UseVisualStyleBackColor = false;
+            tabPage1.BackColor = Color.FromArgb(245, 249, 245);
             //
             // tabPage2
             //
@@ -456,7 +496,8 @@
             tabPage2.Size = new Size(1193, 677);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Розклад на тиждень";
-            tabPage2.UseVisualStyleBackColor = true;
+            tabPage2.UseVisualStyleBackColor = false;
+            tabPage2.BackColor = Color.FromArgb(245, 249, 245);
             //
             // dataGridViewSchedule
             //
@@ -467,6 +508,20 @@
             dataGridViewSchedule.RowHeadersWidth = 51;
             dataGridViewSchedule.Size = new Size(1181, 621);
             dataGridViewSchedule.TabIndex = 0;
+            dataGridViewSchedule.BackgroundColor = Color.White;
+            dataGridViewSchedule.GridColor = Color.FromArgb(210, 227, 212);
+            dataGridViewSchedule.BorderStyle = BorderStyle.FixedSingle;
+            dataGridViewSchedule.EnableHeadersVisualStyles = false;
+            dataGridViewSchedule.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridViewSchedule.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(27, 94, 32);
+            dataGridViewSchedule.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dataGridViewSchedule.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(27, 94, 32);
+            dataGridViewSchedule.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
+            dataGridViewSchedule.RowHeadersDefaultCellStyle.BackColor = Color.FromArgb(232, 243, 233);
+            dataGridViewSchedule.RowHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(208, 235, 211);
+            dataGridViewSchedule.DefaultCellStyle.ForeColor = Color.FromArgb(33, 37, 41);
+            dataGridViewSchedule.DefaultCellStyle.SelectionBackColor = Color.FromArgb(208, 235, 211);
+            dataGridViewSchedule.DefaultCellStyle.SelectionForeColor = Color.FromArgb(33, 37, 41);
             //
             // buttonPrevWeek
             //
@@ -475,8 +530,15 @@
             buttonPrevWeek.Size = new Size(50, 34);
             buttonPrevWeek.TabIndex = 1;
             buttonPrevWeek.Text = "◀";
-            buttonPrevWeek.UseVisualStyleBackColor = true;
             buttonPrevWeek.Click += buttonPrevWeek_Click;
+            buttonPrevWeek.UseVisualStyleBackColor = false;
+            buttonPrevWeek.FlatStyle = FlatStyle.Flat;
+            buttonPrevWeek.FlatAppearance.BorderSize = 0;
+            buttonPrevWeek.FlatAppearance.MouseOverBackColor = Color.FromArgb(46, 125, 50);
+            buttonPrevWeek.FlatAppearance.MouseDownBackColor = Color.FromArgb(67, 160, 71);
+            buttonPrevWeek.BackColor = Color.FromArgb(27, 94, 32);
+            buttonPrevWeek.ForeColor = Color.White;
+            buttonPrevWeek.Cursor = Cursors.Hand;
             //
             // dateTimePickerWeek
             //
@@ -494,8 +556,15 @@
             buttonNextWeek.Size = new Size(50, 34);
             buttonNextWeek.TabIndex = 3;
             buttonNextWeek.Text = "▶";
-            buttonNextWeek.UseVisualStyleBackColor = true;
             buttonNextWeek.Click += buttonNextWeek_Click;
+            buttonNextWeek.UseVisualStyleBackColor = false;
+            buttonNextWeek.FlatStyle = FlatStyle.Flat;
+            buttonNextWeek.FlatAppearance.BorderSize = 0;
+            buttonNextWeek.FlatAppearance.MouseOverBackColor = Color.FromArgb(46, 125, 50);
+            buttonNextWeek.FlatAppearance.MouseDownBackColor = Color.FromArgb(67, 160, 71);
+            buttonNextWeek.BackColor = Color.FromArgb(27, 94, 32);
+            buttonNextWeek.ForeColor = Color.White;
+            buttonNextWeek.Cursor = Cursors.Hand;
             //
             // labelWeek
             //
@@ -508,11 +577,13 @@
             // 
             // Trainings
             // 
+            BackColor = Color.FromArgb(245, 249, 245);
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1924, 780);
             WindowState = FormWindowState.Maximized;
             Controls.Add(groupBox2_sportRozrad);
+            Controls.Add(statusStrip2);
             Controls.Add(toolStrip1);
             Controls.Add(menuStrip1);
             Controls.Add(tabControl1);
