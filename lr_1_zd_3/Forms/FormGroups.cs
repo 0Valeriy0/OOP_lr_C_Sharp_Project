@@ -2,7 +2,9 @@ using ClassLibrary1.Class;
 using lr_1_zd_3.Class;
 using System;
 using System.IO;
+using System.Text.Json;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 
 namespace lr_1_zd_3.Forms
 {
@@ -19,6 +21,9 @@ namespace lr_1_zd_3.Forms
         // 3. Колекція доступних спортсменів для додавання в групи
         private Sportsman[] availableSportsmen = new Sportsman[100];
         private int sportsmenCount = 0;
+
+        // Серіалізатор XML для читання тренерів (той самий формат, що зберігає форма «Тренери»)
+        private static readonly XmlSerializer coachesSerializer = new XmlSerializer(typeof(List<Coach>));
         public FormGroups()
         {
             InitializeComponent();
@@ -35,6 +40,12 @@ namespace lr_1_zd_3.Forms
 
         private void FormGroups_Load(object sender, EventArgs e)
         {
+            dataGridView_Groups.ApplyLargeFont();
+            dataGridView_Members.ApplyLargeFont();
+            // Список груп і склад групи завжди однакової висоти
+            Resize += (s, ev) => GridStyle.SplitEvenly(dataGridView_Groups, null, groupBox_Members);
+            GridStyle.SplitEvenly(dataGridView_Groups, null, groupBox_Members);
+
             // Налаштування списку видів спорту
             comboBox_Sport.Items.Clear();
             comboBox_Sport.Items.Add("Веслування");
@@ -466,32 +477,36 @@ namespace lr_1_zd_3.Forms
 
         private void завантажитиТренерівToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            openFileDialog1.Filter = "Текстові файли (*.txt)|*.txt|Усі файли (*.*)|*.*";
+            openFileDialog1.Filter = "XML-файли (*.xml)|*.xml|Усі файли (*.*)|*.*";
             openFileDialog1.Title = "Відкрити файл з тренерами";
 
             if (openFileDialog1.ShowDialog() != DialogResult.OK)
                 return;
 
-            coachesCount = 0;
-            string[] lines = File.ReadAllLines(openFileDialog1.FileName);
-
-            foreach (string line in lines)
+            try
             {
-                if (string.IsNullOrWhiteSpace(line)) continue;
-                string[] parts = line.Split(';');
-
-                // Пряме заповнення елементів масиву availableCoaches без створення зайвих змінних
-                if (parts.Length >= 6 && coachesCount < availableCoaches.Length)
+                // Десеріалізація тренерів з того самого XML-файлу, що й у формі «Тренери»
+                List<Coach>? loaded;
+                using (FileStream fs = new FileStream(openFileDialog1.FileName, FileMode.Open))
                 {
-                    availableCoaches[coachesCount] = new Coach();
-                    availableCoaches[coachesCount].Surname = parts[0];
-                    availableCoaches[coachesCount].Name = parts[1];
-                    availableCoaches[coachesCount].Pobatkovi = parts[2];
-                    availableCoaches[coachesCount].Sport = parts[3];
-                    availableCoaches[coachesCount].CoachRank = parts[4];
-                    availableCoaches[coachesCount].BirthDate = DateTime.Parse(parts[5]);
-                    coachesCount++;
+                    loaded = coachesSerializer.Deserialize(fs) as List<Coach>;
                 }
+
+                coachesCount = 0;
+                if (loaded != null)
+                {
+                    foreach (Coach coach in loaded)
+                    {
+                        if (coachesCount >= availableCoaches.Length) break;
+                        availableCoaches[coachesCount] = coach;
+                        coachesCount++;
+                    }
+                }
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("Файл не є коректним XML-файлом з тренерами!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
 
             UpdateCoachesComboBox();
@@ -501,33 +516,36 @@ namespace lr_1_zd_3.Forms
 
         private void завантажитиСпортсменівToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            openFileDialog1.Filter = "Текстові файли (*.txt)|*.txt|Усі файли (*.*)|*.*";
+            openFileDialog1.Filter = "JSON-файли (*.json)|*.json|Усі файли (*.*)|*.*";
             openFileDialog1.Title = "Відкрити файл зі спортсменами";
 
             if (openFileDialog1.ShowDialog() != DialogResult.OK)
                 return;
 
-            sportsmenCount = 0;
-            string[] lines = File.ReadAllLines(openFileDialog1.FileName);
-
-            foreach (string line in lines)
+            try
             {
-                if (string.IsNullOrWhiteSpace(line)) continue;
-                string[] parts = line.Split(';');
-
-                // Пряме заповнення елементів масиву availableSportsmen без створення зайвих змінних
-                if (parts.Length >= 7 && sportsmenCount < availableSportsmen.Length)
+                // Десеріалізація спортсменів з того самого JSON-файлу, що й у формі «Спортсмени»
+                List<Sportsman>? loaded;
+                using (FileStream fs = new FileStream(openFileDialog1.FileName, FileMode.Open))
                 {
-                    availableSportsmen[sportsmenCount] = new Sportsman();
-                    availableSportsmen[sportsmenCount].Surname = parts[0];
-                    availableSportsmen[sportsmenCount].Name = parts[1];
-                    availableSportsmen[sportsmenCount].Pobatkovi = parts[2];
-                    availableSportsmen[sportsmenCount].Sport = parts[3];
-                    availableSportsmen[sportsmenCount].SportRank = parts[4];
-                    availableSportsmen[sportsmenCount].BirthDate = DateTime.Parse(parts[5]);
-                    availableSportsmen[sportsmenCount].PrizePlaces = int.Parse(parts[6]);
-                    sportsmenCount++;
+                    loaded = JsonSerializer.Deserialize<List<Sportsman>>(fs);
                 }
+
+                sportsmenCount = 0;
+                if (loaded != null)
+                {
+                    foreach (Sportsman sportsman in loaded)
+                    {
+                        if (sportsmenCount >= availableSportsmen.Length) break;
+                        availableSportsmen[sportsmenCount] = sportsman;
+                        sportsmenCount++;
+                    }
+                }
+            }
+            catch (JsonException)
+            {
+                MessageBox.Show("Файл не є коректним JSON-файлом зі спортсменами!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
 
             UpdateSportsmenComboBox();

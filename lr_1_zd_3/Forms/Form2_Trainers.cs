@@ -28,6 +28,11 @@ namespace lr_1_zd_3
 
         private void Form2_Trainers_Load(object sender, EventArgs e)
         {
+            dataGridView1_Input.ApplyLargeFont();
+            dataGridView2_Output.ApplyLargeFont();
+            // Вхідна і вихідна таблиці завжди однакової висоти
+            Resize += (s, ev) => GridStyle.SplitEvenly(dataGridView1_Input, label2, dataGridView2_Output);
+            GridStyle.SplitEvenly(dataGridView1_Input, label2, dataGridView2_Output);
 
             comboBox1_sportSelect.Items.Clear();
             comboBox1_sportSelect.Items.Add("Веслування");
@@ -304,6 +309,15 @@ namespace lr_1_zd_3
                 MessageBoxIcon.Information);
         }
 
+
+        // Довідка → Про програму: окреме вікно з темою та можливостями програми
+        private void проToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (FormAbout about = new FormAbout())
+            {
+                about.ShowDialog(this);
+            }
+        }
 
         private void ClearFields()
         {

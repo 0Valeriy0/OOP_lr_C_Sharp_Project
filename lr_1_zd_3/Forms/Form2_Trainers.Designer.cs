@@ -331,6 +331,7 @@
             проToolStripMenuItem.Name = "проToolStripMenuItem";
             проToolStripMenuItem.Size = new Size(226, 28);
             проToolStripMenuItem.Text = "Про програму";
+            проToolStripMenuItem.Click += проToolStripMenuItem_Click;
             // 
             // проРозробникаToolStripMenuItem
             // 
@@ -420,6 +421,7 @@
             // dataGridView2_Output
             // 
             dataGridView2_Output.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView2_Output.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView2_Output.Location = new Point(709, 407);
             dataGridView2_Output.Name = "dataGridView2_Output";
             dataGridView2_Output.RowHeadersWidth = 51;
@@ -431,6 +433,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            label2.Anchor = AnchorStyles.Top;
             label2.Location = new Point(1386, 373);
             label2.Name = "label2";
             label2.Size = new Size(127, 31);
@@ -440,6 +443,7 @@
             // dataGridView1_Input
             // 
             dataGridView1_Input.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1_Input.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView1_Input.Location = new Point(709, 61);
             dataGridView1_Input.Name = "dataGridView1_Input";
             dataGridView1_Input.RowHeadersWidth = 51;
@@ -455,6 +459,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1924, 780);
+            WindowState = FormWindowState.Maximized;
             Controls.Add(dataGridView2_Output);
             Controls.Add(label2);
             Controls.Add(dataGridView1_Input);

@@ -48,6 +48,10 @@
             сортуванняToolStripMenuItem = new ToolStripMenuItem();
             заПрізвищемToolStripMenuItem = new ToolStripMenuItem();
             заІменемПеревантаженняОператорівToolStripMenuItem = new ToolStripMenuItem();
+            фільтруванняToolStripMenuItem = new ToolStripMenuItem();
+            веслуванняФільтрToolStripMenuItem = new ToolStripMenuItem();
+            велоспортФільтрToolStripMenuItem = new ToolStripMenuItem();
+            усіСпортсмениФільтрToolStripMenuItem = new ToolStripMenuItem();
             перевантаженняОператорівToolStripMenuItem = new ToolStripMenuItem();
             розрядToolStripMenuItem = new ToolStripMenuItem();
             toolStripMenuItem2 = new ToolStripMenuItem();
@@ -101,7 +105,7 @@
             // 
             menuStrip1.Font = new Font("Segoe UI", 10.2F);
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { менюToolStripMenuItem, роботаЗФайломToolStripMenuItem, довідкаToolStripMenuItem, сортуванняToolStripMenuItem, перевантаженняОператорівToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { менюToolStripMenuItem, роботаЗФайломToolStripMenuItem, довідкаToolStripMenuItem, сортуванняToolStripMenuItem, фільтруванняToolStripMenuItem, перевантаженняОператорівToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(1924, 31);
@@ -202,6 +206,7 @@
             проToolStripMenuItem.Name = "проToolStripMenuItem";
             проToolStripMenuItem.Size = new Size(226, 28);
             проToolStripMenuItem.Text = "Про програму";
+            проToolStripMenuItem.Click += проToolStripMenuItem_Click;
             // 
             // проРозробникаToolStripMenuItem
             // 
@@ -229,6 +234,34 @@
             заІменемПеревантаженняОператорівToolStripMenuItem.Size = new Size(411, 28);
             заІменемПеревантаженняОператорівToolStripMenuItem.Text = "За іменем(Перевантаження операторів)";
             заІменемПеревантаженняОператорівToolStripMenuItem.Click += заІменемПеревантаженняОператорівToolStripMenuItem_Click;
+            //
+            // фільтруванняToolStripMenuItem
+            //
+            фільтруванняToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { веслуванняФільтрToolStripMenuItem, велоспортФільтрToolStripMenuItem, усіСпортсмениФільтрToolStripMenuItem });
+            фільтруванняToolStripMenuItem.Name = "фільтруванняToolStripMenuItem";
+            фільтруванняToolStripMenuItem.Size = new Size(124, 27);
+            фільтруванняToolStripMenuItem.Text = "Фільтрування";
+            //
+            // веслуванняФільтрToolStripMenuItem
+            //
+            веслуванняФільтрToolStripMenuItem.Name = "веслуванняФільтрToolStripMenuItem";
+            веслуванняФільтрToolStripMenuItem.Size = new Size(260, 28);
+            веслуванняФільтрToolStripMenuItem.Text = "Веслування";
+            веслуванняФільтрToolStripMenuItem.Click += веслуванняФільтрToolStripMenuItem_Click;
+            //
+            // велоспортФільтрToolStripMenuItem
+            //
+            велоспортФільтрToolStripMenuItem.Name = "велоспортФільтрToolStripMenuItem";
+            велоспортФільтрToolStripMenuItem.Size = new Size(260, 28);
+            велоспортФільтрToolStripMenuItem.Text = "Велоспорт";
+            велоспортФільтрToolStripMenuItem.Click += велоспортФільтрToolStripMenuItem_Click;
+            //
+            // усіСпортсмениФільтрToolStripMenuItem
+            //
+            усіСпортсмениФільтрToolStripMenuItem.Name = "усіСпортсмениФільтрToolStripMenuItem";
+            усіСпортсмениФільтрToolStripMenuItem.Size = new Size(260, 28);
+            усіСпортсмениФільтрToolStripMenuItem.Text = "Показати всіх";
+            усіСпортсмениФільтрToolStripMenuItem.Click += усіСпортсмениФільтрToolStripMenuItem_Click;
             // 
             // перевантаженняОператорівToolStripMenuItem
             // 
@@ -261,6 +294,7 @@
             // label1
             // 
             label1.AutoSize = true;
+            label1.Anchor = AnchorStyles.Top;
             label1.Location = new Point(1244, 31);
             label1.Name = "label1";
             label1.Size = new Size(83, 20);
@@ -270,6 +304,7 @@
             // dataGridView1_Input
             // 
             dataGridView1_Input.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1_Input.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView1_Input.Location = new Point(711, 89);
             dataGridView1_Input.Name = "dataGridView1_Input";
             dataGridView1_Input.RowHeadersWidth = 51;
@@ -280,6 +315,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            label2.Anchor = AnchorStyles.Top;
             label2.Location = new Point(1388, 401);
             label2.Name = "label2";
             label2.Size = new Size(127, 31);
@@ -289,6 +325,7 @@
             // dataGridView2_Output
             // 
             dataGridView2_Output.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView2_Output.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView2_Output.Location = new Point(711, 435);
             dataGridView2_Output.Name = "dataGridView2_Output";
             dataGridView2_Output.RowHeadersWidth = 51;
@@ -603,6 +640,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1924, 780);
+            WindowState = FormWindowState.Maximized;
             Controls.Add(toolStrip1);
             Controls.Add(statusStrip2);
             Controls.Add(groupBox2_sportRozrad);
@@ -676,6 +714,10 @@
         private SaveFileDialog saveFileDialog1;
         private ToolStripMenuItem сортуванняToolStripMenuItem;
         private ToolStripMenuItem заПрізвищемToolStripMenuItem;
+        private ToolStripMenuItem фільтруванняToolStripMenuItem;
+        private ToolStripMenuItem веслуванняФільтрToolStripMenuItem;
+        private ToolStripMenuItem велоспортФільтрToolStripMenuItem;
+        private ToolStripMenuItem усіСпортсмениФільтрToolStripMenuItem;
         private ToolStripMenuItem перевантаженняОператорівToolStripMenuItem;
         private ToolStripMenuItem розрядToolStripMenuItem;
         private Label label4;

@@ -90,6 +90,7 @@
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView1.Location = new Point(6, 37);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
@@ -101,6 +102,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            label2.Anchor = AnchorStyles.Top;
             label2.Location = new Point(525, 3);
             label2.Name = "label2";
             label2.Size = new Size(142, 31);
@@ -111,6 +113,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            label1.Anchor = AnchorStyles.Top;
             label1.Location = new Point(525, 322);
             label1.Name = "label1";
             label1.Size = new Size(138, 31);
@@ -120,6 +123,7 @@
             // dataGridView2
             // 
             dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView2.Location = new Point(6, 356);
             dataGridView2.Name = "dataGridView2";
             dataGridView2.RowHeadersWidth = 51;
@@ -417,6 +421,7 @@
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
             tabControl1.Font = new Font("Segoe UI", 10.2F);
+            tabControl1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabControl1.Location = new Point(711, 64);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -506,6 +511,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1924, 780);
+            WindowState = FormWindowState.Maximized;
             Controls.Add(groupBox2_sportRozrad);
             Controls.Add(toolStrip1);
             Controls.Add(menuStrip1);

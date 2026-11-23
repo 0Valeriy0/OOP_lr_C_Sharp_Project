@@ -6,7 +6,9 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Text;
+using System.Text.Json;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 using ClassLibrary1.Class;
 
 namespace lr_1_zd_3
@@ -24,6 +26,9 @@ namespace lr_1_zd_3
         private DateTime[] bookingDates = new DateTime[100];
         private int[] bookingDurations = new int[100];
         private int bookingsCount = 0;
+
+        // Серіалізатор XML для читання тренерів (той самий формат, що зберігає форма «Тренери»)
+        private static readonly XmlSerializer coachesSerializer = new XmlSerializer(typeof(List<Coach>));
 
         delegate void TrainingProcessDelegate(Sportsman sportsman);
         //  Метод 1 перевірка 
@@ -56,6 +61,15 @@ namespace lr_1_zd_3
 
         private void Trainings_Load(object sender, EventArgs e)
         {
+            dataGridView1.ApplyLargeFont();
+            dataGridView2.ApplyLargeFont();
+            dataGridViewSchedule.ApplyLargeFont();
+            // Таблиці спортсменів і тренувань на вкладці «Запис» завжди однакової висоти
+            tabPage1.Resize += (s, ev) => GridStyle.SplitEvenly(dataGridView1, label1, dataGridView2);
+            GridStyle.SplitEvenly(dataGridView1, label1, dataGridView2);
+            // Рядки розкладу розтягуються на всю висоту таблиці
+            dataGridViewSchedule.Resize += (s, ev) => FitScheduleRows();
+
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
             dateTimePicker1.CustomFormat = "dd.MM.yyyy HH:mm";
             dateTimePicker1.Value = DateTime.Now.AddHours(1);
@@ -420,29 +434,33 @@ namespace lr_1_zd_3
         private void даніПроТренерівToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog openDialog = new OpenFileDialog();
-            openDialog.Filter = "Текстові файли (*.txt)|*.txt|Усі файли (*.*)|*.*";
+            openDialog.Filter = "XML-файли (*.xml)|*.xml|Усі файли (*.*)|*.*";
             openDialog.Title = "Відкрити файл з тренерами";
             if (openDialog.ShowDialog() != DialogResult.OK)
                 return;
-            coachesCount = 0;
-            string[] lines = File.ReadAllLines(openDialog.FileName);
-            foreach (string line in lines)
+            try
             {
-                if (string.IsNullOrWhiteSpace(line)) continue;
-                string[] parts = line.Split(';');
-                // У файлі тренерів 6 полів: Прізвище;Ім'я;По батькові;Спорт;Звання;Дата
-                if (parts.Length == 6 && coachesCount < coaches.Length)
+                // Десеріалізація тренерів з того самого XML-файлу, що й у формі «Тренери»
+                List<Coach>? loaded;
+                using (FileStream fs = new FileStream(openDialog.FileName, FileMode.Open))
                 {
-                    Coach coach = new Coach();
-                    coach.Surname = parts[0];
-                    coach.Name = parts[1];
-                    coach.Pobatkovi = parts[2];
-                    coach.Sport = parts[3];
-                    coach.CoachRank = parts[4];
-                    coach.BirthDate = DateTime.Parse(parts[5]);
-                    coaches[coachesCount] = coach;
-                    coachesCount++;
+                    loaded = coachesSerializer.Deserialize(fs) as List<Coach>;
                 }
+                coachesCount = 0;
+                if (loaded != null)
+                {
+                    foreach (Coach coach in loaded)
+                    {
+                        if (coachesCount >= coaches.Length) break;
+                        coaches[coachesCount] = coach;
+                        coachesCount++;
+                    }
+                }
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("Файл не є коректним XML-файлом з тренерами!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
             // Оновлюємо випадаючий список тренерів
             UpdateCoachesComboBox();
@@ -452,34 +470,33 @@ namespace lr_1_zd_3
         private void даніПроСпортсменівToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog openDialog = new OpenFileDialog();
-            openDialog.Filter = "Текстові файли (*.txt)|*.txt|Усі файли (*.*)|*.*";
+            openDialog.Filter = "JSON-файли (*.json)|*.json|Усі файли (*.*)|*.*";
             openDialog.Title = "Відкрити файл зі спортсменами";
             if (openDialog.ShowDialog() != DialogResult.OK)
                 return;
-            sportsmenCount = 0;
-            string[] lines = File.ReadAllLines(openDialog.FileName);
-            foreach (string line in lines)
+            try
             {
-                if (string.IsNullOrWhiteSpace(line)) continue;
-                string[] parts = line.Split(';');
-               
-                if (parts.Length >= 10 && sportsmenCount < sportsmen.Length)
+                // Десеріалізація спортсменів (разом із медичними картами) з JSON-файлу форми «Спортсмени»
+                List<Sportsman>? loaded;
+                using (FileStream fs = new FileStream(openDialog.FileName, FileMode.Open))
                 {
-                    Sportsman sportsman = new Sportsman();
-                    sportsman.Surname = parts[0];
-                    sportsman.Name = parts[1];
-                    sportsman.Pobatkovi = parts[2];
-                    sportsman.Sport = parts[3];
-                    sportsman.SportRank = parts[4];
-                    sportsman.BirthDate = DateTime.Parse(parts[5]);
-                    sportsman.PrizePlaces = int.Parse(parts[6]);
-                    sportsman.MedicalCard.BloodGroup = parts[7];
-                    sportsman.MedicalCard.HasAccessToCompete = bool.Parse(parts[8]);
-                    sportsman.MedicalCard.InspectationDate = DateTime.Parse(parts[9]);
-                    
-                    sportsmen[sportsmenCount] = sportsman;
-                    sportsmenCount++;
+                    loaded = JsonSerializer.Deserialize<List<Sportsman>>(fs);
                 }
+                sportsmenCount = 0;
+                if (loaded != null)
+                {
+                    foreach (Sportsman sportsman in loaded)
+                    {
+                        if (sportsmenCount >= sportsmen.Length) break;
+                        sportsmen[sportsmenCount] = sportsman;
+                        sportsmenCount++;
+                    }
+                }
+            }
+            catch (JsonException)
+            {
+                MessageBox.Show("Файл не є коректним JSON-файлом зі спортсменами!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
             // Оновлюємо верхню таблицю зі спортсменами
             RefreshSportsmenGrid();
@@ -596,6 +613,21 @@ namespace lr_1_zd_3
             dataGridViewSchedule.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
         }
 
+        // Мінімальна висота рядків розкладу така, щоб усі години заповнили таблицю без порожнього місця;
+        // рядок із кількома тренуваннями може стати вищим, тоді з'явиться прокрутка
+        private void FitScheduleRows()
+        {
+            int count = dataGridViewSchedule.Rows.Count;
+            if (count == 0) return;
+
+            int available = dataGridViewSchedule.ClientSize.Height - dataGridViewSchedule.ColumnHeadersHeight - 2;
+            int height = Math.Max(available / count, 24);
+            foreach (DataGridViewRow row in dataGridViewSchedule.Rows)
+            {
+                row.MinimumHeight = height;
+            }
+        }
+
         private void RefreshScheduleGrid()
         {
             if (dataGridViewSchedule.Columns.Count == 0)
@@ -658,6 +690,7 @@ namespace lr_1_zd_3
                     : Color.LightGreen;
             }
 
+            FitScheduleRows();
             dataGridViewSchedule.ClearSelection();
         }
 

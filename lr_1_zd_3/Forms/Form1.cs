@@ -44,6 +44,12 @@ namespace lr_1_zd_3
         {
             setStatus = new StatusUpdateDelegate(UpdateStatusText);
 
+            dataGridView1_Input.ApplyLargeFont();
+            dataGridView2_Output.ApplyLargeFont();
+            // Вхідна і вихідна таблиці завжди однакової висоти
+            Resize += (s, ev) => GridStyle.SplitEvenly(dataGridView1_Input, label2, dataGridView2_Output);
+            GridStyle.SplitEvenly(dataGridView1_Input, label2, dataGridView2_Output);
+
             comboBox1_sportSelect.Items.Add("Веслування");
             comboBox1_sportSelect.Items.Add("Велоспорт");
             comboBox2.Items.Add("Без розряду");
@@ -534,6 +540,43 @@ namespace lr_1_zd_3
 
             ShowSortedSportsmen(sorted);
         }
+
+        //  Фільтрування за видом спорту
+        private void FilterBySport(string sport)
+        {
+            if (sportsmen.Count == 0)
+            {
+                MessageBox.Show("Список спортсменів порожній!", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            SportsmenList filtered = new SportsmenList();
+            foreach (Sportsman s in sportsmen)
+            {
+                if (s.Sport == sport)       
+                    filtered.Add(s);
+            }
+
+            ShowSortedSportsmen(filtered);
+            setStatus($"Фільтр «{sport}»: знайдено {filtered.Count} з {sportsmen.Count} спортсменів");
+        }
+
+        private void веслуванняФільтрToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FilterBySport("Веслування");
+        }
+
+        private void велоспортФільтрToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FilterBySport("Велоспорт");
+        }
+
+        private void усіСпортсмениФільтрToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RefreshOutputGrid();
+            setStatus("Фільтр знято: показано всіх спортсменів");
+        }
+
         private void ShowSortedSportsmen(SportsmenList sorted)
         {
             dataGridView2_Output.Rows.Clear();
@@ -548,7 +591,8 @@ namespace lr_1_zd_3
             {
                 CreateOutputGrid();
             }
-            for (int i = 0; i < sportsmen.Count; i++)
+            // Проходимо саме по переданому списку: після фільтрування він коротший за основний
+            for (int i = 0; i < sorted.Count; i++)
             {
                 Sportsman sportsman = sorted[i];
 
@@ -696,6 +740,15 @@ namespace lr_1_zd_3
         {
             this.Close();
         }
+        // Довідка → Про програму: окреме вікно з темою та можливостями програми
+        private void проToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (FormAbout about = new FormAbout())
+            {
+                about.ShowDialog(this);
+            }
+        }
+
         #region РЕФЛЕКСІЯ
         private void рефлексіяToolStripMenuItem_Click(object sender, EventArgs e)
         {

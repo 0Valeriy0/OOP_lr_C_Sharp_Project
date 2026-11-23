@@ -346,6 +346,7 @@ namespace lr_1_zd_3.Forms
             // dataGridView_Groups
             // 
             dataGridView_Groups.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView_Groups.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView_Groups.Location = new Point(695, 115);
             dataGridView_Groups.Name = "dataGridView_Groups";
             dataGridView_Groups.RowHeadersWidth = 51;
@@ -359,6 +360,7 @@ namespace lr_1_zd_3.Forms
             groupBox_Members.Controls.Add(comboBox_Sportsman);
             groupBox_Members.Controls.Add(label_SelectSportsman);
             groupBox_Members.Font = new Font("Segoe UI", 11F);
+            groupBox_Members.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             groupBox_Members.Location = new Point(695, 405);
             groupBox_Members.Name = "groupBox_Members";
             groupBox_Members.Size = new Size(1215, 319);
@@ -369,6 +371,7 @@ namespace lr_1_zd_3.Forms
             // dataGridView_Members
             // 
             dataGridView_Members.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView_Members.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView_Members.Location = new Point(15, 80);
             dataGridView_Members.Name = "dataGridView_Members";
             dataGridView_Members.RowHeadersWidth = 51;
@@ -420,6 +423,7 @@ namespace lr_1_zd_3.Forms
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1924, 780);
+            WindowState = FormWindowState.Maximized;
             Controls.Add(statusStrip1);
             Controls.Add(groupBox_Members);
             Controls.Add(dataGridView_Groups);
