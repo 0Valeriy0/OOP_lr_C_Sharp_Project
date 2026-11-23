@@ -1,3 +1,4 @@
+using ClassLibrary1.Class;
 using lr_1_zd_3.Class;
 using System;
 using System.IO;

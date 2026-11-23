@@ -1,12 +1,13 @@
 using System;
 using System.Text;
 using System.Collections.Generic;
+using ClassLibrary1.Class;
 
 namespace lr_1_zd_3.Class
 {
     // 1. Делегат задає сигнатуру обробників
     internal delegate void MembersChangedDelegate(SportGroup group, string message);
-    internal class SportGroup
+    internal partial class SportGroup
     {
         public string GroupName { get; set; }      
         public string Sport { get; set; }          
@@ -21,8 +22,7 @@ namespace lr_1_zd_3.Class
         // List<T>: потрібен доступ за індексом і видалення будь-якого спортсмена
         public List<Sportsman> Members { get; set; } = new List<Sportsman>();
 
-        // Queue<T>: спортсмени, які чекають на вільне місце 
-        public Queue<Sportsman> WaitingList { get; set; } = new Queue<Sportsman>();
+        
 
         //private int membersCount = 0;
 
@@ -37,6 +37,10 @@ namespace lr_1_zd_3.Class
         {
             MembersChanged?.Invoke(this, message);
         }
+        // Часткові методи: лише оголошення, реалізація — у SportGroup.History.cs
+        partial void OnMemberAdded(Sportsman sportsman);
+        partial void OnMemberRemoved(Sportsman sportsman);
+        partial void AppendHistory(StringBuilder sb);
 
         public SportGroup()
         {
@@ -62,6 +66,7 @@ namespace lr_1_zd_3.Class
             if (sportsman == null || IsFull || HasSportsman(sportsman)) return false;
 
             Members.Add(sportsman);
+            OnMemberAdded(sportsman);
             CreateMembersChangedEvent($"До групи '{GroupName}' додано: {sportsman.Surname} {sportsman.Name}");
             if (IsFull) GroupFilled?.Invoke(this, EventArgs.Empty);
             return true;
@@ -73,12 +78,14 @@ namespace lr_1_zd_3.Class
 
            Sportsman removed = Members[index];
            Members.RemoveAt(index);
+            OnMemberRemoved(removed);
             string message = $"З групи '{GroupName}' вилучено: {removed.Surname} {removed.Name}";
 
             if (WaitingList.Count > 0)
             {
                 Sportsman next = WaitingList.Dequeue();
                 Members.Add(next);
+                OnMemberAdded(next);
                 message += $". Із черги додано: {next.Surname} {next.Name}";
             }
 
@@ -129,35 +136,10 @@ namespace lr_1_zd_3.Class
                 sb.AppendLine($"{position}. {waitingSportsman.Surname} {waitingSportsman.Name} {waitingSportsman.Pobatkovi}");
                 position++;
             }
+            AppendHistory(sb);
             return sb.ToString();
         }
-
-        public bool AddToWaitingList(Sportsman sportsman)
-        {
-            if (sportsman == null || HasSportsman(sportsman)) return false;
-
-            WaitingList.Enqueue(sportsman);
-            CreateMembersChangedEvent($"До списку очікування групи '{GroupName}' додано: {sportsman.Surname} {sportsman.Name}");
-            return true;
-        }
-
-        // Чи є вже такий спортсмен 
-        private bool HasSportsman(Sportsman sportsman)
-        {
-            foreach (Sportsman member in Members)
-                if (IsSamePerson(member, sportsman)) return true;
-
-            foreach (Sportsman waiting in WaitingList)
-                if (IsSamePerson(waiting, sportsman)) return true;
-
-            return false;
-        }
-
-        private static bool IsSamePerson(Sportsman a, Sportsman b)
-        {
-            return string.Equals(a.Surname, b.Surname, StringComparison.OrdinalIgnoreCase) &&
-                   string.Equals(a.Name, b.Name, StringComparison.OrdinalIgnoreCase);
-        }
+        
 
 
     }

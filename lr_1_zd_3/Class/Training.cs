@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClassLibrary1.Class;
+using System;
 using System.Collections.Generic;
 using System.Text;
 

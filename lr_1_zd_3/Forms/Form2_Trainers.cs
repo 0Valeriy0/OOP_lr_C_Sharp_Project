@@ -1,5 +1,4 @@
-﻿using lr_1_zd_3.Class;
-using lr_1_zd_3.Interface;
+﻿using lr_1_zd_3.Interface;
 using lr_1_zd_3.Forms;
 using System;
 using System.Collections.Generic;
@@ -9,6 +8,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using ClassLibrary1.Class;
 
 namespace lr_1_zd_3
 {
@@ -515,7 +515,7 @@ namespace lr_1_zd_3
             if (index >= 0 && index < coaches.Count)
             {
 
-                coaches[index].ShowInfo();
+                MessageBox.Show(coaches[index].ShowInfo(), "Картка тренера", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 

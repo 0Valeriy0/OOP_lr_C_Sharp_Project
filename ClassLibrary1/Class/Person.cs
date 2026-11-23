@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace lr_1_zd_3.Class
+namespace ClassLibrary1.Class
 {
     public abstract class Person: IPerson, ISortableBySurname
     {
@@ -32,21 +32,15 @@ namespace lr_1_zd_3.Class
         }
         public int CalculateAge()
         {
-            int age = DateTime.Today.Year - BirthDate.Year;
-
-            if (DateTime.Today < BirthDate.AddYears(age))
-            {
-                age--;
-            }
-            return age;
+            return BirthDate.Age();
         }
-        public virtual void ShowInfo()
+        public virtual string ShowInfo()
         {
             string message = $"ПІБ: {Surname} {Name} {Pobatkovi}\n" +
                              $"Дата народження: {BirthDate:dd.MM.yyyy}\n" +
                              $"Повний вік: {CalculateAge()} р.\n" +
                              $"Вид спорту: {Sport}";
-            MessageBox.Show(message, "Інформація про особу", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return message;
         }
 
     }

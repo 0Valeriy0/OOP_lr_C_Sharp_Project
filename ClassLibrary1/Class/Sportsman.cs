@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace lr_1_zd_3.Class
+namespace ClassLibrary1.Class
 {
     public class Sportsman : Person, ITrainingBooking
     {
@@ -67,7 +67,7 @@ namespace lr_1_zd_3.Class
 
             return true;
         }
-        public override void ShowInfo()
+        public override string ShowInfo()
         {
             string message = $"Спортсмен: {Surname} {Name} {Pobatkovi}\n" +
                              $"Дата народження: {BirthDate:dd.MM.yyyy}\n" +
@@ -79,11 +79,8 @@ namespace lr_1_zd_3.Class
                    $"Група крові: {MedicalCard.BloodGroup}\n" +
                    $"Допуск до змагань: {(MedicalCard.HasAccessToCompete ? "Допущено" : "Не допущено")}\n" +
                    $"Останній медогляд: {MedicalCard.InspectationDate:dd.MM.yyyy}";
-            MessageBox.Show(message, "Картка спортсмена", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return message;
         }
-
-
-
 
     }
 }

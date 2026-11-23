@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace lr_1_zd_3.Class
+namespace ClassLibrary1.Class
 {
     public class Coach : Person
     {
@@ -18,14 +18,14 @@ namespace lr_1_zd_3.Class
         {
             CoachRank = coachRank;
         }
-        public override void ShowInfo()
+        public override string ShowInfo()
         {
             string message = $"Тренер: {Surname} {Name} {Pobatkovi}\n" +
                              $"Дата народження: {BirthDate:dd.MM.yyyy}\n" +
                              $"Вік: {CalculateAge()} р.\n" +
                              $"Вид спорту: {Sport}\n" +
                              $"Звання тренера: {CoachRank}";
-            MessageBox.Show(message, "Картка тренера", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return message;
         }
     }
 }

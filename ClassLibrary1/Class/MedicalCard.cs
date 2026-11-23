@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace lr_1_zd_3.Class
+namespace ClassLibrary1.Class
 {
     public class MedicalCard
     {

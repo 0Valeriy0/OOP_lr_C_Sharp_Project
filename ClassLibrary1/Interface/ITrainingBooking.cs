@@ -1,4 +1,4 @@
-﻿using lr_1_zd_3.Class;
+﻿using ClassLibrary1.Class;
 using System;
 using System.Collections.Generic;
 using System.Text;

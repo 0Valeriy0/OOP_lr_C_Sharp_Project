@@ -1,11 +1,16 @@
-using lr_1_zd_3.Class;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
 using lr_1_zd_3.Forms;
 using lr_1_zd_3.Interface;
-
 using System.Text.Json;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Text;
 
+using SportsmenList = System.Collections.Generic.List<ClassLibrary1.Class.Sportsman>;
+using ClassLibrary1.Class;
+using ClassLibrary1;
+using static System.String;
 
 
 
@@ -21,10 +26,12 @@ namespace lr_1_zd_3
         };
 
         // private Sportsman[] sportsmen = new Sportsman[100];
-        private List<Sportsman> sportsmen = new List<Sportsman>();
+
+       // private List<Sportsman> sportsmen = new List<Sportsman>();
+         private SportsmenList sportsmen = new SportsmenList();
+
         //private int sportsmenCount = 0;
         //Делегат на метод класу
-
         delegate void StatusUpdateDelegate(string message);
         private StatusUpdateDelegate setStatus;
         private void UpdateStatusText(string message)
@@ -176,9 +183,15 @@ namespace lr_1_zd_3
         delegate void MyDelegate(string s);
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(textBox_inputNameSportsmen.Text) ||
-                string.IsNullOrWhiteSpace(textBox_inputSurnameSportsmen.Text) ||
-                string.IsNullOrWhiteSpace(textBox_inputPobatkoviSportsmen.Text))
+            /* if (string.IsNullOrWhiteSpace(textBox_inputNameSportsmen.Text) ||
+                 string.IsNullOrWhiteSpace(textBox_inputSurnameSportsmen.Text) ||
+                 string.IsNullOrWhiteSpace(textBox_inputPobatkoviSportsmen.Text))*/
+
+            // Використання статичного імпорту для String.IsNullOrWhiteSpace
+            if (IsNullOrWhiteSpace(textBox_inputNameSportsmen.Text) ||
+                IsNullOrWhiteSpace(textBox_inputSurnameSportsmen.Text) ||
+                IsNullOrWhiteSpace(textBox_inputPobatkoviSportsmen.Text))
+
             {
                 MessageBox.Show(
                     "Заповніть ім'я, прізвище та по батькові!",
@@ -188,31 +201,32 @@ namespace lr_1_zd_3
 
                 return;
             }
-         /*   // Перевірка кількості
-            if (sportsmenCount >= sportsmen.Count)
-            {
-                MessageBox.Show(
-                    "Досягнуто максимальну кількість спортсменів!",
-                    "Помилка",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
+            /*   // Перевірка кількості
+               if (sportsmenCount >= sportsmen.Count)
+               {
+                   MessageBox.Show(
+                       "Досягнуто максимальну кількість спортсменів!",
+                       "Помилка",
+                       MessageBoxButtons.OK,
+                       MessageBoxIcon.Warning);
 
-                return;
-            }*/
+                   return;
+               }*/
 
             void Myfunc(string s)
             {
                 MessageBox.Show(s);
             }
             MyDelegate del = new MyDelegate(Myfunc);
-            del("Викликано делегат\n" + "Імя: " + textBox_inputNameSportsmen.Text + "\n Прізвище: " + textBox_inputSurnameSportsmen.Text+"\nПобатьковві: "+ textBox_inputPobatkoviSportsmen.Text);
+            del("Викликано делегат\n" + "Імя: " + textBox_inputNameSportsmen.Text + "\n Прізвище: " + textBox_inputSurnameSportsmen.Text + "\nПобатьковві: " + textBox_inputPobatkoviSportsmen.Text);
 
 
 
-            sportsmen.Add(new Sportsman {
-                Name = textBox_inputNameSportsmen.Text,
-                Surname = textBox_inputSurnameSportsmen.Text,
-                Pobatkovi = textBox_inputPobatkoviSportsmen.Text,
+            sportsmen.Add(new Sportsman
+            {
+                Name = textBox_inputNameSportsmen.Text.ToTitleCase(),
+                Surname = textBox_inputSurnameSportsmen.Text.ToTitleCase(),
+                Pobatkovi = textBox_inputPobatkoviSportsmen.Text.ToTitleCase(),
                 Sport = comboBox1_sportSelect.Text,
                 SportRank = comboBox2.Text,
                 BirthDate = dateTimePicker1_sportsmenBirthday.Value,
@@ -263,15 +277,15 @@ namespace lr_1_zd_3
                 if (result == DialogResult.Yes)
                 {
                     // Зсуваємо всі наступні елементи на одну позицію вліво
-   /*                 for (int i = index; i < sportsmenCount - 1; i++)
-                    {
-                        sportsmen[i] = sportsmen[i + 1];
-                    }
+                    /*                 for (int i = index; i < sportsmenCount - 1; i++)
+                                     {
+                                         sportsmen[i] = sportsmen[i + 1];
+                                     }
 
-                    sportsmen[sportsmenCount - 1] = null;*/
+                                     sportsmen[sportsmenCount - 1] = null;*/
 
                     sportsmen.RemoveAt(index);
-         
+
 
                     RefreshInputGrid();
 
@@ -294,7 +308,7 @@ namespace lr_1_zd_3
             switch (columnIndex)
             {
                 case 1: // Прізвище
-                    if (!string.IsNullOrWhiteSpace(textBox_inputSurnameSportsmen.Text))
+                    if (!IsNullOrWhiteSpace(textBox_inputSurnameSportsmen.Text))
                     {
                         sportsman.Surname =
                             textBox_inputSurnameSportsmen.Text;
@@ -302,7 +316,7 @@ namespace lr_1_zd_3
                     break;
 
                 case 2: // Ім'я
-                    if (!string.IsNullOrWhiteSpace(textBox_inputNameSportsmen.Text))
+                    if (!IsNullOrWhiteSpace(textBox_inputNameSportsmen.Text))
                     {
                         sportsman.Name =
                             textBox_inputNameSportsmen.Text;
@@ -310,7 +324,7 @@ namespace lr_1_zd_3
                     break;
 
                 case 3: // По батькові
-                    if (!string.IsNullOrWhiteSpace(textBox_inputPobatkoviSportsmen.Text))
+                    if (!IsNullOrWhiteSpace(textBox_inputPobatkoviSportsmen.Text))
                     {
                         sportsman.Pobatkovi =
                             textBox_inputPobatkoviSportsmen.Text;
@@ -428,7 +442,7 @@ namespace lr_1_zd_3
                 // Десеріалізація: відновлюємо список спортсменів разом із медичними картами
                 using (FileStream fs = new FileStream(openDialog.FileName, FileMode.Open))
                 {
-                    List<Sportsman>? loaded = JsonSerializer.Deserialize<List<Sportsman>>(fs, jsonOptions);
+                    SportsmenList? loaded = JsonSerializer.Deserialize<SportsmenList>(fs, jsonOptions);
                     sportsmen.Clear();
                     if (loaded != null) sportsmen.AddRange(loaded);
                 }
@@ -509,7 +523,7 @@ namespace lr_1_zd_3
         private void заПрізвищемToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Копіюємо масив, щоб основний залишився в порядку
-            List<Sportsman> sorted = new List<Sportsman>(sportsmen);
+            SportsmenList sorted = new SportsmenList(sportsmen);
             /*      for (int i = 0; i < sportsmenCount; i++)
                  {
                      sorted[i] = sportsmen[i];
@@ -520,7 +534,7 @@ namespace lr_1_zd_3
 
             ShowSortedSportsmen(sorted);
         }
-        private void ShowSortedSportsmen(List<Sportsman> sorted)
+        private void ShowSortedSportsmen(SportsmenList sorted)
         {
             dataGridView2_Output.Rows.Clear();
 
@@ -602,21 +616,21 @@ namespace lr_1_zd_3
         private void заІменемПеревантаженняОператорівToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Копіюємо масив, щоб основний залишився в порядку
-            List<Sportsman> sorted = new List<Sportsman>(sportsmen);
+            SportsmenList sorted = new SportsmenList(sportsmen);
             sorted.Sort((x, y) => string.Compare(x.Name, y.Name));
-/*
-            for (int i = 0; i < sportsmenCount - 1; i++)
-            {
-                for (int j = 0; j < sportsmenCount - i - 1; j++)
-                {
-                    if (sorted[j] > sorted[j + 1])
-                    {
-                        Sportsman temp = sorted[j];
-                        sorted[j] = sorted[j + 1];
-                        sorted[j + 1] = temp;
-                    }
-                }
-            }*/
+            /*
+                        for (int i = 0; i < sportsmenCount - 1; i++)
+                        {
+                            for (int j = 0; j < sportsmenCount - i - 1; j++)
+                            {
+                                if (sorted[j] > sorted[j + 1])
+                                {
+                                    Sportsman temp = sorted[j];
+                                    sorted[j] = sorted[j + 1];
+                                    sorted[j + 1] = temp;
+                                }
+                            }
+                        }*/
 
             ShowSortedSportsmen(sorted);
         }
@@ -655,7 +669,7 @@ namespace lr_1_zd_3
             int index = dataGridView1_Input.CurrentRow.Index;
             if (index >= 0 && index < sportsmen.Count)
             {
-                sportsmen[index].ShowInfo();
+                MessageBox.Show(sportsmen[index].ShowInfo(), "Картка спортсмена", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -672,7 +686,7 @@ namespace lr_1_zd_3
             {
                 // Відкриваємо MedicalForm і передаємо туди обраного спортсмена
                 MedicalForm medForm = new MedicalForm(sportsmen[index]);
-                medForm.MedicalCardSaved += (s, ev) =>  setStatus($"Медичну карту для {sportsmen[index].Surname} оновлено");
+                medForm.MedicalCardSaved += (s, ev) => setStatus($"Медичну карту для {sportsmen[index].Surname} оновлено");
                 medForm.ShowDialog();
             }
 
@@ -682,5 +696,92 @@ namespace lr_1_zd_3
         {
             this.Close();
         }
-    }
+        #region РЕФЛЕКСІЯ
+        private void рефлексіяToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Збірка, в якій лежить клас Sportsman, — тобто наша бібліотека ClassLibrary1.dll
+            Assembly assembly = typeof(Sportsman).Assembly;
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine($"=== БІБЛІОТЕКА: {assembly.GetName().Name} ===");
+            sb.AppendLine();
+
+            // Усі публічні типи бібліотеки без службових класів компілятора
+            var types = assembly.GetExportedTypes()
+                .Where(t => !Attribute.IsDefined(t, typeof(CompilerGeneratedAttribute)))
+                .OrderBy(t => t.Namespace)
+                .ThenBy(t => t.Name);
+
+            foreach (Type type in types)
+            {
+                // Категорія типу
+                string category = "КЛАС";
+                if (type.IsInterface) category = "ІНТЕРФЕЙС";
+                else if (type.IsAbstract && type.IsSealed) category = "СТАТИЧНИЙ КЛАС";
+                else if (type.IsAbstract) category = "АБСТРАКТНИЙ КЛАС";
+                else if (type.IsEnum) category = "ПЕРЕЛІК (ENUM)";
+                else if (type.IsValueType) category = "СТРУКТУРА (STRUCT)";
+
+                sb.AppendLine($"[{category}] {type.FullName}");
+
+                // Базовий клас
+                if (type.BaseType != null && type.BaseType != typeof(object) &&
+                    type.BaseType != typeof(ValueType) && type.BaseType != typeof(Enum))
+                {
+                    sb.AppendLine($"  ├── Успадковано від (базовий клас): {type.BaseType.Name}");
+                }
+
+                // Реалізовані інтерфейси
+                Type[] interfaces = type.GetInterfaces();
+                if (interfaces.Length > 0)
+                {
+                    sb.AppendLine($"  ├── Реалізує інтерфейси: {string.Join(", ", interfaces.Select(i => i.Name))}");
+                }
+
+                // Властивості, оголошені саме в цьому типі
+                PropertyInfo[] properties = type.GetProperties(
+                    BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly);
+                if (properties.Length > 0)
+                {
+                    sb.AppendLine("  ├── Властивості:");
+                    foreach (PropertyInfo prop in properties)
+                    {
+                        sb.AppendLine($"  │     • {prop.PropertyType.Name} {prop.Name}");
+                    }
+                }
+
+                // Методи без службових get_/set_ для властивостей
+                MethodInfo[] methods = type.GetMethods(
+                        BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly)
+                    .Where(m => !m.IsSpecialName)
+                    .ToArray();
+                if (methods.Length > 0)
+                {
+                    sb.AppendLine("  └── Методи:");
+                    foreach (MethodInfo method in methods)
+                    {
+                        string parameters = string.Join(", ",
+                            method.GetParameters().Select(p => $"{p.ParameterType.Name} {p.Name}"));
+                        sb.AppendLine($"        • {method.ReturnType.Name} {method.Name}({parameters})");
+                    }
+                }
+
+                sb.AppendLine(new string('-', 50));
+            }
+
+            // Збереження результату у файл
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Текстові файли (*.txt)|*.txt|Усі файли (*.*)|*.*";
+            sfd.Title = "Зберегти інформацію про класи";
+            sfd.FileName = "classes_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".txt";
+
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                File.WriteAllText(sfd.FileName, sb.ToString());
+                setStatus($"Інформацію про класи збережено у файл '{sfd.FileName}'");
+            }
+        }
+#endregion
+    
+}
 }

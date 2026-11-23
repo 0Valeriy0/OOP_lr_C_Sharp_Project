@@ -1,5 +1,4 @@
-﻿using lr_1_zd_3.Class;
-using lr_1_zd_3.Interface;
+﻿using lr_1_zd_3.Interface;
 using lr_1_zd_3.Forms;
 using System;
 using System.Collections.Generic;
@@ -8,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using ClassLibrary1.Class;
 
 namespace lr_1_zd_3
 {
