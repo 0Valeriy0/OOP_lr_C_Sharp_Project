@@ -101,6 +101,7 @@ namespace lr_1_zd_3
             dataGridView1.Columns.Add("Pobatkovi", "По батькові");
             dataGridView1.Columns.Add("Sport", "Вид спорту");
             dataGridView1.Columns.Add("Rank", "Розряд");
+            dataGridView1.Columns.Add("Access", "Допуск");
             dataGridView1.ReadOnly = true;
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.SelectionMode =
@@ -202,18 +203,8 @@ namespace lr_1_zd_3
                 return;
             }
 
-            // Зберігаємо дані про нове тренування
-            int duration = (int)numericUpDown1.Value;
-            bookedSportsmen[bookingsCount] = currentSportsman;
-            bookedCoaches[bookingsCount] = currentCoach;
-            bookingDates[bookingsCount] = selectedDate;
-            bookingDurations[bookingsCount] = duration;
-            bookingsCount++;
-
-            // Оновлюємо нижню таблицю тренувань
-            RefreshTrainingsGrid();
-
-            // Делегат для роботи із кількома методами
+            // Делегат для роботи із кількома методами.
+            // Спершу перевіряємо медичну картку: якщо допуску немає, тренування НЕ додається
             TrainingProcessDelegate del = new TrainingProcessDelegate(CheckMedicalCard);
             del += new TrainingProcessDelegate(UpdateBookingStatus);
 
@@ -226,10 +217,22 @@ namespace lr_1_zd_3
                 catch(Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Медичне застереження", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    toolStripStatusLabel1.Text = "Тренування не створено: немає допуску за медичною карткою";
                     return;
                 }
 
             }
+
+            // Перевірку пройдено — зберігаємо дані про нове тренування
+            int duration = (int)numericUpDown1.Value;
+            bookedSportsmen[bookingsCount] = currentSportsman;
+            bookedCoaches[bookingsCount] = currentCoach;
+            bookingDates[bookingsCount] = selectedDate;
+            bookingDurations[bookingsCount] = duration;
+            bookingsCount++;
+
+            // Оновлюємо нижню таблицю тренувань
+            RefreshTrainingsGrid();
 
             MessageBox.Show(
                 $"Тренування успішно створено!\n" +
@@ -260,8 +263,13 @@ namespace lr_1_zd_3
             }
 
             dataGridView2.Rows.Clear();
+            // Показуємо лише тренування обраного виду спорту (розклад на тиждень не фільтрується)
+            string selectedSport = comboBox1_sportSelect.Text;
             for (int i = 0; i < bookingsCount; i++)
             {
+                if (bookedSportsmen[i].Sport != selectedSport)
+                    continue;
+
                 dataGridView2.Rows.Add(
                     i,
                     bookingDates[i].ToString("dd.MM.yyyy HH:mm"),
@@ -280,7 +288,9 @@ namespace lr_1_zd_3
                 MessageBox.Show("Оберіть тренування з нижньої таблиці для видалення!", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            int index = dataGridView2.CurrentRow.Index;
+            // Після фільтрування номер рядка в таблиці не збігається з номером тренування,
+            // тому беремо номер із першого стовпця «N»
+            int index = Convert.ToInt32(dataGridView2.CurrentRow.Cells["Index"].Value);
             if (index >= 0 && index < bookingsCount)
             {
                 DialogResult res = MessageBox.Show("Ви дійсно хочете скасувати це тренування?", "Підтвердження", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -390,6 +400,7 @@ namespace lr_1_zd_3
         {
             UpdateCoachesComboBox();
             RefreshSportsmenGrid();
+            RefreshTrainingsGrid();   // тренування теж фільтруються за видом спорту
         }
         private void UpdateCoachesComboBox()
         {
@@ -431,7 +442,11 @@ namespace lr_1_zd_3
                         sportsmen[i].Name,
                         sportsmen[i].Pobatkovi,
                         sportsmen[i].Sport,
-                        sportsmen[i].SportRank
+                        sportsmen[i].SportRank,
+                        // Допуск з медичної картки: показуємо одразу, щоб було видно, кого можна записати
+                        sportsmen[i].MedicalCard != null && sportsmen[i].MedicalCard.HasAccessToCompete
+                            ? "Допущено"
+                            : "Не допущено"
                     );
                 }
             }
